@@ -2,11 +2,11 @@ package com.team3.dorawing.ui.home
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ActivityHealthCardBinding
 import com.team3.dorawing.util.Dates
@@ -46,6 +46,7 @@ class HealthCardActivity : AppCompatActivity() {
         if (cards.isEmpty()) {
             binding.tvCardTitle.setText(R.string.card_empty)
             binding.btnMore.visibility = View.GONE
+            binding.tvMoreHelp.visibility = View.GONE
             binding.btnNext.setText(R.string.card_finish)
             return
         }
@@ -63,7 +64,9 @@ class HealthCardActivity : AppCompatActivity() {
         binding.tvPicture.text = card.type
         binding.tvCardTitle.text = card.title
         binding.tvBody.text = card.body
-        binding.btnMore.visibility = if (card.link.isBlank()) View.GONE else View.VISIBLE
+        val more = if (card.link.isBlank()) View.GONE else View.VISIBLE
+        binding.btnMore.visibility = more
+        binding.tvMoreHelp.visibility = more
 
         val last = index == cards.size - 1
         binding.btnNext.setText(if (last) R.string.card_finish else R.string.card_next)
@@ -81,7 +84,7 @@ class HealthCardActivity : AppCompatActivity() {
     private fun openLink() {
         val link = cards.getOrNull(index)?.link ?: return
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+            startActivity(Intent(Intent.ACTION_VIEW, link.toUri()))
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(this, R.string.card_no_browser, Toast.LENGTH_LONG).show()
         }

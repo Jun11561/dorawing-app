@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter
 
 object Dates {
     private val dayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private val koreanFormat = DateTimeFormatter.ofPattern("yyyy년 M월 d일")
+
+    // 화면에 보여 줄 날짜. 예: 2026년 10월 29일
+    fun koreanDay(millis: Long): String = toDate(millis).format(koreanFormat)
 
     fun toDate(millis: Long): LocalDate =
         Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()

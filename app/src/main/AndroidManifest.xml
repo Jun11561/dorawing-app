@@ -28,6 +28,7 @@
 
         <activity android:name=".ui.diagnosis.DiagnosisIntroActivity" />
         <activity android:name=".ui.diagnosis.DiagnosisQuestionActivity" />
+        <activity android:name=".ui.diagnosis.DiagnosisReviewActivity" />
         <activity android:name=".ui.diagnosis.DiagnosisResultActivity" />
 
         <activity android:name=".ui.record.RecordActivity" />

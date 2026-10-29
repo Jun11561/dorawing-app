@@ -92,6 +92,10 @@ interface ChangeAlertDao {
     @Query("UPDATE ChangeAlert SET dismissed = 1 WHERE id = :id")
     suspend fun dismiss(id: Long)
 
+    // 자가진단을 다시 하면 내 기록 배너를 닫는다
+    @Query("UPDATE ChangeAlert SET dismissed = 1 WHERE dismissed = 0")
+    suspend fun dismissAll()
+
     @Query("DELETE FROM ChangeAlert")
     suspend fun deleteAll()
 }

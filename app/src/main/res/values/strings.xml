@@ -50,7 +50,24 @@
     <string name="diag_intro_detail">모두 %1$d문항이에요.\n문항마다 \"아니다\", \"가끔 그렇다\", \"자주 그렇다\" 중에서 골라 주세요.</string>
     <string name="diag_intro_note">이 자가진단은 선별 참고용이며 의료 진단이 아닙니다.</string>
     <string name="diag_start">시작하기</string>
+    <string name="diag_restart">다시 하기</string>
+    <string name="diag_last_result">지난번 결과 보기</string>
+    <string name="diag_last_date">지난번에 %1$s에 하셨어요.</string>
     <string name="diag_progress">%1$d / %2$d</string>
+    <string name="diag_compare">1년 전과 비교해 주세요</string>
+    <string name="diag_answer_please">이 문항에 답해 주세요</string>
+    <string name="diag_quit_title">그만할까요?</string>
+    <string name="diag_quit_message">답한 내용은 저장되지 않아요.</string>
+    <string name="diag_quit_yes">그만하기</string>
+    <string name="diag_quit_no">계속하기</string>
+
+    <!-- 답 확인 -->
+    <string name="title_diagnosis_review">답 확인</string>
+    <string name="review_guide">답을 확인하고 결과 보기를 눌러 주세요</string>
+    <string name="review_hint">답을 바꾸려면 그 줄을 눌러 주세요.</string>
+    <string name="review_row">%1$d. %2$s</string>
+    <string name="review_no_answer">답하지 않음</string>
+    <string name="review_show_result">결과 보기</string>
     <string name="diag_answer_0">아니다</string>
     <string name="diag_answer_1">가끔 그렇다</string>
     <string name="diag_answer_2">자주 그렇다</string>
@@ -60,25 +77,51 @@
     <string name="diag_choice_speech">아니다, 가끔 그렇다, 자주 그렇다 중에서 골라 주세요.</string>
 
     <!-- 자가진단 결과 -->
+    <string name="result_normal_title">정상 범위예요</string>
+    <string name="result_suspected_title">전문가 상담을 권해요</string>
     <string name="result_normal">정상</string>
     <string name="result_suspected">인지 저하 의심</string>
-    <string name="result_score">%1$d점 / %2$d점</string>
+    <string name="result_judge">%1$s (%2$d점 / %3$d점)</string>
     <string name="result_normal_detail">지금처럼 꾸준히 두뇌 훈련을 해 보세요.</string>
     <string name="result_suspected_detail">전문 상담을 받아 보시면 도움이 될 수 있어요.</string>
     <string name="result_note">선별 참고용 결과이며 의료 진단이 아닙니다</string>
     <string name="result_call">치매상담콜센터 1899-9988 전화하기</string>
-    <string name="result_start_level">Lv.%1$d부터 훈련을 시작해요</string>
-    <string name="result_keep_level">지금 하던 레벨로 훈련을 이어 가요</string>
+    <string name="result_call_help">전화 화면이 열리면 초록색 버튼을 눌러 주세요</string>
+    <string name="result_start_level">%1$d단계부터 훈련을 시작해요</string>
+    <string name="result_keep_level">지금 하던 단계로 훈련을 이어 가요</string>
+    <string name="result_past_date">%1$s에 한 결과예요</string>
+    <string name="result_go_game">두뇌 훈련 하러 가기</string>
     <string name="result_home">홈으로</string>
     <string name="result_no_phone">이 기기에서는 전화를 걸 수 없어요. 1899-9988로 전화해 주세요.</string>
 
     <!-- 건강 카드 -->
     <string name="card_progress">%1$d / %2$d</string>
     <string name="card_more">자세히 보기</string>
+    <string name="card_more_help">인터넷 화면이 열려요. 다 보시면 뒤로 가기를 눌러 주세요</string>
     <string name="card_next">다음</string>
     <string name="card_finish">다 봤어요</string>
     <string name="card_empty">오늘 볼 카드가 없어요.</string>
     <string name="card_no_browser">인터넷 화면을 열 수 없어요.</string>
+
+    <!-- 내 기록 -->
+    <string name="record_alert">요즘 기록이 평소와 달라요. 자가진단을 다시 해 볼까요?</string>
+    <string name="record_alert_areas">%1$s 기록이 평소보다 낮아졌어요.</string>
+    <string name="record_alert_go">자가진단 하기</string>
+    <string name="record_alert_later">나중에</string>
+    <string name="record_empty">아직 기록이 없어요. 두뇌 훈련을 시작해 볼까요?</string>
+    <string name="record_empty_go">두뇌 훈련 하기</string>
+    <string name="record_chart_title">영역별 정답률 (최근 3세트)</string>
+    <string name="record_no_sets">기록 없음</string>
+    <string name="record_recommend">오늘은 %1$s 훈련을 해 보시는 게 어떨까요?</string>
+    <string name="record_week_title">이번 주 출석</string>
+    <string name="record_week_count">이번 주 %1$d일 출석했어요.</string>
+    <string name="record_diag_title">마지막 자가진단</string>
+    <string name="record_diag_none">아직 자가진단을 하지 않았어요.</string>
+    <string name="record_diag_again">결과 다시 보기</string>
+    <string name="record_diag_go">자가진단 하기</string>
+    <string name="record_guardian">보호자 연결</string>
+    <string name="record_speech_best">가장 잘한 영역은 %1$s 영역이에요.</string>
+    <string name="record_speech_weak">조금 더 연습하면 좋은 영역은 %1$s 영역이에요.</string>
 
     <string name="no_korean_voice">한국어 음성이 없어 소리로 읽어 드릴 수 없어요. 휴대폰 설정에서 한국어 음성을 받아 주세요.</string>
 </resources>

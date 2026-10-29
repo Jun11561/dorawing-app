@@ -19,18 +19,15 @@ object TopBar {
         bar: ViewTopBarBinding,
         title: String,
         showHome: Boolean = true,
+        // 홈 버튼을 눌렀을 때 바로 가지 않고 먼저 물어볼 화면은 따로 넘긴다
+        onHome: (() -> Unit)? = null,
         speech: () -> String = { title }
     ) {
         bar.tvTitle.text = title
         bar.btnSpeak.setOnClickListener { Speaker.speak(activity, speech()) }
 
         bar.btnHome.visibility = if (showHome) View.VISIBLE else View.GONE
-        bar.btnHome.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            activity.startActivity(intent)
-            activity.finish()
-        }
+        bar.btnHome.setOnClickListener { if (onHome != null) onHome() else goHome(activity) }
 
         // 화면이 상태 바, 내비게이션 바, 키보드에 가리지 않게
         val content = activity.findViewById<View>(android.R.id.content)
@@ -44,5 +41,13 @@ object TopBar {
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onPause(owner: LifecycleOwner) = Speaker.stop()
         })
+    }
+
+    // 쌓여 있던 화면을 모두 닫고 홈으로
+    fun goHome(activity: AppCompatActivity) {
+        val intent = Intent(activity, HomeActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        activity.startActivity(intent)
+        activity.finish()
     }
 }

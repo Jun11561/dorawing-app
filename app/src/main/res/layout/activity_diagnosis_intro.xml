@@ -42,6 +42,24 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- 전에 한 기록이 있을 때만 보임 -->
+    <TextView
+        android:id="@+id/tvLast"
+        style="@style/Text.Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLast"
+        style="@style/Button.Secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
+        android:layout_marginBottom="@dimen/gap"
+        android:text="@string/diag_last_result"
+        android:visibility="gone" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
         android:layout_width="match_parent"

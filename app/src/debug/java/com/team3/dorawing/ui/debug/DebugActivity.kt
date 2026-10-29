@@ -18,15 +18,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
-import kotlin.random.Random
 
 // 디버그 빌드에만 들어가는 화면. 가상 기록을 넣고 게임 화면을 바로 띄운다
 class DebugActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDebugBinding
     private val buttons = mutableListOf<MaterialButton>()
-
-    // 가상 세트는 20문항으로 넣어 정답률을 5% 단위로 맞춘다
-    private val total = 20
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,48 +44,34 @@ class DebugActivity : AppCompatActivity() {
         lifecycleScope.launch { showStatus() }
     }
 
-    // 모든 영역 지난 35일 동안 매일 1세트, 정답률 60~80%
+    // 1, 2번은 기존 기록을 지우고 넣는다
     private suspend fun steady() {
         clearAll()
-        for (daysAgo in 34 downTo 0) {
-            for ((i, type) in GameType.entries.withIndex()) {
-                record(type, Random.nextInt(12, 17), daysAgo, i)
-            }
-        }
+        DebugScenarios.steady().forEach { record(it) }
     }
 
-    // 1번과 같지만 첫 영역만 최근 7일 정답률 30~45%
     private suspend fun oneDrop() {
         clearAll()
-        val dropType = GameType.entries.first()
-        for (daysAgo in 34 downTo 0) {
-            for ((i, type) in GameType.entries.withIndex()) {
-                val correct = if (type == dropType && daysAgo < 7) Random.nextInt(6, 10) else Random.nextInt(12, 17)
-                record(type, correct, daysAgo, i)
-            }
-        }
+        DebugScenarios.oneDrop().forEach { record(it) }
     }
 
-    // 오늘 앞의 두 영역 1세트씩 정답률 90%
     private suspend fun todayTwo() {
-        for ((i, type) in GameType.entries.take(2).withIndex()) {
-            record(type, 18, 0, i)
-        }
+        DebugScenarios.todayTwo().forEach { record(it) }
     }
 
     private suspend fun clearAll() {
         withContext(Dispatchers.IO) { AppDatabase.get(this@DebugActivity).clearAllTables() }
     }
 
-    private suspend fun record(type: GameType, correct: Int, daysAgo: Int, order: Int) {
+    private suspend fun record(set: PlannedSet) {
         // 오늘 기록은 지금 시각, 과거 기록은 그날 오전 10시부터 영역마다 10분씩
-        val playedAt = if (daysAgo == 0) {
+        val playedAt = if (set.daysAgo == 0) {
             System.currentTimeMillis()
         } else {
-            Dates.toMillis(LocalDate.now().minusDays(daysAgo.toLong())) + (10 * 60 + order * 10) * 60_000L
+            Dates.toMillis(LocalDate.now().minusDays(set.daysAgo.toLong())) + (10 * 60 + set.order * 10) * 60_000L
         }
-        val level = GameStats.currentLevel(this, type)
-        GameRecorder.finish(this, type, level, correct, total, 1500, playedAt)
+        val level = GameStats.currentLevel(this, set.type)
+        GameRecorder.finish(this, set.type, level, set.correct, DebugScenarios.TOTAL, 1500, playedAt)
     }
 
     private suspend fun showStatus() {

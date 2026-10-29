@@ -4,6 +4,7 @@ package com.team3.dorawing.ui.diagnosis
 object DiagnosisScore {
     // 국가건강검진 기준: 0~5점 정상, 6점 이상 인지 저하 의심
     const val SUSPECT_SCORE = 6
+    const val MAX_SCORE = 30
 
     fun total(answers: List<Int>): Int {
         require(answers.all { it in 0..2 }) { "답은 0, 1, 2 중 하나여야 해요" }

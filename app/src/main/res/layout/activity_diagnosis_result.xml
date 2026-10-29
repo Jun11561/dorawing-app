@@ -19,12 +19,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- 지난 결과를 다시 볼 때만 보임 -->
+            <TextView
+                android:id="@+id/tvDate"
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardResult"
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding">
+                android:layout_marginTop="@dimen/gap">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,18 +39,21 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
+                    <!-- 큰 제목: 정상 범위예요 / 전문가 상담을 권해요 -->
                     <TextView
-                        android:id="@+id/tvStage"
+                        android:id="@+id/tvHeadline"
                         style="@style/Text.Title"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center" />
 
+                    <!-- 작은 판정 문구와 점수 -->
                     <TextView
-                        android:id="@+id/tvScore"
+                        android:id="@+id/tvJudge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/gap"
-                        android:textSize="@dimen/text_title" />
+                        android:gravity="center" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -69,22 +79,44 @@
                 android:layout_marginTop="@dimen/screen_padding"
                 android:text="@string/result_note"
                 android:textStyle="bold" />
+
+            <!-- 6점 이상일 때만 -->
+            <LinearLayout
+                android:id="@+id/callBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/result_call" />
+
+                <TextView
+                    android:id="@+id/tvCallHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap"
+                    android:text="@string/result_call_help" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCall"
-        style="@style/Button.Accent"
+        android:id="@+id/btnGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/gap"
-        android:text="@string/result_call"
-        android:visibility="gone" />
+        android:text="@string/result_go_game" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnHomeBottom"
-        android:layout_width="match_parent"
+        style="@style/Button.Text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
+        android:layout_gravity="center_horizontal"
         android:text="@string/result_home" />
 </LinearLayout>

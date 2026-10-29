@@ -13,6 +13,38 @@
         <!-- 따로 지정하지 않은 글자와 버튼도 어르신용 크기로 -->
         <item name="android:textViewStyle">@style/Text.Body</item>
         <item name="materialButtonStyle">@style/Button.Primary</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Dorawing.Dialog</item>
+    </style>
+
+    <!-- 확인 창도 큰 글씨로 -->
+    <style name="ThemeOverlay.Dorawing.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/Dialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Dialog.Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Dialog.Button</item>
+    </style>
+
+    <style name="Dialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/green_dark</item>
+    </style>
+
+    <style name="Dialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/text_main</item>
+    </style>
+
+    <style name="Dialog.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textColor">@color/green_dark</item>
+    </style>
+
+    <!-- 작은 글자 버튼 (배경 없음). 크기는 어르신용 기준을 지킨다 -->
+    <style name="Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:textColor">@color/green_dark</item>
     </style>
 
     <!-- 글자 -->

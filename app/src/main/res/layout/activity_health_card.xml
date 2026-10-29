@@ -66,6 +66,13 @@
         android:layout_marginTop="@dimen/gap"
         android:text="@string/card_more" />
 
+    <TextView
+        android:id="@+id/tvMoreHelp"
+        style="@style/Text.Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/card_more_help" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
         android:layout_width="match_parent"

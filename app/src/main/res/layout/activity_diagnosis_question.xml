@@ -11,9 +11,29 @@
 
     <TextView
         android:id="@+id/tvProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/green_dark"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold" />
+
+    <!-- 모든 문항 위에 고정 -->
+    <TextView
         style="@style/Text.Sub"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/diag_compare" />
+
+    <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
+    <TextView
+        android:id="@+id/tvNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
+        android:text="@string/diag_answer_please"
+        android:textColor="@color/green_dark"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +53,7 @@
         style="@style/Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
+        android:layout_marginTop="@dimen/screen_padding"
         android:text="@string/diag_answer_0" />
 
     <com.google.android.material.button.MaterialButton
@@ -41,7 +61,7 @@
         style="@style/Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
+        android:layout_marginTop="@dimen/screen_padding"
         android:text="@string/diag_answer_1" />
 
     <com.google.android.material.button.MaterialButton
@@ -49,35 +69,29 @@
         style="@style/Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
+        android:layout_marginTop="@dimen/screen_padding"
         android:text="@string/diag_answer_2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
+        android:layout_marginTop="@dimen/gap"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPrev"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Button.Text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:minHeight="@dimen/button_height"
-            android:text="@string/diag_prev"
-            android:textColor="@color/green_dark"
-            android:textSize="@dimen/text_button" />
+            android:text="@string/diag_prev" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnListen"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Button.Text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:minHeight="@dimen/button_height"
-            android:text="@string/diag_listen"
-            android:textColor="@color/green_dark"
-            android:textSize="@dimen/text_button" />
+            android:text="@string/diag_listen" />
     </LinearLayout>
 </LinearLayout>
