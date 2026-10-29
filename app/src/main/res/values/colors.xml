@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <!-- docs/DESIGN.md -->
+    <color name="green_dark">#3A5F48</color>
+    <color name="green_mid">#6B9A7A</color>
+    <color name="green_light">#DDE9DF</color>
+    <color name="coral">#E8745A</color>
+    <color name="coral_dark">#C85A41</color>
+    <color name="pink_light">#FBE3DA</color>
+    <color name="cream">#FBF7EE</color>
+    <color name="text_main">#2E2A24</color>
+    <color name="text_sub">#8A8073</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

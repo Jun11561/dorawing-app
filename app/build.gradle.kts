@@ -33,6 +33,8 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        // 홈의 디버그 메뉴 버튼을 디버그 빌드에서만 보이게
+        buildConfig = true
     }
 }
 

@@ -36,6 +36,9 @@ interface GameSetDao {
     @Query("SELECT * FROM GameSetResult ORDER BY playedAt DESC LIMIT 1")
     suspend fun last(): GameSetResult?
 
+    @Query("SELECT COUNT(*) FROM GameSetResult")
+    suspend fun count(): Int
+
     @Query("DELETE FROM GameSetResult")
     suspend fun deleteAll()
 }

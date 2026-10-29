@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/screen_padding">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_top_bar" />
+
+    <TextView
+        style="@style/Text.Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_subtitle" />
+
+    <!-- 임시: 모든 화면으로 가는 버튼 목록. 세션 2에서 바꾼다 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/gap"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/buttonList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+</LinearLayout>

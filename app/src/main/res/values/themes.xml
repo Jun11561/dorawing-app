@@ -1,9 +1,69 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Dorawing" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <style name="Theme.Dorawing" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/coral_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/cream</item>
+        <item name="colorSurface">@color/cream</item>
+        <item name="colorOnSurface">@color/text_main</item>
+        <item name="android:windowBackground">@color/cream</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <!-- 따로 지정하지 않은 글자와 버튼도 어르신용 크기로 -->
+        <item name="android:textViewStyle">@style/Text.Body</item>
+        <item name="materialButtonStyle">@style/Button.Primary</item>
     </style>
 
-    <style name="Theme.Dorawing" parent="Base.Theme.Dorawing" />
+    <!-- 글자 -->
+    <style name="Text.Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <style name="Text.Title" parent="Text.Body">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green_dark</item>
+    </style>
+
+    <style name="Text.Sub" parent="Text.Body">
+        <item name="android:textColor">@color/text_sub</item>
+    </style>
+
+    <!-- 큰 버튼 3종 -->
+    <style name="Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="backgroundTint">@color/green_dark</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="iconSize">@dimen/icon_size</item>
+    </style>
+
+    <!-- 흰 글자와 대비를 맞추려고 진한 코랄을 쓴다 -->
+    <style name="Button.Accent" parent="Button.Primary">
+        <item name="backgroundTint">@color/coral_dark</item>
+    </style>
+
+    <style name="Button.Secondary" parent="Button.Primary">
+        <item name="backgroundTint">@color/green_light</item>
+        <item name="android:textColor">@color/green_dark</item>
+        <item name="iconTint">@color/green_dark</item>
+        <item name="strokeColor">@color/green_mid</item>
+        <item name="strokeWidth">@dimen/button_stroke</item>
+    </style>
+
+    <!-- 카드 -->
+    <style name="Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/green_light</item>
+        <item name="cardCornerRadius">@dimen/corner</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="contentPadding">@dimen/card_padding</item>
+    </style>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 게임 화면 문구 (허시온) -->
+    <string name="game_title_select">두뇌 훈련</string>
+    <string name="game_title_result">훈련 결과</string>
+    <string name="game_preparing">준비 중인 게임이에요.</string>
+</resources>

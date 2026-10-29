@@ -11,16 +11,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dorawing">
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".ui.home.HomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.home.NameInputActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".ui.diagnosis.DiagnosisIntroActivity" />
+        <activity android:name=".ui.diagnosis.DiagnosisQuestionActivity" />
+        <activity android:name=".ui.diagnosis.DiagnosisResultActivity" />
+
+        <activity android:name=".ui.record.RecordActivity" />
+
+        <activity android:name=".ui.guardian.GuardianRoleSelectActivity" />
+        <activity android:name=".ui.guardian.GuardianConsentActivity" />
+        <activity android:name=".ui.guardian.GuardianCodeActivity" />
+        <activity
+            android:name=".ui.guardian.GuardianEnterCodeActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.guardian.GuardianHomeActivity" />
+
+        <activity android:name=".ui.settings.SettingsActivity" />
+
+        <!-- 게임 화면 (허시온이 관리하는 구역) -->
+        <activity android:name=".ui.game.GameSelectActivity" />
+        <activity android:name=".ui.game.GameResultActivity" />
+        <activity android:name=".ui.game.MemoryGameActivity" />
+        <activity android:name=".ui.game.CalcGameActivity" />
+        <activity android:name=".ui.game.AttentionGameActivity" />
+        <activity android:name=".ui.game.LanguageGameActivity" />
+        <!-- 게임 화면 끝 -->
     </application>
 
 </manifest>

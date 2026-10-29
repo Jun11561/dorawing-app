@@ -1,0 +1,48 @@
+package com.team3.dorawing.util
+
+import android.content.Intent
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.team3.dorawing.databinding.ViewTopBarBinding
+import com.team3.dorawing.ui.home.HomeActivity
+
+// 모든 화면이 onCreate에서 부른다.
+// 제목, 듣기 버튼, 홈 버튼, 상태 바 여백, 화면을 떠날 때 음성 멈추기를 한 번에 처리한다
+object TopBar {
+
+    fun setup(
+        activity: AppCompatActivity,
+        bar: ViewTopBarBinding,
+        title: String,
+        showHome: Boolean = true,
+        speech: () -> String = { title }
+    ) {
+        bar.tvTitle.text = title
+        bar.btnSpeak.setOnClickListener { Speaker.speak(activity, speech()) }
+
+        bar.btnHome.visibility = if (showHome) View.VISIBLE else View.GONE
+        bar.btnHome.setOnClickListener {
+            val intent = Intent(activity, HomeActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            activity.startActivity(intent)
+            activity.finish()
+        }
+
+        // 화면이 상태 바, 내비게이션 바, 키보드에 가리지 않게
+        val content = activity.findViewById<View>(android.R.id.content)
+        ViewCompat.setOnApplyWindowInsetsListener(content) { v, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+
+        // 다음 화면의 안내와 겹치지 않게 떠날 때 멈춘다
+        activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onPause(owner: LifecycleOwner) = Speaker.stop()
+        })
+    }
+}
