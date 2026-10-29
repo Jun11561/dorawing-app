@@ -9,7 +9,6 @@
     <string name="screen_preparing">준비 중인 화면이에요.</string>
 
     <!-- 화면 제목 -->
-    <string name="title_home">두로잉</string>
     <string name="title_name_input">이름 입력</string>
     <string name="title_diagnosis_intro">자가진단 안내</string>
     <string name="title_diagnosis_question">자가진단</string>
@@ -22,6 +21,64 @@
     <string name="title_guardian_home">보호자 화면</string>
     <string name="title_settings">설정</string>
     <string name="title_debug">디버그 메뉴</string>
+
+    <!-- 이름 입력 -->
+    <string name="name_guide">어떻게 불러 드릴까요?\n이름을 적어 주세요.</string>
+    <string name="name_hint">예: 김영희</string>
+    <string name="name_ok">확인</string>
+    <string name="name_skip">건너뛰기</string>
+    <string name="name_default">어르신</string>
+
+    <!-- 홈 -->
+    <string name="home_greeting">%1$s 님, 오늘도 반가워요</string>
+    <string name="home_greeting_speech">%1$s 님, 오늘도 반가워요. 오늘도 두뇌 훈련을 해 볼까요?</string>
+    <string name="home_settings">설정</string>
+    <string name="home_diagnosis">자가진단 하기</string>
+    <string name="home_game">두뇌 훈련 하기</string>
+    <string name="home_record">내 기록 보기</string>
+    <string name="home_cards">오늘의 건강 카드</string>
+    <string name="home_cards_done">오늘 카드 다 봤어요</string>
+    <string name="home_cards_todo">오늘의 카드를 넘겨 보세요</string>
+    <string name="home_attend_title">오늘 출석</string>
+    <string name="home_attend_done">오늘 %1$d세트 했어요. 참 잘하셨어요!</string>
+    <string name="home_attend_todo">두뇌 훈련을 하면 도장을 찍어 드려요</string>
+    <string name="stamp_attend">출석</string>
+    <string name="stamp_cards">카드</string>
+
+    <!-- 자가진단 -->
+    <string name="diag_intro_guide">지난 1년 전과 비교해서 지금 어떤지 답해 주세요.</string>
+    <string name="diag_intro_detail">모두 %1$d문항이에요.\n문항마다 \"아니다\", \"가끔 그렇다\", \"자주 그렇다\" 중에서 골라 주세요.</string>
+    <string name="diag_intro_note">이 자가진단은 선별 참고용이며 의료 진단이 아닙니다.</string>
+    <string name="diag_start">시작하기</string>
+    <string name="diag_progress">%1$d / %2$d</string>
+    <string name="diag_answer_0">아니다</string>
+    <string name="diag_answer_1">가끔 그렇다</string>
+    <string name="diag_answer_2">자주 그렇다</string>
+    <string name="diag_prev">이전 문항</string>
+    <string name="diag_listen">다시 듣기</string>
+    <string name="diag_question_speech">%1$d번. %2$s</string>
+    <string name="diag_choice_speech">아니다, 가끔 그렇다, 자주 그렇다 중에서 골라 주세요.</string>
+
+    <!-- 자가진단 결과 -->
+    <string name="result_normal">정상</string>
+    <string name="result_suspected">인지 저하 의심</string>
+    <string name="result_score">%1$d점 / %2$d점</string>
+    <string name="result_normal_detail">지금처럼 꾸준히 두뇌 훈련을 해 보세요.</string>
+    <string name="result_suspected_detail">전문 상담을 받아 보시면 도움이 될 수 있어요.</string>
+    <string name="result_note">선별 참고용 결과이며 의료 진단이 아닙니다</string>
+    <string name="result_call">치매상담콜센터 1899-9988 전화하기</string>
+    <string name="result_start_level">Lv.%1$d부터 훈련을 시작해요</string>
+    <string name="result_keep_level">지금 하던 레벨로 훈련을 이어 가요</string>
+    <string name="result_home">홈으로</string>
+    <string name="result_no_phone">이 기기에서는 전화를 걸 수 없어요. 1899-9988로 전화해 주세요.</string>
+
+    <!-- 건강 카드 -->
+    <string name="card_progress">%1$d / %2$d</string>
+    <string name="card_more">자세히 보기</string>
+    <string name="card_next">다음</string>
+    <string name="card_finish">다 봤어요</string>
+    <string name="card_empty">오늘 볼 카드가 없어요.</string>
+    <string name="card_no_browser">인터넷 화면을 열 수 없어요.</string>
 
     <string name="no_korean_voice">한국어 음성이 없어 소리로 읽어 드릴 수 없어요. 휴대폰 설정에서 한국어 음성을 받아 주세요.</string>
 </resources>

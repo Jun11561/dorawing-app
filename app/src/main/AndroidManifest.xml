@@ -24,6 +24,7 @@
         <activity
             android:name=".ui.home.NameInputActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.home.HealthCardActivity" />
 
         <activity android:name=".ui.diagnosis.DiagnosisIntroActivity" />
         <activity android:name=".ui.diagnosis.DiagnosisQuestionActivity" />

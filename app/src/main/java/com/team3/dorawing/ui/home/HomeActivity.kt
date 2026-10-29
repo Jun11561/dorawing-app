@@ -2,25 +2,23 @@ package com.team3.dorawing.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import androidx.lifecycle.lifecycleScope
 import com.team3.dorawing.BuildConfig
 import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ActivityHomeBinding
+import com.team3.dorawing.db.AppDatabase
 import com.team3.dorawing.ui.diagnosis.DiagnosisIntroActivity
-import com.team3.dorawing.ui.diagnosis.DiagnosisQuestionActivity
-import com.team3.dorawing.ui.diagnosis.DiagnosisResultActivity
 import com.team3.dorawing.ui.game.GameSelectActivity
-import com.team3.dorawing.ui.guardian.GuardianCodeActivity
-import com.team3.dorawing.ui.guardian.GuardianConsentActivity
-import com.team3.dorawing.ui.guardian.GuardianEnterCodeActivity
-import com.team3.dorawing.ui.guardian.GuardianHomeActivity
-import com.team3.dorawing.ui.guardian.GuardianRoleSelectActivity
 import com.team3.dorawing.ui.record.RecordActivity
 import com.team3.dorawing.ui.settings.SettingsActivity
+import com.team3.dorawing.util.Dates
+import com.team3.dorawing.util.Prefs
 import com.team3.dorawing.util.Speaker
 import com.team3.dorawing.util.TopBar
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -30,38 +28,59 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val title = getString(R.string.title_home)
-        TopBar.setup(this, binding.topBar, title, showHome = false)
-        Speaker.speak(this, "두로잉에 오신 것을 환영해요")
+        TopBar.setup(this, binding.topBar, "", showHome = false) { greetingSpeech() }
 
-        // 임시 버튼 목록. 세션 2에서 홈 화면으로 바꾼다
-        addButton(R.string.title_name_input) { Intent(this, NameInputActivity::class.java) }
-        addButton(R.string.title_diagnosis_intro) { Intent(this, DiagnosisIntroActivity::class.java) }
-        addButton(R.string.title_diagnosis_question) { Intent(this, DiagnosisQuestionActivity::class.java) }
-        addButton(R.string.title_diagnosis_result) { Intent(this, DiagnosisResultActivity::class.java) }
-        addButton(R.string.game_title_select) { Intent(this, GameSelectActivity::class.java) }
-        addButton(R.string.title_record) { Intent(this, RecordActivity::class.java) }
-        addButton(R.string.title_guardian_role) { Intent(this, GuardianRoleSelectActivity::class.java) }
-        addButton(R.string.title_guardian_consent) { Intent(this, GuardianConsentActivity::class.java) }
-        addButton(R.string.title_guardian_code) { Intent(this, GuardianCodeActivity::class.java) }
-        addButton(R.string.title_guardian_enter_code) { Intent(this, GuardianEnterCodeActivity::class.java) }
-        addButton(R.string.title_guardian_home) { Intent(this, GuardianHomeActivity::class.java) }
-        addButton(R.string.title_settings) { Intent(this, SettingsActivity::class.java) }
+        // 홈 화면에서는 홈 버튼 자리에 설정 버튼을 둔다
+        binding.topBar.btnHome.apply {
+            visibility = View.VISIBLE
+            setText(R.string.home_settings)
+            setIconResource(R.drawable.ic_settings)
+            setOnClickListener { startActivity(Intent(this@HomeActivity, SettingsActivity::class.java)) }
+        }
 
-        // 디버그 메뉴는 디버그 빌드에만 있어서 이름으로 연다
+        binding.btnDiagnosis.setOnClickListener { startActivity(Intent(this, DiagnosisIntroActivity::class.java)) }
+        binding.btnGame.setOnClickListener { startActivity(Intent(this, GameSelectActivity::class.java)) }
+        binding.btnRecord.setOnClickListener { startActivity(Intent(this, RecordActivity::class.java)) }
+        binding.cardHealth.setOnClickListener { startActivity(Intent(this, HealthCardActivity::class.java)) }
+
+        // 디버그 메뉴는 디버그 빌드에만 있어서 클래스 이름으로 연다
         if (BuildConfig.DEBUG) {
-            addButton(R.string.title_debug) {
-                Intent().setClassName(this, "com.team3.dorawing.ui.debug.DebugActivity")
+            binding.btnDebug.visibility = View.VISIBLE
+            binding.btnDebug.setOnClickListener {
+                startActivity(Intent().setClassName(this, "com.team3.dorawing.ui.debug.DebugActivity"))
             }
+        }
+
+        if (Prefs.getName(this) == null) {
+            startActivity(Intent(this, NameInputActivity::class.java))
         }
     }
 
-    private fun addButton(textRes: Int, makeIntent: () -> Intent) {
-        val button = MaterialButton(this)
-        button.setText(textRes)
-        button.setOnClickListener { startActivity(makeIntent()) }
-        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        params.topMargin = resources.getDimensionPixelSize(R.dimen.gap)
-        binding.buttonList.addView(button, params)
+    // 다른 화면에서 돌아올 때마다 이름, 도장을 새로 보여 주고 인사한다
+    override fun onResume() {
+        super.onResume()
+        val name = Prefs.getName(this) ?: return
+        binding.topBar.tvTitle.text = getString(R.string.home_greeting, name)
+        Speaker.speak(this, greetingSpeech())
+
+        val today = Dates.dayText(LocalDate.now())
+        val cardsDone = Prefs.getCardsDoneDay(this) == today
+        binding.tvCardsStatus.setText(if (cardsDone) R.string.home_cards_done else R.string.home_cards_todo)
+        showStamp(binding.stampCards, cardsDone)
+
+        lifecycleScope.launch {
+            val sets = AppDatabase.get(this@HomeActivity).attendanceDao().get(today)?.completedSets ?: 0
+            binding.tvAttend.text = if (sets > 0) getString(R.string.home_attend_done, sets)
+            else getString(R.string.home_attend_todo)
+            showStamp(binding.stampAttend, sets > 0)
+        }
+    }
+
+    private fun greetingSpeech(): String =
+        getString(R.string.home_greeting_speech, Prefs.getName(this) ?: getString(R.string.name_default))
+
+    // 도장을 아직 못 받았으면 흐리게
+    private fun showStamp(stamp: View, done: Boolean) {
+        stamp.alpha = if (done) 1f else 0.25f
     }
 }

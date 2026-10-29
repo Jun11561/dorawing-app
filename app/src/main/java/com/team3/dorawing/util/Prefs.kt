@@ -22,4 +22,8 @@ object Prefs {
 
     fun isGuardianMode(context: Context): Boolean = sp(context).getBoolean("guardianMode", false)
     fun setGuardianMode(context: Context, on: Boolean) = sp(context).edit().putBoolean("guardianMode", on).apply()
+
+    // 건강 카드를 끝까지 본 날짜 (yyyy-MM-dd)
+    fun getCardsDoneDay(context: Context): String? = sp(context).getString("cardsDoneDay", null)
+    fun setCardsDoneDay(context: Context, day: String) = sp(context).edit().putString("cardsDoneDay", day).apply()
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,23 +10,150 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <TextView
-        style="@style/Text.Sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_subtitle" />
-
-    <!-- 임시: 모든 화면으로 가는 버튼 목록. 세션 2에서 바꾼다 -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gap"
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/buttonList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_subtitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDiagnosis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/home_diagnosis" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/home_game" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/home_record" />
+
+            <!-- 오늘의 건강 카드 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHealth"
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_cards"
+                            android:textColor="@color/green_dark"
+                            android:textSize="@dimen/text_button"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCardsStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_cards_todo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/stampCards"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/bg_stamp"
+                        android:gravity="center"
+                        android:text="@string/stamp_cards"
+                        android:textColor="@color/coral_dark"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 오늘 출석 도장 -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_attend_title"
+                            android:textColor="@color/green_dark"
+                            android:textSize="@dimen/text_button"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvAttend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_attend_todo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/stampAttend"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/bg_stamp"
+                        android:gravity="center"
+                        android:text="@string/stamp_attend"
+                        android:textColor="@color/coral_dark"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 디버그 빌드에서만 보임 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDebug"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/title_debug"
+                android:textColor="@color/text_sub"
+                android:visibility="gone" />
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

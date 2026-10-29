@@ -1,0 +1,20 @@
+[
+  {
+    "type": "생활 수칙",
+    "title": "카드 1 (입력 필요)",
+    "body": "health_cards.txt 내용을 넣을 자리예요.",
+    "link": ""
+  },
+  {
+    "type": "운동",
+    "title": "카드 2 (입력 필요)",
+    "body": "health_cards.txt 내용을 넣을 자리예요.",
+    "link": ""
+  },
+  {
+    "type": "안내",
+    "title": "카드 3 (입력 필요)",
+    "body": "health_cards.txt 내용을 넣을 자리예요.",
+    "link": ""
+  }
+]

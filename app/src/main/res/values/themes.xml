@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.Dorawing" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/green_dark</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -9,7 +9,7 @@
         <item name="colorOnSurface">@color/text_main</item>
         <item name="android:windowBackground">@color/cream</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <!-- 따로 지정하지 않은 글자와 버튼도 어르신용 크기로 -->
         <item name="android:textViewStyle">@style/Text.Body</item>
         <item name="materialButtonStyle">@style/Button.Primary</item>
