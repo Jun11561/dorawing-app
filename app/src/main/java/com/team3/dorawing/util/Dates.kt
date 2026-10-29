@@ -1,0 +1,24 @@
+package com.team3.dorawing.util
+
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+object Dates {
+    private val dayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+    fun toDate(millis: Long): LocalDate =
+        Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
+
+    // 그날 0시
+    fun toMillis(date: LocalDate): Long =
+        date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+
+    fun dayText(date: LocalDate): String = date.format(dayFormat)
+
+    fun dayText(millis: Long): String = dayText(toDate(millis))
+
+    // 이번 주 월요일
+    fun monday(date: LocalDate): LocalDate = date.minusDays((date.dayOfWeek.value - 1).toLong())
+}
