@@ -21,12 +21,13 @@
         android:layout_marginTop="@dimen/gap"
         android:layout_weight="1">
 
-        <!-- 문항 줄은 코드에서 넣는다 -->
+        <!-- 문항 줄은 코드에서 넣는다. 오른쪽 여백은 스크롤바가 답 글자를 가리지 않게 -->
         <LinearLayout
             android:id="@+id/answerList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/gap" />
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton

@@ -71,6 +71,8 @@
         style="@style/Text.Sub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/screen_padding"
+        android:gravity="center"
         android:text="@string/card_more_help" />
 
     <com.google.android.material.button.MaterialButton

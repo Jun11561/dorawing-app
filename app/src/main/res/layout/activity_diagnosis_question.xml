@@ -9,89 +9,103 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <TextView
-        android:id="@+id/tvProgress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/green_dark"
-        android:textSize="@dimen/text_title"
-        android:textStyle="bold" />
-
-    <!-- 모든 문항 위에 고정 -->
-    <TextView
-        style="@style/Text.Sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/diag_compare" />
-
-    <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
-    <TextView
-        android:id="@+id/tvNotice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
-        android:text="@string/diag_answer_please"
-        android:textColor="@color/green_dark"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
+    <!-- 가로 화면에서도 문항과 버튼이 다 보이도록 전체를 스크롤 -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gap"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tvQuestion"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_title" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green_dark"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold" />
+
+            <!-- 모든 문항 위에 고정 -->
+            <TextView
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/diag_compare" />
+
+            <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
+            <TextView
+                android:id="@+id/tvNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/diag_answer_please"
+                android:textColor="@color/green_dark"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:textSize="@dimen/text_title" />
+
+            <!-- 세로 화면에서는 남는 공간을 채워 답 버튼을 아래로 -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAnswer0"
+                style="@style/Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/diag_answer_0" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAnswer1"
+                style="@style/Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/diag_answer_1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAnswer2"
+                style="@style/Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/diag_answer_2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPrev"
+                    style="@style/Button.Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/diag_prev" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnListen"
+                    style="@style/Button.Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/diag_listen" />
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAnswer0"
-        style="@style/Button.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/diag_answer_0" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAnswer1"
-        style="@style/Button.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/diag_answer_1" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAnswer2"
-        style="@style/Button.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/diag_answer_2" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPrev"
-            style="@style/Button.Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/diag_prev" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnListen"
-            style="@style/Button.Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/diag_listen" />
-    </LinearLayout>
 </LinearLayout>

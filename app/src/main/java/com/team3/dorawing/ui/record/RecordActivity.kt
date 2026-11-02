@@ -68,9 +68,12 @@ class RecordActivity : AppCompatActivity() {
 
         // 영역 수를 코드에 적지 않고 GameType 목록을 돈다
         val averages = GameType.entries.map { it to GameStats.recentAverage(this, it) }
-        val played = averages.filter { it.second != null }
-        val weakest = played.minByOrNull { it.second!! }?.first
-        val best = played.maxByOrNull { it.second!! }?.first
+        val played = averages.mapNotNull { (type, avg) -> avg?.let { type to it } }
+        val weakest = played.minByOrNull { it.second }
+        val best = played.maxByOrNull { it.second }
+        // 모두 같은 정답률이면 약한 영역이 없다
+        val lowest = if (weakest != null && best != null && weakest.second < best.second) weakest.first else null
+        val unplayed = averages.filter { it.second == null }.map { it.first }
 
         // 지금 GameType에 없는 영역의 알림은 건너뛴다
         alerts = db.changeAlertDao().active().filter { GameType.fromName(it.gameType) != null }
@@ -91,8 +94,13 @@ class RecordActivity : AppCompatActivity() {
         } else {
             binding.boxEmpty.visibility = View.GONE
             binding.boxChart.visibility = View.VISIBLE
-            showChart(averages, weakest)
-            showRecommend(weakest)
+            showChart(averages, lowest)
+            // 약한 영역이 있으면 그 영역, 없으면 아직 안 해 본 영역을 권한다
+            when {
+                lowest != null -> showRecommend(lowest, false)
+                unplayed.isNotEmpty() -> showRecommend(unplayed.first(), true)
+                else -> showRecommend(weakest.first, false)
+            }
         }
         showWeek(monday, today, attended)
         showDiagnosis(lastDiagnosis)
@@ -104,8 +112,10 @@ class RecordActivity : AppCompatActivity() {
             parts += getString(R.string.record_empty)
         } else {
             parts += getString(R.string.record_week_count, attended.size)
-            parts += getString(R.string.record_speech_best, best.label)
-            if (weakest != best) parts += getString(R.string.record_speech_weak, weakest.label)
+            if (lowest != null) {
+                parts += getString(R.string.record_speech_best, best.first.label)
+                parts += getString(R.string.record_speech_weak, lowest.label)
+            }
         }
         speech = parts.joinToString(" ")
         Speaker.speak(this, speech)
@@ -144,37 +154,37 @@ class RecordActivity : AppCompatActivity() {
                 axisMinimum = 0f
                 axisMaximum = 100f
                 granularity = 25f
-                textSize = 14f
-                textColor = color(R.color.text_sub)
-                valueFormatter = object : ValueFormatter() {
-                    override fun getFormattedValue(value: Float) = "${value.roundToInt()}%"
-                }
+                // 막대 위에 숫자가 있으니 작은 축 글자는 빼고 눈금선만 둔다
+                setDrawLabels(false)
             }
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 granularity = 1f
                 setDrawGridLines(false)
-                textSize = 18f
+                textSize = 20f
                 textColor = color(R.color.text_main)
             }
         }
     }
 
     // 영역별 최근 3세트 평균. 가장 낮은 영역만 코랄색
-    private fun showChart(averages: List<Pair<GameType, Float?>>, weakest: GameType?) {
+    private fun showChart(averages: List<Pair<GameType, Float?>>, lowest: GameType?) {
         val entries = averages.mapIndexed { i, (_, avg) ->
-            // 기록이 없는 영역은 막대 없이 "기록 없음"
+            // 기록이 없는 영역은 막대 없이 비워 두고 아래 글로 알려 준다
             BarEntry(i.toFloat(), (avg ?: 0f) * 100f, avg)
         }
         val dataSet = BarDataSet(entries, "").apply {
-            colors = averages.map { (type, _) -> color(if (type == weakest) R.color.coral else R.color.green_mid) }
-            valueTextSize = 18f
+            colors = averages.map { (type, _) -> color(if (type == lowest) R.color.coral else R.color.green_mid) }
+            valueTextSize = 20f
             valueTextColor = color(R.color.text_main)
             valueFormatter = object : ValueFormatter() {
                 override fun getBarLabel(barEntry: BarEntry): String =
-                    if (barEntry.data == null) getString(R.string.record_no_sets) else "${barEntry.y.roundToInt()}%"
+                    if (barEntry.data == null) "" else "${barEntry.y.roundToInt()}%"
             }
         }
+        val empty = averages.filter { it.second == null }.joinToString(", ") { it.first.label }
+        binding.tvNoSets.visibility = if (empty.isEmpty()) View.GONE else View.VISIBLE
+        binding.tvNoSets.text = getString(R.string.record_no_sets, empty)
         binding.chart.xAxis.valueFormatter = IndexAxisValueFormatter(averages.map { it.first.label })
         binding.chart.xAxis.labelCount = averages.size
         binding.chart.data = BarData(dataSet).apply { barWidth = 0.6f }
@@ -182,8 +192,8 @@ class RecordActivity : AppCompatActivity() {
     }
 
     // 약한 영역 추천은 게임 화면이 아니라 게임 선택 화면을 연다
-    private fun showRecommend(type: GameType) {
-        binding.btnRecommend.text = getString(R.string.record_recommend, type.label)
+    private fun showRecommend(type: GameType, isNew: Boolean) {
+        binding.btnRecommend.text = getString(if (isNew) R.string.record_recommend_new else R.string.record_recommend, type.label)
         binding.btnRecommend.setOnClickListener {
             startActivity(Intent(this, GameSelectActivity::class.java).putExtra("recommend", type.name))
         }
@@ -204,8 +214,11 @@ class RecordActivity : AppCompatActivity() {
             val label = TextView(this).apply {
                 text = day.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
                 gravity = Gravity.CENTER
-                // 오늘은 굵게
-                if (day == today) setTypeface(typeface, Typeface.BOLD)
+                // 오늘은 굵은 코랄색
+                if (day == today) {
+                    setTypeface(typeface, Typeface.BOLD)
+                    setTextColor(color(R.color.coral_dark))
+                }
             }
             val stamp = TextView(this).apply {
                 gravity = Gravity.CENTER

@@ -95,8 +95,9 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
         binding.tvProgress.text = getString(R.string.diag_progress, index + 1, questions.size)
         binding.tvQuestion.text = questions[index]
         binding.tvNotice.visibility = if (missing) View.VISIBLE else View.GONE
-        // 고치러 왔을 때는 이전 문항으로 가지 않는다
-        binding.btnPrev.visibility = if (index > 0 && !editing) View.VISIBLE else View.INVISIBLE
+        // 고치러 왔을 때는 이전 문항 대신 답 확인으로 돌아가는 버튼
+        binding.btnPrev.setText(if (editing) R.string.diag_back_review else R.string.diag_prev)
+        binding.btnPrev.visibility = if (index > 0 || editing) View.VISIBLE else View.INVISIBLE
         // 전에 골랐던 답을 표시
         answerButtons.forEachIndexed { score, button -> paint(button, answers[index] == score) }
         Speaker.speak(this, questionSpeech())

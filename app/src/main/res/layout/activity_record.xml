@@ -118,6 +118,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="280dp"
                             android:layout_marginTop="@dimen/gap" />
+
+                        <!-- 기록이 없는 영역은 막대 대신 여기에 적는다 -->
+                        <TextView
+                            android:id="@+id/tvNoSets"
+                            style="@style/Text.Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/gap"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
