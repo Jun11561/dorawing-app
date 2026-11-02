@@ -10,6 +10,7 @@
         layout="@layout/view_top_bar" />
 
     <ScrollView
+        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -102,21 +103,22 @@
                     android:layout_marginTop="@dimen/gap"
                     android:text="@string/result_call_help" />
             </LinearLayout>
+
+            <!-- 글자를 키운 폰에서 위 내용이 잘리지 않게 아래 버튼도 함께 스크롤 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/result_go_game" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHomeBottom"
+                style="@style/Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/result_home" />
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
-        android:text="@string/result_go_game" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnHomeBottom"
-        style="@style/Button.Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/result_home" />
 </LinearLayout>

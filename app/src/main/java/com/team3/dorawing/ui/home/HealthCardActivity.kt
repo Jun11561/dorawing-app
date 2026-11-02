@@ -62,6 +62,9 @@ class HealthCardActivity : AppCompatActivity() {
         val card = cards[index]
         binding.tvProgress.text = getString(R.string.card_progress, index + 1, cards.size)
         binding.tvPicture.text = card.type
+        val icon = HealthCards.iconFor(card.icon)
+        if (icon != null) binding.ivIcon.setImageResource(icon)
+        binding.ivIcon.visibility = if (icon == null) View.GONE else View.VISIBLE
         binding.tvCardTitle.text = card.title
         binding.tvBody.text = card.body
         val more = if (card.link.isBlank()) View.GONE else View.VISIBLE
@@ -99,7 +102,8 @@ class HealthCardActivity : AppCompatActivity() {
                 type = item.optString("type"),
                 title = item.optString("title"),
                 body = item.optString("body"),
-                link = item.optString("link")
+                link = item.optString("link"),
+                icon = item.optString("icon")
             )
         }
     }

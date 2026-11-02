@@ -2,8 +2,10 @@ package com.team3.dorawing.ui.home
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 import java.time.LocalDate
 
 class HealthCardsTest {
@@ -29,5 +31,14 @@ class HealthCardsTest {
     fun `같은 날은 같은 카드 다음 날은 다른 카드`() {
         assertEquals(HealthCards.pickToday(10, day), HealthCards.pickToday(10, day))
         assertNotEquals(HealthCards.pickToday(10, day), HealthCards.pickToday(10, day.plusDays(1)))
+    }
+
+    @Test
+    fun `카드 파일의 아이콘 이름은 모두 그림이 있다`() {
+        val text = File("src/main/res/raw/health_cards.json").readText()
+        val icons = Regex("\"icon\"\\s*:\\s*\"([^\"]*)\"").findAll(text).map { it.groupValues[1] }.toList()
+        val cards = Regex("\"title\"").findAll(text).count()
+        assertEquals(cards, icons.size)
+        icons.forEach { assertNotNull(it, HealthCards.iconFor(it)) }
     }
 }

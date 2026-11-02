@@ -22,59 +22,79 @@
         android:layout_weight="1"
         android:fadeScrollbars="false">
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Card"
+        <!-- 글자를 키운 폰에서도 카드가 덜 잘리게 자세히 보기까지 함께 스크롤 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- 그림 자리: 카드마다 아이콘과 종류 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_picture"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/gap">
+
+                        <ImageView
+                            android:id="@+id/ivIcon"
+                            android:layout_width="@dimen/card_icon"
+                            android:layout_height="@dimen/card_icon"
+                            android:layout_marginEnd="@dimen/gap"
+                            android:importantForAccessibility="no" />
+
+                        <TextView
+                            android:id="@+id/tvPicture"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/green_dark"
+                            android:textSize="@dimen/text_title"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvCardTitle"
+                        style="@style/Text.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/screen_padding" />
+
+                    <TextView
+                        android:id="@+id/tvBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMore"
+                style="@style/Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/card_more" />
 
-                <!-- 그림 자리. 긴 설명이 한 화면에 들어오게 낮게 둔다 -->
-                <TextView
-                    android:id="@+id/tvPicture"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/bg_card_picture"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvCardTitle"
-                    style="@style/Text.Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/screen_padding" />
-
-                <TextView
-                    android:id="@+id/tvBody"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tvMoreHelp"
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/card_more_help" />
+        </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnMore"
-        style="@style/Button.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
-        android:text="@string/card_more" />
-
-    <TextView
-        android:id="@+id/tvMoreHelp"
-        style="@style/Text.Sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/screen_padding"
-        android:gravity="center"
-        android:text="@string/card_more_help" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
