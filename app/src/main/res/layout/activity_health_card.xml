@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/gap"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Card"
@@ -31,11 +32,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- 큰 그림 자리. 그림이 준비되면 바꾼다 -->
+                <!-- 그림 자리. 긴 설명이 한 화면에 들어오게 낮게 둔다 -->
                 <TextView
                     android:id="@+id/tvPicture"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/bg_card_picture"
                     android:gravity="center"
                     android:textColor="@color/white"
