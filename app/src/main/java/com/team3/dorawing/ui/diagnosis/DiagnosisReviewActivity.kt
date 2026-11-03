@@ -53,8 +53,9 @@ class DiagnosisReviewActivity : AppCompatActivity() {
         val outValue = TypedValue()
         theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
 
+        // 글자를 키운 폰에서도 넉넉하게 문항 아래에 답을 쌓는다
         val row = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
+            orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_VERTICAL
             minimumHeight = resources.getDimensionPixelSize(R.dimen.button_height)
             setPadding(0, gap, 0, gap)
@@ -73,10 +74,10 @@ class DiagnosisReviewActivity : AppCompatActivity() {
             setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
             setTypeface(typeface, Typeface.BOLD)
             setTextColor(ContextCompat.getColor(context, if (answered) R.color.green_dark else R.color.text_sub))
-            setPadding(gap, 0, 0, 0)
+            setPadding(0, gap / 2, 0, 0)
         }
-        row.addView(tvQuestion, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
-        row.addView(tvAnswer, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        row.addView(tvQuestion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        row.addView(tvAnswer, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         binding.answerList.addView(row)
 
         // 줄 사이 구분선

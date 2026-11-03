@@ -1,6 +1,7 @@
 package com.team3.dorawing.ui.record
 
 import android.content.Intent
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 class RecordActivity : AppCompatActivity() {
@@ -149,6 +151,8 @@ class RecordActivity : AppCompatActivity() {
             setTouchEnabled(false)
             setFitBars(true)
             extraBottomOffset = 8f
+            // 양옆 여백을 줄여 막대 칸을 넓힌다
+            minOffset = 4f
             axisRight.isEnabled = false
             axisLeft.apply {
                 axisMinimum = 0f
@@ -161,10 +165,21 @@ class RecordActivity : AppCompatActivity() {
                 position = XAxis.XAxisPosition.BOTTOM
                 granularity = 1f
                 setDrawGridLines(false)
-                textSize = 20f
                 textColor = color(R.color.text_main)
             }
         }
+    }
+
+    // 그래프 글자는 dp라서 폰의 글자 크기 배율을 직접 곱한다.
+    // 다만 옆 막대 글자와 겹치지 않게 막대 한 칸 너비에 들어가는 만큼까지만 키운다
+    private fun chartText(texts: List<String>, count: Int): Float {
+        val want = 20f * resources.configuration.fontScale
+        val width = binding.chart.width.takeIf { it > 0 } ?: resources.displayMetrics.widthPixels
+        // 양옆 여백을 빼고, 옆 칸 글자와 붙지 않게 칸의 85%만 쓴다
+        val slot = (width / resources.displayMetrics.density - 8f) / count * 0.85f
+        // 글자 크기 100일 때 너비를 재서 비례로 계산한다
+        val paint = Paint().apply { textSize = 100f }
+        return min(want, slot * 100f / texts.maxOf { paint.measureText(it) })
     }
 
     // 영역별 최근 3세트 평균. 가장 낮은 영역만 코랄색
@@ -175,7 +190,7 @@ class RecordActivity : AppCompatActivity() {
         }
         val dataSet = BarDataSet(entries, "").apply {
             colors = averages.map { (type, _) -> color(if (type == lowest) R.color.coral else R.color.green_mid) }
-            valueTextSize = 20f
+            valueTextSize = chartText(listOf("100%"), averages.size)
             valueTextColor = color(R.color.text_main)
             valueFormatter = object : ValueFormatter() {
                 override fun getBarLabel(barEntry: BarEntry): String =
@@ -185,7 +200,12 @@ class RecordActivity : AppCompatActivity() {
         val empty = averages.filter { it.second == null }.joinToString(", ") { it.first.label }
         binding.tvNoSets.visibility = if (empty.isEmpty()) View.GONE else View.VISIBLE
         binding.tvNoSets.text = getString(R.string.record_no_sets, empty)
-        binding.chart.xAxis.valueFormatter = IndexAxisValueFormatter(averages.map { it.first.label })
+        val labels = averages.map { it.first.label }
+        binding.chart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        // 라이브러리가 축 글자는 24까지만 키운다
+        binding.chart.xAxis.textSize = chartText(labels, labels.size)
+        // 100% 막대 위 숫자가 잘리지 않게 위쪽 자리
+        binding.chart.extraTopOffset = dataSet.valueTextSize / resources.displayMetrics.density
         binding.chart.xAxis.labelCount = averages.size
         binding.chart.data = BarData(dataSet).apply { barWidth = 0.6f }
         binding.chart.invalidate()
