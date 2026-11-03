@@ -2,6 +2,7 @@ package com.team3.dorawing.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.team3.dorawing.R
 
 object Prefs {
     private fun sp(context: Context): SharedPreferences =
@@ -10,6 +11,12 @@ object Prefs {
     // 이름을 아직 안 정했으면 null
     fun getName(context: Context): String? = sp(context).getString("name", null)
     fun setName(context: Context, name: String) = sp(context).edit().putString("name", name).apply()
+
+    // 부를 때 쓰는 이름. 보통은 "김영희 님", 이름이 없거나 "어르신"이면 님 없이 "어르신"
+    fun callName(context: Context, name: String? = getName(context)): String {
+        val default = context.getString(R.string.name_default)
+        return if (name.isNullOrBlank() || name == default) default else context.getString(R.string.name_call, name)
+    }
 
     // 화면에 들어갈 때 자동으로 읽을지. 듣기 버튼은 이 값과 상관없이 읽는다
     fun isVoiceOn(context: Context): Boolean = sp(context).getBoolean("voice", true)

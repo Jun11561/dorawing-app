@@ -72,8 +72,8 @@ class HomeActivity : AppCompatActivity() {
     // 다른 화면에서 돌아올 때마다 이름, 도장을 새로 보여 주고 인사한다
     override fun onResume() {
         super.onResume()
-        val name = Prefs.getName(this) ?: return
-        binding.topBar.tvTitle.text = getString(R.string.home_greeting, name)
+        if (Prefs.getName(this) == null) return
+        binding.topBar.tvTitle.text = getString(R.string.home_greeting, Prefs.callName(this))
         Speaker.speak(this, greetingSpeech())
 
         val today = Dates.dayText(LocalDate.now())
@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun greetingSpeech(): String =
-        getString(R.string.home_greeting_speech, Prefs.getName(this) ?: getString(R.string.name_default))
+        getString(R.string.home_greeting_speech, Prefs.callName(this))
 
     // 도장을 아직 못 받았으면 흐리게
     private fun showStamp(stamp: View, done: Boolean) {

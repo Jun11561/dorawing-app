@@ -28,10 +28,12 @@
     <string name="name_ok">확인</string>
     <string name="name_skip">건너뛰기</string>
     <string name="name_default">어르신</string>
+    <!-- 이름을 부를 때. 이름이 "어르신"이면 님을 붙이지 않는다 (Prefs.callName) -->
+    <string name="name_call">%1$s 님</string>
 
-    <!-- 홈 -->
-    <string name="home_greeting">%1$s 님, 오늘도 반가워요</string>
-    <string name="home_greeting_speech">%1$s 님, 오늘도 반가워요. 오늘도 두뇌 훈련을 해 볼까요?</string>
+    <!-- 홈. %1$s는 "김영희 님" 또는 "어르신" -->
+    <string name="home_greeting">%1$s, 오늘도 반가워요</string>
+    <string name="home_greeting_speech">%1$s, 오늘도 반가워요. 오늘도 두뇌 훈련을 해 볼까요?</string>
     <string name="home_settings">설정</string>
     <string name="home_diagnosis">자가진단 하기</string>
     <string name="home_game">두뇌 훈련 하기</string>
@@ -138,7 +140,7 @@
     <string name="settings_name_now">지금 이름: %1$s</string>
     <string name="settings_name_help">비워 두면 \"어르신\"으로 불러 드려요.</string>
     <string name="settings_name_save">이름 바꾸기</string>
-    <string name="settings_name_done">이제 %1$s 님으로 불러 드릴게요.</string>
+    <string name="settings_name_done">이제 %1$s으로 불러 드릴게요.</string>
     <string name="settings_text_size">글씨 크기는 휴대폰 설정에서 바꿀 수 있어요.</string>
 
     <!-- 보호자 연결 공통 -->

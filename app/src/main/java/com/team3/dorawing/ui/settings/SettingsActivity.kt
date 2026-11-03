@@ -68,7 +68,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.etName.clearFocus()
         getSystemService(InputMethodManager::class.java).hideSoftInputFromWindow(binding.etName.windowToken, 0)
 
-        val done = getString(R.string.settings_name_done, name)
+        val done = getString(R.string.settings_name_done, Prefs.callName(this, name))
         Toast.makeText(this, done, Toast.LENGTH_SHORT).show()
         Speaker.speak(this, done)
     }
