@@ -61,7 +61,8 @@ class HealthCardActivity : AppCompatActivity() {
 
     private fun showCard() {
         val card = cards[index]
-        binding.tvProgress.text = getString(R.string.card_progress, index + 1, cards.size)
+        // 몇 번째 장인지는 제목 줄에 붙여 카드 아래 버튼과 안내까지 한 화면에 들어가게 한다
+        binding.topBar.tvTitle.text = getString(R.string.card_progress, index + 1, cards.size)
         binding.tvPicture.text = card.type
         val icon = HealthCards.iconFor(card.icon)
         if (icon != null) binding.ivIcon.setImageResource(icon)
@@ -71,8 +72,8 @@ class HealthCardActivity : AppCompatActivity() {
         val more = if (card.link.isBlank()) View.GONE else View.VISIBLE
         binding.btnMore.visibility = more
         binding.tvMoreHelp.visibility = more
-        // 무엇이 열리는지 링크에 맞게 알려 준다
-        binding.tvMoreHelp.setText(if (HealthCards.isVideo(card.link)) R.string.card_more_help_video else R.string.card_more_help)
+        // 무엇이 열리는지 버튼 이름으로 알려 주고, 안내는 한 줄로 둔다
+        binding.btnMore.setText(if (HealthCards.isVideo(card.link)) R.string.card_more_video else R.string.card_more)
         binding.btnCall.visibility = if (card.phone.isBlank()) View.GONE else View.VISIBLE
 
         val last = index == cards.size - 1

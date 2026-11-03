@@ -9,12 +9,6 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <TextView
-        android:id="@+id/tvProgress"
-        style="@style/Text.Sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -100,7 +94,8 @@
                 style="@style/Text.Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="@string/card_more_help" />
         </LinearLayout>
     </ScrollView>
 

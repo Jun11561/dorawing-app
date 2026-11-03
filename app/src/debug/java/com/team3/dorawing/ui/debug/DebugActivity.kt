@@ -85,19 +85,29 @@ class DebugActivity : AppCompatActivity() {
             if (denied) "\n알림 권한이 없어서 띄우지 못했어요 (EMULATOR.md의 pm grant)" else ""
     }
 
-    // 1, 2번은 기존 기록을 지우고 넣는다
+    // 1, 2번은 게임 기록만 지우고 넣는다. 자가진단 결과는 남긴다
     private suspend fun steady() {
-        clearAll()
+        clearGames()
         DebugScenarios.steady().forEach { record(it) }
     }
 
     private suspend fun oneDrop() {
-        clearAll()
+        clearGames()
         DebugScenarios.oneDrop().forEach { record(it) }
     }
 
     private suspend fun todayTwo() {
         DebugScenarios.todayTwo().forEach { record(it) }
+    }
+
+    private suspend fun clearGames() {
+        withContext(Dispatchers.IO) {
+            val db = AppDatabase.get(this@DebugActivity)
+            db.gameSetDao().deleteAll()
+            db.attendanceDao().deleteAll()
+            db.levelStateDao().deleteAll()
+            db.changeAlertDao().deleteAll()
+        }
     }
 
     private suspend fun clearAll() {

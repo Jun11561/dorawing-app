@@ -100,10 +100,10 @@
     <string name="result_no_phone">이 기기에서는 전화를 걸 수 없어요. 1899-9988로 전화해 주세요.</string>
 
     <!-- 건강 카드 -->
-    <string name="card_progress">%1$d / %2$d</string>
+    <string name="card_progress">오늘의 건강 카드 %1$d / %2$d</string>
     <string name="card_more">자세히 보기</string>
-    <string name="card_more_help">인터넷 화면이 열려요. 다 보시면 뒤로 가기를 눌러 주세요</string>
-    <string name="card_more_help_video">유튜브에서 영상이 열려요. 다 보시면 뒤로 가기를 눌러 주세요</string>
+    <string name="card_more_video">유튜브 영상 보기</string>
+    <string name="card_more_help">다 보시면 뒤로 가기를 눌러 주세요</string>
     <string name="card_call">1899-9988 전화하기</string>
     <string name="card_next">다음</string>
     <string name="card_finish">다 봤어요</string>
