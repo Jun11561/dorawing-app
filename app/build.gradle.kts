@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+// google-services.json은 커밋하지 않는다. 파일이 없는 컴퓨터에서도 빌드는 되게 하고, 보호자 연결만 꺼진다
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 android {
     namespace = "com.team3.dorawing"
     compileSdk {
@@ -51,6 +56,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.mpandroidchart)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)

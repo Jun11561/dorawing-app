@@ -6,6 +6,7 @@ import com.team3.dorawing.db.AppDatabase
 import com.team3.dorawing.db.Attendance
 import com.team3.dorawing.db.GameSetResult
 import com.team3.dorawing.db.LevelState
+import com.team3.dorawing.ui.guardian.Cloud
 import com.team3.dorawing.util.Dates
 import java.io.Serializable
 
@@ -33,7 +34,7 @@ object GameRecorder {
         val db = AppDatabase.get(context)
         val type = gameType.name
 
-        return db.withTransaction {
+        val summary = db.withTransaction {
             // 1. 세트 기록 저장
             db.gameSetDao().insert(
                 GameSetResult(
@@ -68,6 +69,10 @@ object GameRecorder {
 
             FinishSummary(correct, total, state.level, newState.level, stars(correct, total))
         }
+
+        // 5. 보호자가 연결되어 있으면 요약 올리기 (변화 알림이 생긴 것도 여기서 같이 올라간다)
+        Cloud.uploadLater(context)
+        return summary
     }
 
     // 90% 이상 별 3개, 70% 이상 2개, 그 외 1개

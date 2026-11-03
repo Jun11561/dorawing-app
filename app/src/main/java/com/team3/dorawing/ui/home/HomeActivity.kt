@@ -11,6 +11,8 @@ import com.team3.dorawing.databinding.ActivityHomeBinding
 import com.team3.dorawing.db.AppDatabase
 import com.team3.dorawing.ui.diagnosis.DiagnosisIntroActivity
 import com.team3.dorawing.ui.game.GameSelectActivity
+import com.team3.dorawing.ui.guardian.Cloud
+import com.team3.dorawing.ui.guardian.GuardianHomeActivity
 import com.team3.dorawing.ui.record.RecordActivity
 import com.team3.dorawing.ui.settings.SettingsActivity
 import com.team3.dorawing.util.Dates
@@ -25,6 +27,14 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 보호자용으로 정한 폰은 바로 보호자 화면으로
+        if (Prefs.isGuardianMode(this)) {
+            startActivity(Intent(this, GuardianHomeActivity::class.java))
+            finish()
+            return
+        }
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,6 +64,9 @@ class HomeActivity : AppCompatActivity() {
         if (Prefs.getName(this) == null) {
             startActivity(Intent(this, NameInputActivity::class.java))
         }
+
+        // 앱을 열 때 못 올린 요약을 다시 올리고, 보호자가 모두 떠났으면 서버 요약을 지운다
+        Cloud.syncLater(this)
     }
 
     // 다른 화면에서 돌아올 때마다 이름, 도장을 새로 보여 주고 인사한다

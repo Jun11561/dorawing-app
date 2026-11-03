@@ -16,4 +16,6 @@
     <dimen name="button_stroke">2dp</dimen>
     <dimen name="stamp_small">40dp</dimen>
     <dimen name="card_icon">72dp</dimen>
+    <dimen name="code_text">48sp</dimen>
+    <dimen name="code_input">32sp</dimen>
 </resources>

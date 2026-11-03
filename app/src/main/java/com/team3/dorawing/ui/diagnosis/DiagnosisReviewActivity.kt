@@ -19,6 +19,7 @@ import com.team3.dorawing.db.DiagnosisResult
 import com.team3.dorawing.db.LevelState
 import com.team3.dorawing.game.Difficulty
 import com.team3.dorawing.game.GameType
+import com.team3.dorawing.ui.guardian.Cloud
 import com.team3.dorawing.util.Speaker
 import com.team3.dorawing.util.TopBar
 import kotlinx.coroutines.launch
@@ -127,6 +128,9 @@ class DiagnosisReviewActivity : AppCompatActivity() {
                     newAreas++
                 }
             }
+
+            // 보호자가 연결되어 있으면 총점과 결과만 올라간다 (문항별 답은 올리지 않음)
+            Cloud.uploadLater(this@DiagnosisReviewActivity)
 
             val intent = Intent(this@DiagnosisReviewActivity, DiagnosisResultActivity::class.java)
                 .putExtra("score", total)

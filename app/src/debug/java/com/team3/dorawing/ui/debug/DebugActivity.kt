@@ -1,5 +1,6 @@
 package com.team3.dorawing.ui.debug
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,10 @@ import com.team3.dorawing.game.GameRecorder
 import com.team3.dorawing.game.GameStats
 import com.team3.dorawing.game.GameType
 import com.team3.dorawing.ui.game.GameLauncher
+import com.team3.dorawing.ui.guardian.Cloud
+import com.team3.dorawing.ui.guardian.GuardianHomeActivity
 import com.team3.dorawing.util.Dates
+import com.team3.dorawing.util.Prefs
 import com.team3.dorawing.util.TopBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +27,9 @@ import java.time.LocalDate
 class DebugActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDebugBinding
     private val buttons = mutableListOf<MaterialButton>()
+
+    // 보호자 연결 확인 결과. 상태 글 아래에 붙인다
+    private var note = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +45,20 @@ class DebugActivity : AppCompatActivity() {
         for (type in GameType.entries) {
             addButton(binding.gameList, "${type.label} Lv.3 바로 열기", runInBackground = false) {
                 startActivity(GameLauncher.intentFor(this, type, 3))
+            }
+        }
+
+        // 보호자 연결: 가상 보호자는 서버 규칙을 그대로 거친다
+        addButton(binding.guardianList, "가상 보호자 연결 요청") { note = guardianStep { FakeGuardian.request(this) } }
+        addButton(binding.guardianList, "가상 보호자로 올라온 기록 읽기") { note = guardianStep { FakeGuardian.read(this) } }
+        addButton(binding.guardianList, "가상 보호자 쪽에서 연결 끊기") { note = guardianStep { FakeGuardian.leave(this) } }
+        addButton(binding.guardianList, "보호자 화면 미리 보기 (내 기록)", runInBackground = false) {
+            val me = Prefs.getElderUid(this)
+            if (me == null) {
+                binding.tvStatus.text = "어르신 uid가 없어요. 먼저 연결 코드 화면을 열어 주세요"
+            } else {
+                Prefs.setLinkedElder(this, me)
+                startActivity(Intent(this, GuardianHomeActivity::class.java))
             }
         }
 
@@ -85,7 +106,17 @@ class DebugActivity : AppCompatActivity() {
         val alerts = db.changeAlertDao().active()
         val names = alerts.mapNotNull { GameType.fromName(it.gameType)?.label }
         lines += "변화 알림 ${alerts.size}개 ${if (names.isEmpty()) "" else names.joinToString(prefix = "(", postfix = ")")}"
+        if (note.isNotEmpty()) lines += "\n$note"
         binding.tvStatus.text = lines.joinToString("\n")
+    }
+
+    private suspend fun guardianStep(step: suspend () -> String): String {
+        if (!Cloud.isReady(this)) return "google-services.json이 없어서 Firebase를 쓸 수 없어요"
+        return try {
+            step()
+        } catch (e: Exception) {
+            "실패: ${e.message}"
+        }
     }
 
     private fun addButton(list: LinearLayout, text: String, runInBackground: Boolean = true, action: suspend () -> Unit) {

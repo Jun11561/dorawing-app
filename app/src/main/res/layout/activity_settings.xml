@@ -9,9 +9,18 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGuardian"
+        style="@style/Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/screen_preparing" />
+        android:text="@string/settings_guardian" />
+
+    <TextView
+        style="@style/Text.Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/screen_padding"
+        android:text="@string/settings_preparing" />
 </LinearLayout>

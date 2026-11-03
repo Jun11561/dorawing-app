@@ -125,5 +125,93 @@
     <string name="record_speech_best">가장 잘한 영역은 %1$s 영역이에요.</string>
     <string name="record_speech_weak">조금 더 연습하면 좋은 영역은 %1$s 영역이에요.</string>
 
+    <!-- 설정 -->
+    <string name="settings_guardian">보호자 연결</string>
+    <string name="settings_preparing">다른 설정은 준비 중이에요.</string>
+
+    <!-- 보호자 연결 공통 -->
+    <string name="guardian_no_firebase">이 앱에는 보호자 연결 설정이 아직 없어요.</string>
+    <string name="guardian_offline">연결하지 못했어요. 인터넷이 연결되어 있는지 보고 다시 해 주세요.</string>
+    <string name="guardian_retry">다시 해 보기</string>
+    <string name="guardian_loading">잠시만 기다려 주세요.</string>
+
+    <!-- 누가 쓰시나요 -->
+    <string name="role_guide">이 폰을 누가 쓰시나요?</string>
+    <string name="role_elder">어르신용</string>
+    <string name="role_elder_help">내 기록을 가족과 나눠요.</string>
+    <string name="role_guardian">보호자용</string>
+    <string name="role_guardian_help">가족의 기록을 봐요. 이 폰은 다음부터 보호자 화면으로 열려요.</string>
+    <string name="role_speech">이 폰을 누가 쓰시나요? 어르신이면 어르신용, 가족의 기록을 볼 보호자면 보호자용을 눌러 주세요.</string>
+
+    <!-- 공유 동의 -->
+    <string name="consent_guide">보호자와 기록을 나누기 전에 확인해 주세요.</string>
+    <string name="consent_share_title">보호자에게 보이는 것</string>
+    <string name="consent_share_list">• 자가진단 총점과 결과, 한 날짜\n• 영역별 정답률과 단계\n• 두뇌 훈련을 한 날\n• 기록이 평소와 달라졌다는 알림</string>
+    <string name="consent_private_title">보이지 않는 것</string>
+    <string name="consent_private_list">• 자가진단 문항마다 고른 답\n• 이름, 전화번호, 위치\n• 게임마다 자세한 기록</string>
+    <string name="consent_note">보호자는 2명까지 연결할 수 있어요. 언제든 연결을 끊을 수 있고, 끊으면 서버에 올라간 기록도 지워져요.</string>
+    <string name="consent_agree">동의합니다</string>
+    <string name="consent_later">다음에 할게요</string>
+    <string name="consent_speech">보호자와 기록을 나누기 전에 확인해 주세요. 보호자에게 보이는 것은 자가진단 총점과 결과, 영역별 정답률과 단계, 두뇌 훈련을 한 날, 기록이 평소와 달라졌다는 알림이에요. 자가진단 문항마다 고른 답, 이름, 전화번호, 위치, 게임마다 자세한 기록은 보이지 않아요. 언제든 연결을 끊을 수 있어요. 괜찮으시면 동의합니다를 눌러 주세요.</string>
+
+    <!-- 연결 코드 (어르신) -->
+    <string name="code_guide">보호자 폰에 이 번호를 넣어 주세요</string>
+    <string name="code_split" translatable="false">%1$s %2$s</string>
+    <string name="code_timer">남은 시간 %1$d분 %2$02d초</string>
+    <string name="code_expired">시간이 지났어요. 새 번호를 받아 주세요.</string>
+    <string name="code_used">다른 보호자도 연결하려면 새 번호를 받아 주세요.</string>
+    <string name="code_new">새 번호 받기</string>
+    <string name="code_full">보호자는 2명까지 연결할 수 있어요.</string>
+    <string name="code_guardians_title">연결된 보호자</string>
+    <string name="code_no_guardian">아직 연결된 보호자가 없어요.</string>
+    <string name="code_guardian_row">%1$s 님</string>
+    <string name="code_guardian_unknown">보호자</string>
+    <string name="code_disconnect">연결 끊기</string>
+    <string name="code_disconnect_title">%1$s 님과 연결을 끊을까요?</string>
+    <string name="code_disconnect_message">끊으면 이 보호자는 내 기록을 볼 수 없어요.</string>
+    <string name="code_keep">그대로 두기</string>
+    <string name="code_request_title">%1$s 님과 연결할까요?</string>
+    <string name="code_request_message">연결하면 이 보호자가 내 기록 요약을 볼 수 있어요.</string>
+    <string name="code_request_yes">연결하기</string>
+    <string name="code_request_no">아니요</string>
+    <string name="code_connected">%1$s 님과 연결됐어요.</string>
+    <string name="code_reinstall">앱을 다시 설치해서 보호자 연결이 끊겼어요. 보호자 연결을 다시 해 주세요.</string>
+    <string name="code_reinstall_hint">앱을 지우고 다시 설치하면 보호자 연결을 다시 해야 해요.</string>
+    <string name="code_speech">보호자 폰에 이 번호를 넣어 주세요. %1$s.</string>
+
+    <!-- 코드 입력 (보호자) -->
+    <string name="enter_guide">어르신 폰의 연결 코드 화면에 나온 6자리 번호를 넣어 주세요.</string>
+    <string name="enter_code_label">연결 번호</string>
+    <string name="enter_name_label">어르신 폰에 보일 내 이름</string>
+    <string name="enter_name_hint">예: 딸 민지</string>
+    <string name="enter_send">연결 요청 보내기</string>
+    <string name="enter_need_code">6자리 번호를 넣어 주세요.</string>
+    <string name="enter_need_name">어르신 폰에 보일 이름을 넣어 주세요.</string>
+    <string name="enter_wrong">번호가 맞지 않아요. %1$d번 더 넣어 볼 수 있어요.</string>
+    <string name="enter_expired">시간이 지났거나 이미 쓴 번호예요. 어르신 폰에서 새 번호를 받아 주세요. %1$d번 더 넣어 볼 수 있어요.</string>
+    <string name="enter_locked">번호를 여러 번 틀려서 잠시 막아 두었어요. %1$d분 뒤에 다시 해 주세요.</string>
+    <string name="enter_waiting">요청을 보냈어요. 어르신 폰에서 \"연결하기\"를 눌러 주세요.</string>
+    <string name="enter_cancel">처음부터 다시</string>
+
+    <!-- 보호자 화면 -->
+    <string name="ghome_not_linked">아직 연결된 어르신이 없어요. 어르신 폰에서 받은 번호를 넣어 주세요.</string>
+    <string name="ghome_enter_code">연결 번호 넣기</string>
+    <string name="ghome_disconnected">연결이 끊겼어요. 어르신이 연결을 끊었거나 앱을 다시 설치했을 수 있어요. 어르신 폰에서 새 번호를 받아 다시 연결해 주세요.</string>
+    <string name="ghome_no_data">아직 올라온 기록이 없어요. 어르신이 두뇌 훈련이나 자가진단을 하면 여기에 보여요.</string>
+    <string name="ghome_updated">%1$s에 올라온 기록이에요.</string>
+    <string name="ghome_alert_title">요즘 기록이 평소와 달라요</string>
+    <string name="ghome_alert_areas">%1$s 기록이 평소보다 낮아졌어요.</string>
+    <string name="ghome_alert_note">의료 진단이 아닌 알림이에요. 어르신과 함께 자가진단을 다시 해 보시면 좋아요.</string>
+    <string name="ghome_level_row">%1$s %2$d단계</string>
+    <string name="ghome_week">이번 주 %1$d일 출석했어요.</string>
+    <string name="ghome_week_days">이번 주 %1$d일 출석했어요. (%2$s)</string>
+    <string name="ghome_last_play">마지막 훈련: %1$s</string>
+    <string name="ghome_no_play">아직 두뇌 훈련 기록이 없어요.</string>
+    <string name="ghome_refresh">새로 고침</string>
+    <string name="ghome_leave">연결 끊기</string>
+    <string name="ghome_leave_title">연결을 끊을까요?</string>
+    <string name="ghome_leave_message">끊으면 어르신의 기록을 더 볼 수 없어요. 다시 보려면 어르신 폰에서 새 번호를 받아야 해요.</string>
+    <string name="ghome_elder_mode">어르신용 화면으로 바꾸기</string>
+
     <string name="no_korean_voice">한국어 음성이 없어 소리로 읽어 드릴 수 없어요. 휴대폰 설정에서 한국어 음성을 받아 주세요.</string>
 </resources>

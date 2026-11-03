@@ -9,9 +9,49 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/screen_preparing" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/role_guide" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnElder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/role_elder" />
+
+            <TextView
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/role_elder_help" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardian"
+                style="@style/Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/role_guardian" />
+
+            <TextView
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/role_guardian_help" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
