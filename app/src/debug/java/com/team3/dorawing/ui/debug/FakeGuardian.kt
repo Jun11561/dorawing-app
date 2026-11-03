@@ -52,6 +52,15 @@ object FakeGuardian {
         return "가상 보호자: 보호자 ${guardians.size}명\n요약 칸: ${data.keys.sorted().joinToString()}\n$data"
     }
 
+    // 가상 보호자 권한으로 읽은 최근 요약 (보호자 폰 알림 확인용). 없으면 null
+    suspend fun summary(context: Context): Map<String, Any?>? {
+        val elder = Prefs.getElderUid(context) ?: return null
+        uid(context)
+        val docs = elderDoc(context, elder).collection("summaries")
+            .orderBy("updatedAt", Query.Direction.DESCENDING).limit(1).get().await()
+        return docs.documents.firstOrNull()?.data
+    }
+
     // 보호자 쪽에서 연결 끊기 (자기 uid만 뺄 수 있다)
     suspend fun leave(context: Context): String {
         val elder = Prefs.getElderUid(context) ?: return "어르신 uid가 없어요"

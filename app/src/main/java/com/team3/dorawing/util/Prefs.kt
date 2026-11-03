@@ -64,6 +64,15 @@ object Prefs {
     fun getPendingElder(context: Context): String? = sp(context).getString("pendingElder", null)
     fun setPendingElder(context: Context, uid: String?) = sp(context).edit().putString("pendingElder", uid).apply()
 
+    // 보호자 폰: 휴대폰 알림에 쓰는 어르신 호칭(예: 어머님). 서버에 올리지 않고 이 폰에만 둔다
+    fun getElderCallName(context: Context): String =
+        sp(context).getString("elderCallName", null) ?: context.getString(R.string.name_default)
+    fun setElderCallName(context: Context, name: String) = sp(context).edit().putString("elderCallName", name).apply()
+
+    // 보호자 폰: 이미 휴대폰 알림으로 띄운 변화 알림 (영역|날짜)
+    fun getShownAlerts(context: Context): Set<String> = sp(context).getStringSet("shownAlerts", null)?.toSet() ?: emptySet()
+    fun setShownAlerts(context: Context, keys: Set<String>) = sp(context).edit().putStringSet("shownAlerts", keys).apply()
+
     // 보호자 폰: 코드를 틀린 횟수와 입력을 막아 둔 시각
     fun getCodeFails(context: Context): Int = sp(context).getInt("codeFails", 0)
     fun getCodeLockedUntil(context: Context): Long = sp(context).getLong("codeLockedUntil", 0)

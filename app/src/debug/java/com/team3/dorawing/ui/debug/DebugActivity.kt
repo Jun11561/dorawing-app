@@ -1,7 +1,11 @@
 package com.team3.dorawing.ui.debug
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +18,9 @@ import com.team3.dorawing.game.GameStats
 import com.team3.dorawing.game.GameType
 import com.team3.dorawing.ui.game.GameLauncher
 import com.team3.dorawing.ui.guardian.Cloud
+import com.team3.dorawing.ui.guardian.GuardianAlerts
 import com.team3.dorawing.ui.guardian.GuardianHomeActivity
+import com.team3.dorawing.ui.guardian.Summary
 import com.team3.dorawing.util.Dates
 import com.team3.dorawing.util.Prefs
 import com.team3.dorawing.util.TopBar
@@ -52,6 +58,7 @@ class DebugActivity : AppCompatActivity() {
         addButton(binding.guardianList, "가상 보호자 연결 요청") { note = guardianStep { FakeGuardian.request(this) } }
         addButton(binding.guardianList, "가상 보호자로 올라온 기록 읽기") { note = guardianStep { FakeGuardian.read(this) } }
         addButton(binding.guardianList, "가상 보호자 쪽에서 연결 끊기") { note = guardianStep { FakeGuardian.leave(this) } }
+        addButton(binding.guardianList, "가상 보호자로 알림 확인 지금 실행") { note = guardianStep { checkAlerts() } }
         addButton(binding.guardianList, "보호자 화면 미리 보기 (내 기록)", runInBackground = false) {
             val me = Prefs.getElderUid(this)
             if (me == null) {
@@ -63,6 +70,19 @@ class DebugActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch { showStatus() }
+    }
+
+    // 보호자 폰의 1시간 작업과 같은 확인(GuardianAlerts.check)을 가상 보호자가 읽은 요약으로 지금 한다
+    private suspend fun checkAlerts(): String {
+        val data = FakeGuardian.summary(this) ?: return "가상 보호자: 읽을 요약이 없어요. 연결하고 기록을 올린 뒤 해 주세요"
+        // 알림을 누르면 이 폰의 기록이 보호자 화면으로 보이게 (보호자 화면 미리 보기와 같음)
+        Prefs.getElderUid(this)?.let { Prefs.setLinkedElder(this, it) }
+        val inSummary = Summary.fromMap(data).alerts.size
+        val shown = GuardianAlerts.check(this, data)
+        val denied = Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        return "요약의 변화 알림 ${inSummary}개, 새로 띄운 휴대폰 알림 ${shown}번" +
+            if (denied) "\n알림 권한이 없어서 띄우지 못했어요 (EMULATOR.md의 pm grant)" else ""
     }
 
     // 1, 2번은 기존 기록을 지우고 넣는다

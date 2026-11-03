@@ -74,6 +74,26 @@
                     android:minHeight="@dimen/button_height"
                     android:textSize="@dimen/text_body" />
 
+                <!-- 휴대폰 알림에 쓰는 말. 서버에 올리지 않는다. 비우면 어르신 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap"
+                    android:text="@string/enter_call_label"
+                    android:textColor="@color/green_dark"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etCallName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_call_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLength="10"
+                    android:minHeight="@dimen/button_height"
+                    android:textSize="@dimen/text_body" />
+
                 <!-- 틀렸을 때 남은 횟수, 막아 둔 시간 -->
                 <TextView
                     android:id="@+id/tvMessage"

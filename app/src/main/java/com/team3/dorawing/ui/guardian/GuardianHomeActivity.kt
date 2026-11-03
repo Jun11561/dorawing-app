@@ -48,9 +48,14 @@ class GuardianHomeActivity : AppCompatActivity() {
         binding.btnLeave.setOnClickListener { confirmLeave() }
         binding.btnElderMode.setOnClickListener {
             Prefs.setGuardianMode(this, false)
+            // 어르신 모드 폰에서는 알림 확인 작업이 돌지 않게
+            GuardianAlerts.cancel(this)
             TopBar.goHome(this)
         }
         setupChart()
+
+        // 보호자 폰에서만 1시간마다 새 변화 알림 확인 (디버그 미리 보기로 연 어르신 폰에서는 안 함)
+        if (Prefs.isGuardianMode(this)) GuardianAlerts.schedule(this)
     }
 
     override fun onResume() {

@@ -71,6 +71,8 @@ class GuardianEnterCodeActivity : AppCompatActivity() {
                 val (result, elder) = Cloud.checkCode(code)
                 if (result == Cloud.CodeCheck.OK && elder != null && Cloud.sendRequest(elder, me, code, name)) {
                     Prefs.setCodeLock(this@GuardianEnterCodeActivity, 0, 0)
+                    val callName = binding.etCallName.text.toString().trim().ifEmpty { getString(R.string.name_default) }
+                    Prefs.setElderCallName(this@GuardianEnterCodeActivity, callName)
                     Prefs.setPendingElder(this@GuardianEnterCodeActivity, elder)
                     startWaiting(elder)
                 } else {

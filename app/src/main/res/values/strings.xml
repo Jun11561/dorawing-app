@@ -198,6 +198,8 @@
     <string name="enter_code_label">연결 번호</string>
     <string name="enter_name_label">어르신 폰에 보일 내 이름</string>
     <string name="enter_name_hint">예: 딸 민지</string>
+    <string name="enter_call_label">어르신을 부르는 말 (알림에 써요)</string>
+    <string name="enter_call_hint">예: 어머님</string>
     <string name="enter_send">연결 요청 보내기</string>
     <string name="enter_need_code">6자리 번호를 넣어 주세요.</string>
     <string name="enter_need_name">어르신 폰에 보일 이름을 넣어 주세요.</string>
@@ -226,6 +228,11 @@
     <string name="ghome_leave_title">연결을 끊을까요?</string>
     <string name="ghome_leave_message">끊으면 어르신의 기록을 더 볼 수 없어요. 다시 보려면 어르신 폰에서 새 번호를 받아야 해요.</string>
     <string name="ghome_elder_mode">어르신용 화면으로 바꾸기</string>
+
+    <!-- 보호자 폰 알림 -->
+    <string name="notify_channel">보호자 알림</string>
+    <string name="notify_alert">%1$s의 %2$s 기록이 평소보다 낮아요</string>
+    <string name="notify_alert_detail">눌러서 기록을 확인해 보세요. 의료 진단이 아닌 알림이에요.</string>
 
     <string name="no_korean_voice">한국어 음성이 없어 소리로 읽어 드릴 수 없어요. 휴대폰 설정에서 한국어 음성을 받아 주세요.</string>
 </resources>
