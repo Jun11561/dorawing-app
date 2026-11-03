@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.ContextThemeWrapper
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +21,7 @@ import com.team3.dorawing.util.TopBar
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
-// 어르신: 6자리 코드를 보여 주고, 보호자 요청이 오면 최종 승인한다. 연결된 보호자를 끊을 수도 있다
+// 어르신: 6자리 연결 번호를 보여 주고, 보호자 요청이 오면 최종 승인한다. 연결된 보호자를 끊을 수도 있다
 class GuardianCodeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGuardianCodeBinding
     private var uid: String? = null
@@ -207,7 +208,8 @@ class GuardianCodeActivity : AppCompatActivity() {
                 text = getString(R.string.code_guardian_row, name)
                 setPadding(0, gap, 0, 0)
             }
-            val button = MaterialButton(this).apply {
+            // 연결 끊기는 어느 화면이든 테두리 버튼
+            val button = MaterialButton(ContextThemeWrapper(this, R.style.ThemeOverlay_Dorawing_SecondaryButton)).apply {
                 setText(R.string.code_disconnect)
                 setOnClickListener { confirmDisconnect(guardianUid, name) }
             }

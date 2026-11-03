@@ -40,8 +40,8 @@ class GuardianHomeActivity : AppCompatActivity() {
         binding = ActivityGuardianHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 이 화면이 보호자 폰의 홈이라 홈 버튼은 숨긴다
-        TopBar.setup(this, binding.topBar, getString(R.string.title_guardian_home), showHome = false) { speech }
+        // 이 화면이 보호자 폰의 홈이라 홈 버튼은 숨긴다. 제목은 "어머님의 기록"처럼 보호자가 정한 호칭으로
+        TopBar.setup(this, binding.topBar, title(), showHome = false) { speech }
 
         binding.btnEnterCode.setOnClickListener { startActivity(Intent(this, GuardianEnterCodeActivity::class.java)) }
         binding.btnRefresh.setOnClickListener { load() }
@@ -60,8 +60,12 @@ class GuardianHomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // 연결 번호 화면에서 호칭을 넣고 돌아오면 바뀐다
+        binding.topBar.tvTitle.text = title()
         load()
     }
+
+    private fun title() = getString(R.string.ghome_title, Prefs.getElderCallName(this))
 
     private fun load() {
         if (!Cloud.isReady(this)) {
@@ -117,17 +121,13 @@ class GuardianHomeActivity : AppCompatActivity() {
         binding.tvStatus.visibility = View.GONE
         binding.boxData.visibility = View.VISIBLE
         binding.tvUpdated.text = getString(R.string.ghome_updated, Dates.koreanTime(summary.updatedAt))
-        val parts = mutableListOf<String>()
-
-        // 변화 알림. 지금 GameType에 없는 영역은 건너뛴다
+        // 맨 위 3줄 요약. 지금 GameType에 없는 영역의 알림은 건너뛴다
         val alertNames = summary.alerts.mapNotNull { GameType.fromName(it.area)?.label }.distinct()
-        binding.cardAlert.visibility = if (alertNames.isEmpty()) View.GONE else View.VISIBLE
-        if (alertNames.isNotEmpty()) {
-            val text = getString(R.string.ghome_alert_areas, alertNames.joinToString(", "))
-            binding.tvAlertAreas.text = text
-            parts += getString(R.string.ghome_alert_title)
-            parts += text
-        }
+        val hasAlert = alertNames.isNotEmpty()
+        binding.tvSumAlert.text = if (hasAlert) getString(R.string.ghome_alert_some, alertNames.joinToString(", "))
+        else getString(R.string.ghome_alert_none)
+        binding.tvAlertNote.visibility = if (hasAlert) View.VISIBLE else View.GONE
+        binding.cardSummary.setCardBackgroundColor(ContextCompat.getColor(this, if (hasAlert) R.color.pink_light else R.color.white))
 
         showChart(summary)
 
@@ -137,10 +137,10 @@ class GuardianHomeActivity : AppCompatActivity() {
         val dayNames = week.joinToString(", ") { it.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN) }
         val weekText = if (week.isEmpty()) getString(R.string.ghome_week, 0)
         else getString(R.string.ghome_week_days, week.size, dayNames)
-        binding.tvWeek.text = weekText
-        parts += weekText
-        binding.tvLastPlay.text = summary.lastPlayedAt?.let { getString(R.string.ghome_last_play, Dates.koreanTime(it)) }
+        binding.tvSumWeek.text = weekText
+        val lastText = summary.lastPlayedAt?.let { getString(R.string.ghome_last_play, Dates.koreanTime(it)) }
             ?: getString(R.string.ghome_no_play)
+        binding.tvSumLast.text = lastText
 
         val diag = summary.diagnosis
         if (diag == null) {
@@ -153,7 +153,8 @@ class GuardianHomeActivity : AppCompatActivity() {
             binding.tvDiag.text = getString(R.string.result_judge, judge, diag.score, diag.maxScore)
         }
 
-        speech = parts.joinToString(" ")
+        // 요약 3줄을 읽는다
+        speech = listOf(title(), binding.tvSumAlert.text, weekText, lastText).joinToString(". ")
         Speaker.speak(this, speech)
     }
 

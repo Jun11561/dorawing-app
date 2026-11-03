@@ -42,6 +42,7 @@ class HealthCardActivity : AppCompatActivity() {
             }
         }
         binding.btnMore.setOnClickListener { openLink() }
+        binding.btnCall.setOnClickListener { call() }
 
         if (cards.isEmpty()) {
             binding.tvCardTitle.setText(R.string.card_empty)
@@ -70,6 +71,9 @@ class HealthCardActivity : AppCompatActivity() {
         val more = if (card.link.isBlank()) View.GONE else View.VISIBLE
         binding.btnMore.visibility = more
         binding.tvMoreHelp.visibility = more
+        // 무엇이 열리는지 링크에 맞게 알려 준다
+        binding.tvMoreHelp.setText(if (HealthCards.isVideo(card.link)) R.string.card_more_help_video else R.string.card_more_help)
+        binding.btnCall.visibility = if (card.phone.isBlank()) View.GONE else View.VISIBLE
 
         val last = index == cards.size - 1
         binding.btnNext.setText(if (last) R.string.card_finish else R.string.card_next)
@@ -82,6 +86,16 @@ class HealthCardActivity : AppCompatActivity() {
     private fun cardSpeech(): String {
         val card = cards.getOrNull(index) ?: return getString(R.string.card_empty)
         return "${card.type}. ${card.title}. ${card.body}"
+    }
+
+    // 자가진단 결과 화면과 같이 전화 앱에 번호만 넣어 연다 (전화 권한 필요 없음)
+    private fun call() {
+        val phone = cards.getOrNull(index)?.phone ?: return
+        try {
+            startActivity(Intent(Intent.ACTION_DIAL, "tel:$phone".toUri()))
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.result_no_phone, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun openLink() {
@@ -103,7 +117,8 @@ class HealthCardActivity : AppCompatActivity() {
                 title = item.optString("title"),
                 body = item.optString("body"),
                 link = item.optString("link"),
-                icon = item.optString("icon")
+                icon = item.optString("icon"),
+                phone = item.optString("phone")
             )
         }
     }

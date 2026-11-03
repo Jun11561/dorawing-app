@@ -8,11 +8,16 @@ data class HealthCard(
     val title: String,
     val body: String,
     val link: String,
-    val icon: String
+    val icon: String,
+    // 전화 버튼을 보여 줄 번호. 콜센터 카드만 있고 나머지는 빈 문자열
+    val phone: String = ""
 )
 
 object HealthCards {
     const val PER_DAY = 3
+
+    // 유튜브 링크는 유튜브 앱이 열려서 안내 문구를 다르게 한다
+    fun isVideo(link: String): Boolean = link.contains("youtube.com") || link.contains("youtu.be")
 
     // health_cards.json의 icon 이름을 그림으로. 모르는 이름이면 null
     fun iconFor(name: String): Int? = when (name) {

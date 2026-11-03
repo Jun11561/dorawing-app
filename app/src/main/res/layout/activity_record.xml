@@ -120,6 +120,15 @@
                             android:layout_height="280dp"
                             android:layout_marginTop="@dimen/gap" />
 
+                        <!-- 가장 낮은 영역만 색이 다르다는 설명 -->
+                        <TextView
+                            android:id="@+id/tvLowest"
+                            style="@style/Text.Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/record_lowest_note"
+                            android:visibility="gone" />
+
                         <!-- 기록이 없는 영역은 막대 대신 여기에 적는다 -->
                         <TextView
                             android:id="@+id/tvNoSets"
@@ -217,13 +226,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGuardian"
-                style="@style/Button.Secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/record_guardian" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -28,7 +28,6 @@ import com.team3.dorawing.ui.diagnosis.DiagnosisIntroActivity
 import com.team3.dorawing.ui.diagnosis.DiagnosisResultActivity
 import com.team3.dorawing.ui.diagnosis.DiagnosisScore
 import com.team3.dorawing.ui.game.GameSelectActivity
-import com.team3.dorawing.ui.guardian.GuardianRoleSelectActivity
 import com.team3.dorawing.util.Dates
 import com.team3.dorawing.util.Speaker
 import com.team3.dorawing.util.TopBar
@@ -54,7 +53,6 @@ class RecordActivity : AppCompatActivity() {
         binding.btnAlertGo.setOnClickListener { startActivity(Intent(this, DiagnosisIntroActivity::class.java)) }
         binding.btnAlertLater.setOnClickListener { dismissAlerts() }
         binding.btnEmptyGo.setOnClickListener { startActivity(Intent(this, GameSelectActivity::class.java)) }
-        binding.btnGuardian.setOnClickListener { startActivity(Intent(this, GuardianRoleSelectActivity::class.java)) }
         setupChart()
     }
 
@@ -99,9 +97,9 @@ class RecordActivity : AppCompatActivity() {
             showChart(averages, lowest)
             // 약한 영역이 있으면 그 영역, 없으면 아직 안 해 본 영역을 권한다
             when {
-                lowest != null -> showRecommend(lowest, false)
-                unplayed.isNotEmpty() -> showRecommend(unplayed.first(), true)
-                else -> showRecommend(weakest.first, false)
+                lowest != null -> showRecommend(lowest)
+                unplayed.isNotEmpty() -> showRecommend(unplayed.first())
+                else -> showRecommend(weakest.first)
             }
         }
         showWeek(monday, today, attended)
@@ -198,6 +196,8 @@ class RecordActivity : AppCompatActivity() {
             }
         }
         val empty = averages.filter { it.second == null }.joinToString(", ") { it.first.label }
+        // 코랄색 막대가 있을 때만 무슨 뜻인지 적는다
+        binding.tvLowest.visibility = if (lowest == null) View.GONE else View.VISIBLE
         binding.tvNoSets.visibility = if (empty.isEmpty()) View.GONE else View.VISIBLE
         binding.tvNoSets.text = getString(R.string.record_no_sets, empty)
         val labels = averages.map { it.first.label }
@@ -212,8 +212,8 @@ class RecordActivity : AppCompatActivity() {
     }
 
     // 약한 영역 추천은 게임 화면이 아니라 게임 선택 화면을 연다
-    private fun showRecommend(type: GameType, isNew: Boolean) {
-        binding.btnRecommend.text = getString(if (isNew) R.string.record_recommend_new else R.string.record_recommend, type.label)
+    private fun showRecommend(type: GameType) {
+        binding.btnRecommend.text = getString(R.string.record_recommend, type.label)
         binding.btnRecommend.setOnClickListener {
             startActivity(Intent(this, GameSelectActivity::class.java).putExtra("recommend", type.name))
         }

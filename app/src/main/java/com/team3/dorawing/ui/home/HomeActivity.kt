@@ -13,6 +13,7 @@ import com.team3.dorawing.ui.diagnosis.DiagnosisIntroActivity
 import com.team3.dorawing.ui.game.GameSelectActivity
 import com.team3.dorawing.ui.guardian.Cloud
 import com.team3.dorawing.ui.guardian.GuardianHomeActivity
+import com.team3.dorawing.ui.guardian.GuardianRoleSelectActivity
 import com.team3.dorawing.ui.record.RecordActivity
 import com.team3.dorawing.ui.settings.SettingsActivity
 import com.team3.dorawing.util.Dates
@@ -61,8 +62,13 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // 처음 설치: 누가 쓰는지 먼저 묻고, 어르신용이면 그다음에 이름 입력
         if (Prefs.getName(this) == null) {
-            startActivity(Intent(this, NameInputActivity::class.java))
+            if (Prefs.isRoleChosen(this)) {
+                startActivity(Intent(this, NameInputActivity::class.java))
+            } else {
+                startActivity(GuardianRoleSelectActivity.firstRunIntent(this))
+            }
         }
 
         // 앱을 열 때 못 올린 요약을 다시 올리고, 보호자가 모두 떠났으면 서버 요약을 지운다

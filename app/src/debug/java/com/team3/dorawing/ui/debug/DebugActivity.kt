@@ -62,7 +62,7 @@ class DebugActivity : AppCompatActivity() {
         addButton(binding.guardianList, "보호자 화면 미리 보기 (내 기록)", runInBackground = false) {
             val me = Prefs.getElderUid(this)
             if (me == null) {
-                binding.tvStatus.text = "어르신 uid가 없어요. 먼저 연결 코드 화면을 열어 주세요"
+                binding.tvStatus.text = "어르신 uid가 없어요. 먼저 연결 번호 화면을 열어 주세요"
             } else {
                 Prefs.setLinkedElder(this, me)
                 startActivity(Intent(this, GuardianHomeActivity::class.java))

@@ -112,13 +112,6 @@
                 android:layout_marginTop="@dimen/screen_padding"
                 android:text="@string/result_go_game" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnHomeBottom"
-                style="@style/Button.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/result_home" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

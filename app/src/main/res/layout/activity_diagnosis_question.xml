@@ -94,18 +94,10 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPrev"
                     style="@style/Button.Text"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="@string/diag_prev" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnListen"
-                    style="@style/Button.Text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/diag_listen" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

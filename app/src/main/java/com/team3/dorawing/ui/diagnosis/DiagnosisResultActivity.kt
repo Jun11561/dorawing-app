@@ -67,11 +67,12 @@ class DiagnosisResultActivity : AppCompatActivity() {
             binding.btnGame.strokeColor = ContextCompat.getColorStateList(this, R.color.green_mid)
             binding.btnGame.strokeWidth = resources.getDimensionPixelSize(R.dimen.button_stroke)
         }
+        // 지난 결과를 다시 볼 때는 훈련 안내가 필요 없다
+        if (past) binding.btnGame.visibility = View.GONE
         binding.btnGame.setOnClickListener {
             startActivity(Intent(this, GameSelectActivity::class.java))
             finish()
         }
-        binding.btnHomeBottom.setOnClickListener { TopBar.goHome(this) }
 
         val parts = mutableListOf<CharSequence>()
         if (past) parts += binding.tvDate.text

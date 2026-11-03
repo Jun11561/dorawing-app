@@ -49,15 +49,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!-- 변화 알림 -->
+                <!-- 맨 위 3줄 요약: 변화 알림, 이번 주 출석, 마지막 훈련. 알림이 있으면 분홍 바탕 -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardAlert"
+                    android:id="@+id/cardSummary"
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/gap"
-                    android:visibility="gone"
-                    app:cardBackgroundColor="@color/pink_light">
+                    app:cardBackgroundColor="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -65,23 +64,31 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvSumAlert"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/ghome_alert_title"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvAlertAreas"
+                            android:id="@+id/tvSumWeek"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/gap" />
 
                         <TextView
+                            android:id="@+id/tvSumLast"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/gap" />
+
+                        <TextView
+                            android:id="@+id/tvAlertNote"
                             style="@style/Text.Sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/gap"
-                            android:text="@string/ghome_alert_note" />
+                            android:text="@string/ghome_alert_note"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -125,41 +132,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/gap"
                             android:visibility="gone" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 출석과 마지막 훈련 -->
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    app:cardBackgroundColor="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/record_week_title"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_button"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvWeek"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
-
-                        <TextView
-                            android:id="@+id/tvLastPlay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

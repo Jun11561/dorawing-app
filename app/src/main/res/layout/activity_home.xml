@@ -70,13 +70,29 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- 눌러서 들어가는 카드라는 표시 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_cards"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_button"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/home_cards"
+                                android:textColor="@color/green_dark"
+                                android:textSize="@dimen/text_button"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/home_cards_open"
+                                android:textColor="@color/green_dark"
+                                android:textSize="@dimen/text_button"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvCardsStatus"

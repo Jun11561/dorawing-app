@@ -1,6 +1,7 @@
 package com.team3.dorawing.ui.home
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -40,5 +41,19 @@ class HealthCardsTest {
         val cards = Regex("\"title\"").findAll(text).count()
         assertEquals(cards, icons.size)
         icons.forEach { assertNotNull(it, HealthCards.iconFor(it)) }
+    }
+
+    @Test
+    fun `유튜브 링크만 영상 안내를 쓴다`() {
+        assertTrue(HealthCards.isVideo("https://www.youtube.com/watch?v=abc"))
+        assertTrue(HealthCards.isVideo("https://youtu.be/abc"))
+        assertFalse(HealthCards.isVideo("https://www.nid.or.kr/notification/prevention.aspx"))
+    }
+
+    @Test
+    fun `전화 버튼은 콜센터 카드에만 있다`() {
+        val text = File("src/main/res/raw/health_cards.json").readText()
+        val phones = Regex("\"phone\"\\s*:\\s*\"([^\"]*)\"").findAll(text).map { it.groupValues[1] }.toList()
+        assertEquals(listOf("18999988"), phones)
     }
 }

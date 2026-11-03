@@ -53,7 +53,7 @@
                 android:text="@string/guardian_retry"
                 android:visibility="gone" />
 
-            <!-- 연결 코드 -->
+            <!-- 연결 번호 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardCode"
                 style="@style/Card"

@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ViewTopBarBinding
 import com.team3.dorawing.ui.home.HomeActivity
 
@@ -24,8 +25,10 @@ object TopBar {
         speech: () -> String = { title }
     ) {
         bar.tvTitle.text = title
-        // 음성 안내를 꺼도 듣기 버튼은 읽어 준다
-        bar.btnSpeak.setOnClickListener { Speaker.speakNow(activity, speech()) }
+        // 음성 안내를 꺼도 듣기 버튼은 읽어 준다. 읽는 동안에는 멈추기 버튼이 된다
+        bar.btnSpeak.setOnClickListener {
+            if (Speaker.speaking) Speaker.stop() else Speaker.speakNow(activity, speech())
+        }
 
         bar.btnHome.visibility = if (showHome) View.VISIBLE else View.GONE
         bar.btnHome.setOnClickListener { if (onHome != null) onHome() else goHome(activity) }
@@ -38,10 +41,19 @@ object TopBar {
             WindowInsetsCompat.CONSUMED
         }
 
-        // 다음 화면의 안내와 겹치지 않게 떠날 때 멈춘다
+        // 보이는 동안만 읽는 중인지 듣고, 다음 화면의 안내와 겹치지 않게 떠날 때 멈춘다
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onPause(owner: LifecycleOwner) = Speaker.stop()
+            override fun onResume(owner: LifecycleOwner) = Speaker.watch { speaking -> showSpeaking(bar, speaking) }
+            override fun onPause(owner: LifecycleOwner) {
+                Speaker.watch(null)
+                Speaker.stop()
+            }
         })
+    }
+
+    private fun showSpeaking(bar: ViewTopBarBinding, speaking: Boolean) {
+        bar.btnSpeak.setText(if (speaking) R.string.top_stop else R.string.top_speak)
+        bar.btnSpeak.setIconResource(if (speaking) R.drawable.ic_stop else R.drawable.ic_speaker)
     }
 
     // 쌓여 있던 화면을 모두 닫고 홈으로

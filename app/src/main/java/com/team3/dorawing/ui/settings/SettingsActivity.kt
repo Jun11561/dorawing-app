@@ -38,8 +38,15 @@ class SettingsActivity : AppCompatActivity() {
             true
         }
 
-        // 내 기록의 보호자 연결 버튼과 같은 화면으로
+        // 보호자 연결 입구는 설정 한 곳
         binding.btnGuardian.setOnClickListener { startActivity(Intent(this, GuardianRoleSelectActivity::class.java)) }
+    }
+
+    // 이름 바꾸기를 누르지 않고 나가도 고친 이름을 저장한다
+    override fun onPause() {
+        super.onPause()
+        val typed = binding.etName.text.toString().trim().ifEmpty { getString(R.string.name_default) }
+        if (typed != currentName()) saveName(speak = false)
     }
 
     private fun currentName(): String = Prefs.getName(this) ?: getString(R.string.name_default)
@@ -59,7 +66,8 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     // 비우면 이름 입력 화면의 건너뛰기처럼 "어르신"
-    private fun saveName() {
+    // 화면을 나가면서 저장할 때는 다음 화면 안내와 겹치지 않게 읽지 않고 글로만 알린다
+    private fun saveName(speak: Boolean = true) {
         val name = binding.etName.text.toString().trim().ifEmpty { getString(R.string.name_default) }
         Prefs.setName(this, name)
         binding.etName.setText(name)
@@ -70,6 +78,6 @@ class SettingsActivity : AppCompatActivity() {
 
         val done = getString(R.string.settings_name_done, Prefs.callName(this, name))
         Toast.makeText(this, done, Toast.LENGTH_SHORT).show()
-        Speaker.speak(this, done)
+        if (speak) Speaker.speak(this, done)
     }
 }

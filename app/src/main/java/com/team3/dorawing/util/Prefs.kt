@@ -22,6 +22,10 @@ object Prefs {
     fun isVoiceOn(context: Context): Boolean = sp(context).getBoolean("voice", true)
     fun setVoiceOn(context: Context, on: Boolean) = sp(context).edit().putBoolean("voice", on).apply()
 
+    // 처음 설치 뒤 "누가 쓰시나요"에서 어르신용이나 보호자용을 골랐는지
+    fun isRoleChosen(context: Context): Boolean = sp(context).getBoolean("roleChosen", false)
+    fun setRoleChosen(context: Context) = sp(context).edit().putBoolean("roleChosen", true).apply()
+
     fun isGuardianMode(context: Context): Boolean = sp(context).getBoolean("guardianMode", false)
     fun setGuardianMode(context: Context, on: Boolean) = sp(context).edit().putBoolean("guardianMode", on).apply()
 
@@ -45,7 +49,7 @@ object Prefs {
     fun isUploadPending(context: Context): Boolean = sp(context).getBoolean("uploadPending", false)
     fun setUploadPending(context: Context, pending: Boolean) = sp(context).edit().putBoolean("uploadPending", pending).apply()
 
-    // 지금 보여 주는 연결 코드와 끝나는 시각
+    // 지금 보여 주는 연결 번호와 끝나는 시각
     fun getCode(context: Context): String? = sp(context).getString("pairCode", null)
     fun getCodeExpires(context: Context): Long = sp(context).getLong("pairCodeExpires", 0)
     fun setCode(context: Context, code: String, expiresAt: Long) =

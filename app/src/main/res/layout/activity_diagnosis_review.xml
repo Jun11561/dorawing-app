@@ -31,10 +31,17 @@
             android:paddingEnd="@dimen/gap" />
     </ScrollView>
 
+    <!-- 결과 보기를 누르면 저장된다는 것을 버튼 바로 위에 -->
+    <TextView
+        style="@style/Text.Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
+        android:text="@string/review_save_note" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
         android:text="@string/review_show_result" />
 </LinearLayout>

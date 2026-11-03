@@ -75,10 +75,22 @@ class DiagnosisReviewActivity : AppCompatActivity() {
             setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
             setTypeface(typeface, Typeface.BOLD)
             setTextColor(ContextCompat.getColor(context, if (answered) R.color.green_dark else R.color.text_sub))
+        }
+        // 줄을 누르면 고칠 수 있다는 표시
+        val tvChange = TextView(this).apply {
+            setText(R.string.review_change)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
+            setTextColor(ContextCompat.getColor(context, R.color.green_dark))
+        }
+        val answerLine = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
             setPadding(0, gap / 2, 0, 0)
         }
+        answerLine.addView(tvAnswer, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+        answerLine.addView(tvChange)
         row.addView(tvQuestion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-        row.addView(tvAnswer, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        row.addView(answerLine, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         binding.answerList.addView(row)
 
         // 줄 사이 구분선

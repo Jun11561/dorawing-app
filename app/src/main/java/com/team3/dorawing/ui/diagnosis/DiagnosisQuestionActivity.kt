@@ -71,7 +71,6 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
             button.setOnClickListener { choose(score) }
         }
         binding.btnPrev.setOnClickListener { goBack() }
-        binding.btnListen.setOnClickListener { Speaker.speakNow(this, questionSpeech()) }
         onBackPressedDispatcher.addCallback(this) { goBack() }
 
         showQuestion()

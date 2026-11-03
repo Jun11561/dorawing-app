@@ -4,7 +4,7 @@ import java.security.SecureRandom
 import kotlin.random.Random
 import kotlin.random.asKotlinRandom
 
-// 보호자 연결 코드 규칙. 서버 규칙(firestore.rules)과 같은 숫자를 쓴다
+// 보호자 연결 번호(코드) 규칙. 서버 규칙(firestore.rules)과 같은 숫자를 쓴다
 object PairRules {
     const val CODE_LENGTH = 6
     const val CODE_MINUTES = 10

@@ -27,14 +27,14 @@ object FakeGuardian {
 
     private fun elderDoc(context: Context, elder: String) = store(context).collection("elders").document(elder)
 
-    // 어르신 폰에 지금 떠 있는 코드로 연결 요청을 만든다
+    // 어르신 폰에 지금 떠 있는 연결 번호로 연결 요청을 만든다
     suspend fun request(context: Context): String {
-        val code = Prefs.getCode(context) ?: return "지금 떠 있는 코드가 없어요. 먼저 연결 코드 화면을 열어 주세요"
-        val elder = Prefs.getElderUid(context) ?: return "어르신 uid가 없어요. 먼저 연결 코드 화면을 열어 주세요"
+        val code = Prefs.getCode(context) ?: return "지금 떠 있는 연결 번호가 없어요. 먼저 연결 번호 화면을 열어 주세요"
+        val elder = Prefs.getElderUid(context) ?: return "어르신 uid가 없어요. 먼저 연결 번호 화면을 열어 주세요"
         val me = uid(context)
         val data = mapOf("name" to "가상 보호자", "code" to code, "requestedAt" to FieldValue.serverTimestamp())
         elderDoc(context, elder).collection("requests").document(me).set(data).await()
-        return "가상 보호자 요청을 보냈어요 (코드 $code). 연결 코드 화면으로 가면 승인 창이 떠요"
+        return "가상 보호자 요청을 보냈어요 (연결 번호 $code). 연결 번호 화면으로 가면 승인 창이 떠요"
     }
 
     // 가상 보호자 권한으로 어르신 문서와 최근 요약을 읽는다
