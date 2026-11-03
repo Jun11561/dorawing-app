@@ -246,8 +246,9 @@ class GuardianCodeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val current = request.code == Prefs.getCode(this@GuardianCodeActivity)
-                Cloud.approve(me, request, markCodeUsed = current)
+                // 서버가 바뀌면 목록이 바로 다시 그려지므로 호칭을 먼저 적어 둔다
                 Prefs.setGuardianName(this@GuardianCodeActivity, request.guardianUid, name)
+                Cloud.approve(me, request, markCodeUsed = current)
                 Prefs.setHasGuardian(this@GuardianCodeActivity, true)
                 if (current) {
                     Prefs.clearCode(this@GuardianCodeActivity)
@@ -260,8 +261,10 @@ class GuardianCodeActivity : AppCompatActivity() {
                 Cloud.uploadLater(this@GuardianCodeActivity)
             } catch (e: Exception) {
                 if (e is CancellationException) throw e
+                Prefs.removeGuardianName(this@GuardianCodeActivity, request.guardianUid)
                 Toast.makeText(this@GuardianCodeActivity, R.string.guardian_offline, Toast.LENGTH_LONG).show()
             }
+            showGuardians()
         }
     }
 

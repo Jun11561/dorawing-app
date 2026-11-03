@@ -6,7 +6,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -241,7 +240,8 @@ object Cloud {
         }
         // 디버그 메뉴에서 어르신 폰의 기록을 보호자 화면으로 미리 볼 때는 본인 uid
         if (!elder.exists() || (myUid !in guardiansOf(elder) && myUid != elderUid)) return null
-        val docs = summaries(elderUid).orderBy(FieldPath.documentId(), Query.Direction.DESCENDING).limit(1).get().awaitNet()
+        // 문서 이름(날짜)으로 거꾸로 정렬하면 따로 색인을 만들어야 해서, 자동 색인이 있는 updatedAt으로 정렬한다
+        val docs = summaries(elderUid).orderBy("updatedAt", Query.Direction.DESCENDING).limit(1).get().awaitNet()
         return docs.documents.firstOrNull()?.data ?: emptyMap()
     }
 

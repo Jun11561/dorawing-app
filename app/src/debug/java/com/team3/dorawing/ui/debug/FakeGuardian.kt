@@ -3,7 +3,6 @@ package com.team3.dorawing.ui.debug
 import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -48,7 +47,7 @@ object FakeGuardian {
             return "가상 보호자: 어르신 문서 읽기 막힘 (${e.message})"
         }
         val docs = elderDoc(context, elder).collection("summaries")
-            .orderBy(FieldPath.documentId(), Query.Direction.DESCENDING).limit(1).get().await()
+            .orderBy("updatedAt", Query.Direction.DESCENDING).limit(1).get().await()
         val data = docs.documents.firstOrNull()?.data ?: return "가상 보호자: 보호자 ${guardians.size}명, 올라온 요약 없음"
         return "가상 보호자: 보호자 ${guardians.size}명\n요약 칸: ${data.keys.sorted().joinToString()}\n$data"
     }
