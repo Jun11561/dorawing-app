@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,18 +10,125 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGuardian"
-        style="@style/Button.Secondary"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/settings_guardian" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
-    <TextView
-        style="@style/Text.Sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/settings_preparing" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 음성 안내 -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_voice_title"
+                        android:textColor="@color/green_dark"
+                        android:textSize="@dimen/text_button"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvVoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVoice"
+                        style="@style/Button.Secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 이름 -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_name_title"
+                        android:textColor="@color/green_dark"
+                        android:textSize="@dimen/text_button"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvNameNow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap" />
+
+                    <!-- 이름 입력 화면과 같은 길이 제한 -->
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name_hint"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="textPersonName"
+                        android:maxLength="10"
+                        android:minHeight="@dimen/button_height"
+                        android:textColor="@color/text_main"
+                        android:textColorHint="@color/text_sub"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        style="@style/Text.Sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_name_help" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap"
+                        android:text="@string/settings_name_save" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardian"
+                style="@style/Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/settings_guardian" />
+
+            <!-- 앱 안에 글씨 크기 설정을 두지 않고 휴대폰 설정을 따른다 -->
+            <TextView
+                style="@style/Text.Sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/screen_padding"
+                android:text="@string/settings_text_size" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

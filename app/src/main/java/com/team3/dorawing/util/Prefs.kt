@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object Prefs {
-    const val TEXT_LARGE = 0
-    const val TEXT_XLARGE = 1
-
     private fun sp(context: Context): SharedPreferences =
         context.applicationContext.getSharedPreferences("dorawing", Context.MODE_PRIVATE)
 
@@ -14,11 +11,9 @@ object Prefs {
     fun getName(context: Context): String? = sp(context).getString("name", null)
     fun setName(context: Context, name: String) = sp(context).edit().putString("name", name).apply()
 
+    // 화면에 들어갈 때 자동으로 읽을지. 듣기 버튼은 이 값과 상관없이 읽는다
     fun isVoiceOn(context: Context): Boolean = sp(context).getBoolean("voice", true)
     fun setVoiceOn(context: Context, on: Boolean) = sp(context).edit().putBoolean("voice", on).apply()
-
-    fun getTextSize(context: Context): Int = sp(context).getInt("textSize", TEXT_LARGE)
-    fun setTextSize(context: Context, size: Int) = sp(context).edit().putInt("textSize", size).apply()
 
     fun isGuardianMode(context: Context): Boolean = sp(context).getBoolean("guardianMode", false)
     fun setGuardianMode(context: Context, on: Boolean) = sp(context).edit().putBoolean("guardianMode", on).apply()

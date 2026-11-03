@@ -127,7 +127,19 @@
 
     <!-- 설정 -->
     <string name="settings_guardian">보호자 연결</string>
-    <string name="settings_preparing">다른 설정은 준비 중이에요.</string>
+    <string name="settings_speech">설정이에요. 음성 안내, 이름, 보호자 연결을 바꿀 수 있어요.</string>
+    <string name="settings_voice_title">음성 안내</string>
+    <string name="settings_voice_on">지금은 화면에 들어가면 안내를 읽어 드려요.</string>
+    <string name="settings_voice_off">지금은 자동으로 읽지 않아요. 위의 듣기 버튼을 누르면 읽어 드려요.</string>
+    <string name="settings_voice_turn_off">음성 안내 끄기</string>
+    <string name="settings_voice_turn_on">음성 안내 켜기</string>
+    <string name="settings_voice_done">음성 안내를 켰어요.</string>
+    <string name="settings_name_title">이름</string>
+    <string name="settings_name_now">지금 이름: %1$s</string>
+    <string name="settings_name_help">비워 두면 \"어르신\"으로 불러 드려요.</string>
+    <string name="settings_name_save">이름 바꾸기</string>
+    <string name="settings_name_done">이제 %1$s 님으로 불러 드릴게요.</string>
+    <string name="settings_text_size">글씨 크기는 휴대폰 설정에서 바꿀 수 있어요.</string>
 
     <!-- 보호자 연결 공통 -->
     <string name="guardian_no_firebase">이 앱에는 보호자 연결 설정이 아직 없어요.</string>

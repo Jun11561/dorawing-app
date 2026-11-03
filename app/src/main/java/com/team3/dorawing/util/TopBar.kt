@@ -24,7 +24,8 @@ object TopBar {
         speech: () -> String = { title }
     ) {
         bar.tvTitle.text = title
-        bar.btnSpeak.setOnClickListener { Speaker.speak(activity, speech()) }
+        // 음성 안내를 꺼도 듣기 버튼은 읽어 준다
+        bar.btnSpeak.setOnClickListener { Speaker.speakNow(activity, speech()) }
 
         bar.btnHome.visibility = if (showHome) View.VISIBLE else View.GONE
         bar.btnHome.setOnClickListener { if (onHome != null) onHome() else goHome(activity) }

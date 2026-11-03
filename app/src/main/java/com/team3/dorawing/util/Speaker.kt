@@ -17,8 +17,15 @@ object Speaker {
     private var pending: String? = null
     private val main = Handler(Looper.getMainLooper())
 
+    // 화면에 들어갈 때 자동으로 읽는다. 설정에서 음성 안내를 끄면 읽지 않는다
     fun speak(context: Context, text: String) {
-        if (!Prefs.isVoiceOn(context) || failed) return
+        if (!Prefs.isVoiceOn(context)) return
+        speakNow(context, text)
+    }
+
+    // 듣기 버튼을 눌렀을 때. 음성 안내를 꺼 두었어도 읽는다
+    fun speakNow(context: Context, text: String) {
+        if (failed) return
         if (ready) {
             tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "dorawing")
         } else {
