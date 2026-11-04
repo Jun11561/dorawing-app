@@ -30,6 +30,9 @@
     <dimen name="row_icon">28dp</dimen>
     <dimen name="chevron">32dp</dimen>
 
+    <!-- 자가진단 결과 판정 (DESIGN.md 예외) -->
+    <dimen name="text_judge">32sp</dimen>
+
     <!-- 연결 번호 숫자 (DESIGN.md 예외) -->
     <dimen name="code_text">48sp</dimen>
     <dimen name="code_input">32sp</dimen>
