@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 출석, 카드 도장 -->
+<!-- 받은 도장: 진한 코랄로 꽉 찬 동그라미. 글자와 체크는 흰색 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="@color/pink_light" />
-    <stroke
-        android:width="3dp"
-        android:color="@color/coral_dark" />
+    <solid android:color="@color/coral_dark" />
 </shape>

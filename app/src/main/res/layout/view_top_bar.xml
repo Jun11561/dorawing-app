@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 모든 화면 위쪽에 include 한다. 설정은 TopBar.setup -->
+<!-- 모든 화면 위쪽에 include 한다. 진한 초록 띠를 화면 끝까지 늘리는 것은 TopBar.setup -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@color/green_dark"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/bar_padding"
+    android:paddingEnd="@dimen/bar_padding"
+    android:paddingBottom="@dimen/bar_bottom">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +18,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSpeak"
-            style="@style/Button.Secondary"
+            style="@style/Button.Bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_speak"
@@ -27,7 +31,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHome"
-            style="@style/Button.Secondary"
+            style="@style/Button.Bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_home"
@@ -36,8 +40,37 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        style="@style/Text.Title"
+        style="@style/Text.BarTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap" />
+        android:layout_marginTop="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <!-- 홈에서만: 앱 그림과 부제 -->
+    <LinearLayout
+        android:id="@+id/boxSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
+            android:layout_marginEnd="@dimen/gap"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_logo" />
+
+        <TextView
+            style="@style/Text.BarSub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/app_subtitle" />
+    </LinearLayout>
 </LinearLayout>

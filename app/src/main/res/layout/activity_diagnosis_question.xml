@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,49 +12,77 @@
 
     <!-- 가로 화면에서도 문항과 버튼이 다 보이도록 전체를 스크롤 -->
     <ScrollView
-        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:fadeScrollbars="false"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/gap">
 
+            <!-- 몇 번째 문항인지: 글자와 막대 -->
             <TextView
                 android:id="@+id/tvProgress"
+                style="@style/Text.Heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:importantForAccessibility="no"
+                android:max="15"
+                app:indicatorColor="@color/green_mid"
+                app:trackColor="@color/green_light"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="8dp" />
+
+            <!-- 모든 문항 위에 고정. 놓치지 않게 진하게 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap"
+                android:text="@string/diag_compare"
                 android:textColor="@color/green_dark"
-                android:textSize="@dimen/text_title"
                 android:textStyle="bold" />
 
-            <!-- 모든 문항 위에 고정 -->
-            <TextView
-                style="@style/Text.Sub"
+            <!-- 문항: 이 화면에서 가장 큰 글자 -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/diag_compare" />
+                android:layout_marginTop="@dimen/gap">
 
-            <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
-            <TextView
-                android:id="@+id/tvNotice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:text="@string/diag_answer_please"
-                android:textColor="@color/green_dark"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:textSize="@dimen/text_title" />
+                    <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
+                    <TextView
+                        android:id="@+id/tvNotice"
+                        style="@style/Text.Error"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/gap"
+                        android:text="@string/diag_answer_please"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvQuestion"
+                        style="@style/Text.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_main" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- 세로 화면에서는 남는 공간을 채워 답 버튼을 아래로 -->
             <Space
@@ -61,44 +90,38 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
+            <!-- 답 3개는 같은 모양의 선택 버튼 -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAnswer0"
-                style="@style/Button.Secondary"
+                style="@style/Button.Choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
+                android:layout_marginTop="@dimen/card_gap"
                 android:text="@string/diag_answer_0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAnswer1"
-                style="@style/Button.Secondary"
+                style="@style/Button.Choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
+                android:layout_marginTop="@dimen/gap"
                 android:text="@string/diag_answer_1" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAnswer2"
-                style="@style/Button.Secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/diag_answer_2" />
-
-            <LinearLayout
+                style="@style/Button.Choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap"
-                android:orientation="horizontal">
+                android:text="@string/diag_answer_2" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPrev"
-                    style="@style/Button.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/diag_prev" />
-
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPrev"
+                style="@style/Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap"
+                android:text="@string/diag_prev" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

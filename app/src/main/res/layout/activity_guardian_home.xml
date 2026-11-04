@@ -19,20 +19,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
             <!-- 연결 안 됨, 끊김, 기록 없음, 인터넷 없음 -->
             <TextView
                 android:id="@+id/tvStatus"
+                style="@style/Text.Heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap" />
+                android:layout_marginTop="@dimen/screen_padding"
+                android:textColor="@color/text_main" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEnterCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/screen_padding"
                 android:text="@string/ghome_enter_code"
                 android:visibility="gone" />
 
@@ -47,39 +50,89 @@
                     android:id="@+id/tvUpdated"
                     style="@style/Text.Sub"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap" />
 
-                <!-- 맨 위 3줄 요약: 변화 알림, 이번 주 출석, 마지막 훈련. 알림이 있으면 분홍 바탕 -->
+                <!-- 맨 위 3줄 요약: 진한 초록 굵은 테두리로 먼저 보이게. 알림이 있으면 분홍 바탕, 코랄 테두리 -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardSummary"
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    app:cardBackgroundColor="@color/white">
+                    android:layout_marginTop="8dp"
+                    app:strokeColor="@color/green_dark"
+                    app:strokeWidth="@dimen/button_stroke">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvSumAlert"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvSumWeek"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
+                            <ImageView
+                                android:id="@+id/ivSumAlert"
+                                android:layout_width="@dimen/row_icon"
+                                android:layout_height="@dimen/row_icon"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="@dimen/gap"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_sum_alert"
+                                app:tint="@color/green_dark" />
 
-                        <TextView
-                            android:id="@+id/tvSumLast"
+                            <TextView
+                                android:id="@+id/tvSumAlert"
+                                style="@style/Text.Heading"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/text_main" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
+                            android:layout_marginTop="@dimen/gap"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/row_icon"
+                                android:layout_height="@dimen/row_icon"
+                                android:layout_marginEnd="@dimen/gap"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_sum_week"
+                                app:tint="@color/green_dark" />
+
+                            <TextView
+                                android:id="@+id/tvSumWeek"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/gap"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/row_icon"
+                                android:layout_height="@dimen/row_icon"
+                                android:layout_marginEnd="@dimen/gap"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_sum_last"
+                                app:tint="@color/green_dark" />
+
+                            <TextView
+                                android:id="@+id/tvSumLast"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvAlertNote"
@@ -92,13 +145,12 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- 영역별 정답률과 단계 -->
+                <!-- 영역별 정답률 그래프와 단계를 카드 하나에 -->
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    app:cardBackgroundColor="@color/white">
+                    android:layout_marginTop="@dimen/card_gap">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -106,12 +158,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            style="@style/Text.Heading"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/record_chart_title"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_button"
-                            android:textStyle="bold" />
+                            android:text="@string/record_chart_title" />
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chart"
@@ -119,19 +169,38 @@
                             android:layout_height="280dp"
                             android:layout_marginTop="@dimen/gap" />
 
+                        <!-- 내 기록과 같은 설명. 코랄 네모가 범례 -->
                         <TextView
-                            android:id="@+id/tvLevels"
+                            android:id="@+id/tvLowest"
+                            style="@style/Text.Sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
+                            android:layout_marginTop="8dp"
+                            android:drawablePadding="8dp"
+                            android:text="@string/record_lowest_note"
+                            android:visibility="gone"
+                            app:drawableStartCompat="@drawable/legend_coral" />
 
                         <TextView
                             android:id="@+id/tvNoSets"
                             style="@style/Text.Sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap"
+                            android:layout_marginTop="8dp"
                             android:visibility="gone" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/gap"
+                            android:background="@color/line" />
+
+                        <!-- 영역별 단계: 두 개씩 칩으로 (코드에서 넣는다) -->
+                        <LinearLayout
+                            android:id="@+id/levelList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -140,8 +209,7 @@
                     style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    app:cardBackgroundColor="@color/white">
+                    android:layout_marginTop="@dimen/card_gap">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -149,24 +217,23 @@
                         android:orientation="vertical">
 
                         <TextView
+                            style="@style/Text.Heading"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/record_diag_title"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_button"
-                            android:textStyle="bold" />
+                            android:text="@string/record_diag_title" />
 
                         <TextView
                             android:id="@+id/tvDiagDate"
                             style="@style/Text.Sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap" />
+                            android:layout_marginTop="8dp" />
 
                         <TextView
                             android:id="@+id/tvDiag"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" />
 
                         <TextView
                             style="@style/Text.Sub"
@@ -180,7 +247,6 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRefresh"
-                style="@style/Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/screen_padding"
@@ -198,7 +264,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnElderMode"
-                style="@style/Button.Text"
+                style="@style/Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap"

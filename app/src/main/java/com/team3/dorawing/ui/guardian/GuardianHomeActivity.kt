@@ -2,8 +2,13 @@ package com.team3.dorawing.ui.guardian
 
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.Space
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,6 +22,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ActivityGuardianHomeBinding
+import com.team3.dorawing.game.GameStats
 import com.team3.dorawing.game.GameType
 import com.team3.dorawing.util.Dates
 import com.team3.dorawing.util.Prefs
@@ -127,7 +133,10 @@ class GuardianHomeActivity : AppCompatActivity() {
         binding.tvSumAlert.text = if (hasAlert) getString(R.string.ghome_alert_some, alertNames.joinToString(", "))
         else getString(R.string.ghome_alert_none)
         binding.tvAlertNote.visibility = if (hasAlert) View.VISIBLE else View.GONE
+        // 알림이 있으면 분홍 바탕과 코랄 테두리, 없으면 흰 바탕과 진한 초록 테두리
         binding.cardSummary.setCardBackgroundColor(ContextCompat.getColor(this, if (hasAlert) R.color.pink_light else R.color.white))
+        binding.cardSummary.strokeColor = ContextCompat.getColor(this, if (hasAlert) R.color.coral_dark else R.color.green_dark)
+        binding.ivSumAlert.imageTintList = ContextCompat.getColorStateList(this, if (hasAlert) R.color.coral_dark else R.color.green_dark)
 
         showChart(summary)
 
@@ -158,6 +167,31 @@ class GuardianHomeActivity : AppCompatActivity() {
         Speaker.speak(this, speech)
     }
 
+    private fun showLevels(rows: List<String>) {
+        binding.levelList.removeAllViews()
+        val gap = resources.getDimensionPixelSize(R.dimen.gap)
+        val half = gap / 2
+        for (pair in rows.chunked(2)) {
+            val line = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+            pair.forEachIndexed { i, text ->
+                val chip = TextView(this).apply {
+                    this.text = text
+                    gravity = Gravity.CENTER
+                    setTypeface(typeface, Typeface.BOLD)
+                    setTextColor(ContextCompat.getColor(context, R.color.green_dark))
+                    setBackgroundResource(R.drawable.bg_chip)
+                    setPadding(gap, half, gap, half)
+                }
+                val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
+                if (i == 1) params.marginStart = gap
+                line.addView(chip, params)
+            }
+            // 칸이 하나뿐이면 빈 칸으로 너비를 맞춘다
+            if (pair.size == 1) line.addView(Space(this), LinearLayout.LayoutParams(0, 0, 1f).apply { marginStart = gap })
+            binding.levelList.addView(line, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { topMargin = gap })
+        }
+    }
+
     private fun setupChart() {
         binding.chart.apply {
             description.isEnabled = false
@@ -182,15 +216,17 @@ class GuardianHomeActivity : AppCompatActivity() {
         }
     }
 
-    // 내 기록 그래프와 같은 모양. 단계는 그래프 아래 글로
+    // 내 기록 그래프와 같은 모양. 단계는 그래프 아래에 두 개씩 칩으로
     private fun showChart(summary: Summary) {
         val types = GameType.entries
         val entries = types.mapIndexed { i, type ->
             val rate = summary.areas[type.name]?.rate
             BarEntry(i.toFloat(), ((rate ?: 0.0) * 100).toFloat(), rate)
         }
+        // 내 기록과 같은 규칙: 다른 영역보다 10%p 이상 낮은 영역만 코랄색
+        val lowest = GameStats.lowestArea(types.mapNotNull { type -> summary.areas[type.name]?.rate?.let { type to it } })
         val dataSet = BarDataSet(entries, "").apply {
-            color = ContextCompat.getColor(this@GuardianHomeActivity, R.color.green_mid)
+            colors = types.map { ContextCompat.getColor(this@GuardianHomeActivity, if (it == lowest) R.color.coral else R.color.green_mid) }
             valueTextSize = chartText(listOf("100%"), types.size)
             valueTextColor = ContextCompat.getColor(this@GuardianHomeActivity, R.color.text_main)
             valueFormatter = object : ValueFormatter() {
@@ -198,6 +234,7 @@ class GuardianHomeActivity : AppCompatActivity() {
                     if (barEntry.data == null) "" else "${barEntry.y.roundToInt()}%"
             }
         }
+        binding.tvLowest.visibility = if (lowest == null) View.GONE else View.VISIBLE
         val labels = types.map { it.label }
         binding.chart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         binding.chart.xAxis.labelCount = types.size
@@ -206,9 +243,9 @@ class GuardianHomeActivity : AppCompatActivity() {
         binding.chart.data = BarData(dataSet).apply { barWidth = 0.6f }
         binding.chart.invalidate()
 
-        binding.tvLevels.text = types.mapNotNull { type ->
+        showLevels(types.mapNotNull { type ->
             summary.areas[type.name]?.let { getString(R.string.ghome_level_row, type.label, it.level) }
-        }.joinToString("\n")
+        })
         val empty = types.filter { summary.areas[it.name]?.rate == null }.joinToString(", ") { it.label }
         binding.tvNoSets.visibility = if (empty.isEmpty()) View.GONE else View.VISIBLE
         binding.tvNoSets.text = getString(R.string.record_no_sets, empty)

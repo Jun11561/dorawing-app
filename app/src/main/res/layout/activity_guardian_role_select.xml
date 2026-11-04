@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,40 +19,125 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
+            <!-- 이 화면에서 가장 중요한 질문 -->
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/screen_padding"
                 android:text="@string/role_guide" />
 
-            <com.google.android.material.button.MaterialButton
+            <!-- 같은 무게의 선택 두 개: 같은 모양의 선택 카드 -->
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnElder"
+                style="@style/Card.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/role_elder" />
+                android:contentDescription="@string/role_elder">
 
-            <TextView
-                style="@style/Text.Sub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/role_elder_help" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
+                    <ImageView
+                        android:layout_width="@dimen/role_icon"
+                        android:layout_height="@dimen/role_icon"
+                        android:background="@drawable/bg_icon_circle"
+                        android:importantForAccessibility="no"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_role_elder"
+                        app:tint="@color/green_dark" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/card_gap"
+                        android:layout_marginEnd="@dimen/gap"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/role_elder" />
+
+                        <TextView
+                            style="@style/Text.Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/role_elder_help" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/chevron"
+                        android:layout_height="@dimen/chevron"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron"
+                        app:tint="@color/green_dark" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnGuardian"
-                style="@style/Button.Secondary"
+                style="@style/Card.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/role_guardian" />
+                android:layout_marginTop="@dimen/card_gap"
+                android:contentDescription="@string/role_guardian">
 
-            <TextView
-                style="@style/Text.Sub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/role_guardian_help" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/role_icon"
+                        android:layout_height="@dimen/role_icon"
+                        android:background="@drawable/bg_icon_circle"
+                        android:importantForAccessibility="no"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_role_guardian"
+                        app:tint="@color/green_dark" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/card_gap"
+                        android:layout_marginEnd="@dimen/gap"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/role_guardian" />
+
+                        <TextView
+                            style="@style/Text.Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/role_guardian_help" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/chevron"
+                        android:layout_height="@dimen/chevron"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron"
+                        app:tint="@color/green_dark" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

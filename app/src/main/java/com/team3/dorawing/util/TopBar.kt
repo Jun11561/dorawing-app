@@ -2,6 +2,8 @@ package com.team3.dorawing.util
 
 import android.content.Intent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -33,11 +35,31 @@ object TopBar {
         bar.btnHome.visibility = if (showHome) View.VISIBLE else View.GONE
         bar.btnHome.setOnClickListener { if (onHome != null) onHome() else goHome(activity) }
 
-        // 화면이 상태 바, 내비게이션 바, 키보드에 가리지 않게
+        // 진한 초록 띠를 화면 여백 밖, 양옆 끝과 상태 바 뒤까지 늘린다
+        val root = bar.root.parent as ViewGroup
+        root.clipToPadding = false
+        (bar.root.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            marginStart = -root.paddingStart
+            marginEnd = -root.paddingEnd
+            topMargin = -root.paddingTop
+        }
+        val barTop = bar.root.paddingTop
+
+        // 늘 보이는 스크롤 막대가 카드 테두리 위에 겹치지 않게 화면 오른쪽 여백에 그린다. 내용 너비는 그대로
+        for (i in 0 until root.childCount) {
+            val scroll = root.getChildAt(i) as? ScrollView ?: continue
+            (scroll.layoutParams as ViewGroup.MarginLayoutParams).marginEnd = -root.paddingEnd
+            scroll.setPaddingRelative(scroll.paddingStart, scroll.paddingTop, root.paddingEnd, scroll.paddingBottom)
+            scroll.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
+            scroll.clipToPadding = false
+        }
+
+        // 내용은 내비게이션 바와 키보드에 가리지 않게, 띠는 상태 바 높이만큼 안쪽으로
         val content = activity.findViewById<View>(android.R.id.content)
         ViewCompat.setOnApplyWindowInsetsListener(content) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            v.setPadding(bars.left, 0, bars.right, bars.bottom)
+            bar.root.setPadding(bar.root.paddingLeft, barTop + bars.top, bar.root.paddingRight, bar.root.paddingBottom)
             WindowInsetsCompat.CONSUMED
         }
 

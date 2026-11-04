@@ -18,9 +18,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
-            <!-- 코드와 호칭 넣기 -->
+            <!-- 연결 번호와 이름, 호칭 넣기 -->
             <LinearLayout
                 android:id="@+id/boxForm"
                 android:layout_width="match_parent"
@@ -30,84 +31,94 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
+                    android:layout_marginTop="@dimen/card_gap"
                     android:text="@string/enter_guide" />
 
-                <TextView
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/screen_padding"
-                    android:labelFor="@id/etCode"
-                    android:text="@string/enter_code_label"
-                    android:textColor="@color/green_dark"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/card_gap">
 
-                <EditText
-                    android:id="@+id/etCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:letterSpacing="0.2"
-                    android:maxLength="6"
-                    android:minHeight="@dimen/button_height"
-                    android:textSize="@dimen/code_input"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    android:text="@string/enter_name_label"
-                    android:textColor="@color/green_dark"
-                    android:textStyle="bold" />
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:labelFor="@id/etCode"
+                            android:text="@string/enter_code_label" />
 
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_name_hint"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:maxLength="20"
-                    android:minHeight="@dimen/button_height"
-                    android:textSize="@dimen/text_body" />
+                        <!-- 이 화면에서 가장 큰 글자 -->
+                        <EditText
+                            android:id="@+id/etCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:letterSpacing="0.2"
+                            android:maxLength="6"
+                            android:textSize="@dimen/code_input"
+                            android:textStyle="bold" />
 
-                <!-- 휴대폰 알림에 쓰는 말. 서버에 올리지 않는다. 비우면 어르신 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    android:text="@string/enter_call_label"
-                    android:textColor="@color/green_dark"
-                    android:textStyle="bold" />
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/card_gap"
+                            android:labelFor="@id/etName"
+                            android:text="@string/enter_name_label" />
 
-                <EditText
-                    android:id="@+id/etCallName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_call_hint"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:maxLength="10"
-                    android:minHeight="@dimen/button_height"
-                    android:textSize="@dimen/text_body" />
+                        <EditText
+                            android:id="@+id/etName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="@string/enter_name_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLength="20" />
 
-                <!-- 틀렸을 때 남은 횟수, 막아 둔 시간 -->
+                        <!-- 휴대폰 알림에 쓰는 말. 서버에 올리지 않는다. 비우면 어르신 -->
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/card_gap"
+                            android:labelFor="@id/etCallName"
+                            android:text="@string/enter_call_label" />
+
+                        <EditText
+                            android:id="@+id/etCallName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="@string/enter_call_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLength="10" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 틀렸을 때 남은 횟수, 막아 둔 시간. 오류는 진한 갈색 -->
                 <TextView
                     android:id="@+id/tvMessage"
+                    style="@style/Text.Error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    android:textColor="@color/coral_dark"
+                    android:layout_marginTop="@dimen/card_gap"
                     android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/screen_padding"
+                    android:layout_marginTop="@dimen/card_gap"
                     android:text="@string/enter_send" />
             </LinearLayout>
 
@@ -119,25 +130,39 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/screen_padding"
-                    android:text="@string/enter_waiting"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/card_gap">
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/screen_padding" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
+                        <TextView
+                            style="@style/Text.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/enter_waiting" />
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/screen_padding"
+                            android:indeterminateTint="@color/green_mid" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 취소라서 글자 버튼 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCancel"
-                    style="@style/Button.Secondary"
+                    style="@style/Button.Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/screen_padding"
+                    android:layout_marginTop="@dimen/gap"
                     android:text="@string/enter_cancel" />
             </LinearLayout>
         </LinearLayout>

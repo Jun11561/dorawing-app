@@ -92,6 +92,8 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
     private fun showQuestion() {
         busy = false
         binding.tvProgress.text = getString(R.string.diag_progress, index + 1, questions.size)
+        binding.progressBar.max = questions.size
+        binding.progressBar.progress = index + 1
         binding.tvQuestion.text = questions[index]
         binding.tvNotice.visibility = if (missing) View.VISIBLE else View.GONE
         // 고치러 왔을 때는 이전 문항 대신 답 확인으로 돌아가는 버튼
@@ -149,12 +151,15 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
         reviewLauncher.launch(intent)
     }
 
-    // 답 버튼은 모두 같은 색, 고른 답만 진한 초록
+    // 답 버튼은 모두 같은 모양(흰 바탕, 빈 동그라미), 고른 답만 진한 초록에 찬 동그라미
     private fun paint(button: MaterialButton, selected: Boolean) {
-        val back = if (selected) R.color.green_dark else R.color.green_light
-        val text = if (selected) R.color.white else R.color.green_dark
+        val back = if (selected) R.color.green_dark else R.color.white
+        val text = if (selected) R.color.white else R.color.text_main
+        val mark = if (selected) R.color.white else R.color.green_mid
         button.backgroundTintList = ContextCompat.getColorStateList(this, back)
         button.setTextColor(ContextCompat.getColor(this, text))
+        button.setIconResource(if (selected) R.drawable.ic_radio_on else R.drawable.ic_radio_off)
+        button.iconTint = ContextCompat.getColorStateList(this, mark)
     }
 
     companion object {

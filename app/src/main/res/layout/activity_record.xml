@@ -11,36 +11,53 @@
         layout="@layout/view_top_bar" />
 
     <ScrollView
-        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
-            <!-- 변화 알림 배너 -->
+            <!-- 변화 알림: 맨 위, 분홍 바탕과 코랄 테두리로 먼저 보이게 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAlert"
-                style="@style/Card"
+                style="@style/Card.Alert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/pink_light">
+                android:layout_marginTop="@dimen/card_gap"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/record_alert"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="@dimen/gap"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_sum_alert"
+                            app:tint="@color/coral_dark" />
+
+                        <TextView
+                            style="@style/Text.Heading"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/record_alert"
+                            android:textColor="@color/text_main" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvAlertAreas"
@@ -52,7 +69,7 @@
                         android:id="@+id/btnAlertGo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap"
+                        android:layout_marginTop="@dimen/card_gap"
                         android:text="@string/record_alert_go" />
 
                     <com.google.android.material.button.MaterialButton
@@ -65,95 +82,13 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- 기록이 없을 때 -->
-            <LinearLayout
-                android:id="@+id/boxEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/record_empty" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEmptyGo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    android:text="@string/record_empty_go" />
-            </LinearLayout>
-
-            <!-- 그래프와 추천 -->
-            <LinearLayout
-                android:id="@+id/boxChart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
-                    app:cardBackgroundColor="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/record_chart_title"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_button"
-                            android:textStyle="bold" />
-
-                        <com.github.mikephil.charting.charts.BarChart
-                            android:id="@+id/chart"
-                            android:layout_width="match_parent"
-                            android:layout_height="280dp"
-                            android:layout_marginTop="@dimen/gap" />
-
-                        <!-- 가장 낮은 영역만 색이 다르다는 설명 -->
-                        <TextView
-                            android:id="@+id/tvLowest"
-                            style="@style/Text.Sub"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/record_lowest_note"
-                            android:visibility="gone" />
-
-                        <!-- 기록이 없는 영역은 막대 대신 여기에 적는다 -->
-                        <TextView
-                            android:id="@+id/tvNoSets"
-                            style="@style/Text.Sub"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/gap"
-                            android:visibility="gone" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRecommend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap" />
-            </LinearLayout>
-
-            <!-- 이번 주 출석 -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/boxEmpty"
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                app:cardBackgroundColor="@color/white">
+                android:layout_marginTop="@dimen/card_gap"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -161,12 +96,92 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text.Heading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/record_week_title"
-                        android:textColor="@color/green_dark"
-                        android:textSize="@dimen/text_button"
-                        android:textStyle="bold" />
+                        android:text="@string/record_empty" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEmptyGo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_gap"
+                        android:text="@string/record_empty_go" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 그래프, 가장 낮은 영역 설명, 추천을 카드 하나에 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/boxChart"
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text.Heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/record_chart_title" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:layout_marginTop="@dimen/gap" />
+
+                    <!-- 가장 낮은 영역만 색이 다르다는 설명. 코랄 네모가 범례 -->
+                    <TextView
+                        android:id="@+id/tvLowest"
+                        style="@style/Text.Sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:drawablePadding="8dp"
+                        android:text="@string/record_lowest_note"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/legend_coral" />
+
+                    <!-- 기록이 없는 영역은 막대 대신 여기에 적는다 -->
+                    <TextView
+                        android:id="@+id/tvNoSets"
+                        style="@style/Text.Sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRecommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/card_gap" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 이번 주 출석 -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text.Heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/record_week_title" />
 
                     <!-- 월~일 7칸은 코드에서 넣는다 -->
                     <LinearLayout
@@ -189,8 +204,7 @@
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                app:cardBackgroundColor="@color/white">
+                android:layout_marginTop="@dimen/card_gap">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -198,34 +212,32 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text.Heading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/record_diag_title"
-                        android:textColor="@color/green_dark"
-                        android:textSize="@dimen/text_button"
-                        android:textStyle="bold" />
+                        android:text="@string/record_diag_title" />
 
                     <TextView
                         android:id="@+id/tvDiagDate"
                         style="@style/Text.Sub"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap" />
+                        android:layout_marginTop="8dp" />
 
                     <TextView
                         android:id="@+id/tvDiagResult"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnDiag"
                         style="@style/Button.Secondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap" />
+                        android:layout_marginTop="@dimen/card_gap" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

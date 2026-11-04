@@ -1,23 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 규칙은 docs/DESIGN.md -->
     <style name="Theme.Dorawing" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/green_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/coral_dark</item>
+        <item name="colorSecondary">@color/green_mid</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:colorBackground">@color/cream</item>
         <item name="colorSurface">@color/cream</item>
         <item name="colorOnSurface">@color/text_main</item>
+        <item name="colorOnSurfaceVariant">@color/text_sub</item>
         <item name="android:windowBackground">@color/cream</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- 상단 띠가 진한 초록이라 상태 바 글자는 흰색. Android 14까지는 상태 바 색도 띠와 같게 -->
+        <item name="android:statusBarColor">@color/green_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/cream</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
-        <!-- 따로 지정하지 않은 글자와 버튼도 어르신용 크기로 -->
+        <!-- 따로 지정하지 않은 글자, 버튼, 카드, 입력 칸도 어르신용 모양으로 -->
         <item name="android:textViewStyle">@style/Text.Body</item>
         <item name="materialButtonStyle">@style/Button.Primary</item>
+        <item name="materialCardViewStyle">@style/Card</item>
+        <item name="editTextStyle">@style/Field</item>
+        <item name="android:editTextStyle">@style/Field</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Dorawing.Dialog</item>
     </style>
 
     <!-- 확인 창도 큰 글씨로 -->
     <style name="ThemeOverlay.Dorawing.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorSurfaceContainerHigh">@color/white</item>
+        <item name="alertDialogStyle">@style/Dialog.Box</item>
+        <!-- 흰 바탕에 초록 기운이 섞이지 않게 -->
+        <item name="elevationOverlayEnabled">false</item>
         <item name="materialAlertDialogTitleTextStyle">@style/Dialog.Title</item>
         <item name="materialAlertDialogBodyTextStyle">@style/Dialog.Body</item>
         <item name="buttonBarPositiveButtonStyle">@style/Dialog.Button</item>
@@ -25,8 +38,19 @@
         <item name="buttonBarNegativeButtonStyle">@style/Dialog.Button.Keep</item>
     </style>
 
+    <!-- 확인 창 바탕: 흰색, 모서리 16dp -->
+    <style name="Dialog.Box" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundTint">@color/white</item>
+        <item name="shapeAppearance">@style/Shape.Dialog</item>
+    </style>
+
+    <style name="Shape.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner</item>
+    </style>
+
     <style name="Dialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
-        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textSize">@dimen/text_heading</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/green_dark</item>
     </style>
@@ -34,11 +58,13 @@
     <style name="Dialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
         <item name="android:textSize">@dimen/text_body</item>
         <item name="android:lineBreakWordStyle" tools:targetApi="33">phrase</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
         <item name="android:textColor">@color/text_main</item>
     </style>
 
     <style name="Dialog.Button" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:textColor">@color/green_dark</item>
     </style>
@@ -52,15 +78,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- 작은 글자 버튼 (배경 없음). 크기는 어르신용 기준을 지킨다 -->
-    <style name="Button.Text" parent="Widget.Material3.Button.TextButton">
-        <item name="android:minHeight">@dimen/button_height</item>
-        <item name="android:textSize">@dimen/text_button</item>
-        <item name="android:textColor">@color/green_dark</item>
-        <item name="android:lineBreakWordStyle" tools:targetApi="33">phrase</item>
-    </style>
-
-    <!-- 글자. 한국어가 단어 중간에서 줄이 바뀌지 않게 phrase (Android 13부터) -->
+    <!-- 글자 4단계: 제목, 소제목, 본문, 보조. 한국어가 단어 중간에서 줄이 바뀌지 않게 phrase (Android 13부터) -->
     <style name="Text.Body" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/text_body</item>
         <item name="android:lineBreakWordStyle" tools:targetApi="33">phrase</item>
@@ -72,13 +90,36 @@
         <item name="android:textSize">@dimen/text_title</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/green_dark</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="Text.Heading" parent="Text.Body">
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green_dark</item>
     </style>
 
     <style name="Text.Sub" parent="Text.Body">
         <item name="android:textColor">@color/text_sub</item>
     </style>
 
-    <!-- 큰 버튼 3종 -->
+    <!-- 오류 문구는 코랄 대신 진한 갈색 -->
+    <style name="Text.Error" parent="Text.Body">
+        <item name="android:textColor">@color/error_brown</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 상단 띠 안의 글자 -->
+    <style name="Text.BarTitle" parent="Text.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.BarSub" parent="Text.Body">
+        <item name="android:textColor">@color/green_light</item>
+    </style>
+
+    <!-- 버튼. 모두 높이 64dp 이상, 모서리 16dp -->
+    <!-- 꽉 찬 진한 초록: 그 화면에서 다음 할 일 하나 -->
     <style name="Button.Primary" parent="Widget.Material3.Button">
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:textSize">@dimen/text_button</item>
@@ -86,6 +127,8 @@
         <item name="android:lineBreakWordStyle" tools:targetApi="33">phrase</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">@dimen/gap</item>
+        <item name="android:paddingBottom">@dimen/gap</item>
         <item name="cornerRadius">@dimen/corner</item>
         <item name="backgroundTint">@color/green_dark</item>
         <item name="android:textColor">@color/white</item>
@@ -93,17 +136,63 @@
         <item name="iconSize">@dimen/icon_size</item>
     </style>
 
-    <!-- 흰 글자와 대비를 맞추려고 진한 코랄을 쓴다 -->
-    <style name="Button.Accent" parent="Button.Primary">
-        <item name="backgroundTint">@color/coral_dark</item>
-    </style>
-
+    <!-- 흰 바탕 초록 테두리: 다른 선택 -->
     <style name="Button.Secondary" parent="Button.Primary">
-        <item name="backgroundTint">@color/green_light</item>
+        <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/green_dark</item>
         <item name="iconTint">@color/green_dark</item>
         <item name="strokeColor">@color/green_mid</item>
         <item name="strokeWidth">@dimen/button_stroke</item>
+        <item name="rippleColor">@color/green_light</item>
+    </style>
+
+    <!-- 예전 이름. 코랄은 강조에만 쓰기로 해서 꽉 찬 초록과 같다 -->
+    <style name="Button.Accent" parent="Button.Primary" />
+
+    <!-- 바탕 없는 글자 버튼: 취소, 나중에 -->
+    <style name="Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green_dark</item>
+        <item name="android:lineBreakWordStyle" tools:targetApi="33">phrase</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="rippleColor">@color/green_light</item>
+    </style>
+
+    <!-- 같은 무게의 선택지 (자가진단 답). 고른 답은 코드에서 꽉 찬 초록으로 칠한다 -->
+    <style name="Button.Choice" parent="Button.Secondary">
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:paddingStart">@dimen/card_padding</item>
+        <item name="android:paddingEnd">@dimen/card_padding</item>
+        <item name="android:paddingTop">@dimen/card_padding</item>
+        <item name="android:paddingBottom">@dimen/card_padding</item>
+        <item name="icon">@drawable/ic_radio_off</item>
+        <item name="iconTint">@color/green_mid</item>
+        <item name="iconGravity">start</item>
+        <item name="iconPadding">@dimen/gap</item>
+    </style>
+
+    <!-- 상단 띠 안의 흰 아이콘 버튼 (듣기, 홈). 보이는 모양은 52dp, 누르는 영역은 64dp -->
+    <style name="Button.Bar" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:insetTop">@dimen/bar_button_inset</item>
+        <item name="android:insetBottom">@dimen/bar_button_inset</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="backgroundTint">@color/bar_button</item>
+        <item name="rippleColor">@color/bar_ripple</item>
+        <item name="iconTint">@color/white</item>
+        <item name="iconSize">@dimen/icon_size</item>
+        <item name="iconPadding">8dp</item>
     </style>
 
     <!-- 코드에서 만드는 테두리 버튼: MaterialButton(ContextThemeWrapper(context, 이 스타일)) -->
@@ -111,11 +200,54 @@
         <item name="materialButtonStyle">@style/Button.Secondary</item>
     </style>
 
-    <!-- 카드 -->
+    <!-- 흰 카드: 모서리 16dp, 약한 그림자, 노트 줄 색 테두리. 카드 사이 간격은 card_gap -->
     <style name="Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/green_light</item>
+        <item name="cardBackgroundColor">@color/white</item>
         <item name="cardCornerRadius">@dimen/corner</item>
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="contentPadding">@dimen/card_padding</item>
+        <item name="strokeColor">@color/line</item>
+        <item name="strokeWidth">@dimen/card_stroke</item>
+    </style>
+
+    <!-- 누를 수 있는 카드: 눌림 효과. 오른쪽 화살표는 레이아웃에 넣는다 -->
+    <style name="Card.Clickable">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="rippleColor">@color/green_light</item>
+    </style>
+
+    <!-- 변화 알림 -->
+    <style name="Card.Alert">
+        <item name="cardBackgroundColor">@color/pink_light</item>
+        <item name="strokeColor">@color/coral_dark</item>
+        <item name="strokeWidth">@dimen/button_stroke</item>
+    </style>
+
+    <!-- 도장. 받으면 진한 코랄 꽉 찬 동그라미와 흰 체크 (코드에서 바꾼다) -->
+    <style name="Stamp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/stamp_size</item>
+        <item name="android:minHeight">@dimen/stamp_size</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_stamp_empty</item>
+        <item name="android:textColor">@color/text_sub</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 입력 칸: 흰 바탕, 테두리, 큰 글씨 -->
+    <style name="Field" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/bg_field</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:paddingStart">@dimen/card_padding</item>
+        <item name="android:paddingEnd">@dimen/card_padding</item>
+        <item name="android:paddingTop">@dimen/gap</item>
+        <item name="android:paddingBottom">@dimen/gap</item>
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:textColorHint">@color/text_sub</item>
     </style>
 </resources>

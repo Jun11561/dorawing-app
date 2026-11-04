@@ -67,19 +67,20 @@ class DiagnosisReviewActivity : AppCompatActivity() {
 
         val tvQuestion = TextView(this).apply {
             text = getString(R.string.review_row, i + 1, question)
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_body))
         }
         val answered = answers[i] in 0..2
         val tvAnswer = TextView(this).apply {
             text = if (answered) getString(answerText(answers[i])) else getString(R.string.review_no_answer)
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
             setTypeface(typeface, Typeface.BOLD)
-            setTextColor(ContextCompat.getColor(context, if (answered) R.color.green_dark else R.color.text_sub))
+            setTextColor(ContextCompat.getColor(context, if (answered) R.color.green_dark else R.color.error_brown))
         }
         // 줄을 누르면 고칠 수 있다는 표시
         val tvChange = TextView(this).apply {
             setText(R.string.review_change)
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_button))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
+            setTypeface(typeface, Typeface.BOLD)
             setTextColor(ContextCompat.getColor(context, R.color.green_dark))
         }
         val answerLine = LinearLayout(this).apply {
@@ -93,9 +94,10 @@ class DiagnosisReviewActivity : AppCompatActivity() {
         row.addView(answerLine, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         binding.answerList.addView(row)
 
-        // 줄 사이 구분선
-        val line = View(this).apply { setBackgroundColor(ContextCompat.getColor(context, R.color.green_light)) }
-        binding.answerList.addView(line, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 2))
+        // 줄 사이 구분선 (마지막 줄 아래는 없음)
+        if (i == questions.size - 1) return
+        val line = View(this).apply { setBackgroundColor(ContextCompat.getColor(context, R.color.line)) }
+        binding.answerList.addView(line, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, resources.getDimensionPixelSize(R.dimen.card_stroke)))
     }
 
     private fun answerText(score: Int): Int = when (score) {

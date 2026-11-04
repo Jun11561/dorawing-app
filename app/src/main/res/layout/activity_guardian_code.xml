@@ -19,7 +19,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
             <!-- 다시 설치해서 연결이 끊겼을 때 -->
             <com.google.android.material.card.MaterialCardView
@@ -27,15 +28,30 @@
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/pink_light">
+                android:layout_marginTop="@dimen/card_gap"
+                android:visibility="gone">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/code_reinstall"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/row_icon"
+                        android:layout_height="@dimen/row_icon"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="@dimen/gap"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_info"
+                        app:tint="@color/error_brown" />
+
+                    <TextView
+                        style="@style/Text.Error"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/code_reinstall" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- 준비 중, 인터넷 없음 -->
@@ -43,7 +59,7 @@
                 android:id="@+id/tvStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap" />
+                android:layout_marginTop="@dimen/card_gap" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRetry"
@@ -53,15 +69,16 @@
                 android:text="@string/guardian_retry"
                 android:visibility="gone" />
 
-            <!-- 연결 번호 -->
+            <!-- 연결 번호: 이 화면에서 가장 큰 글자 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardCode"
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/card_gap"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/white">
+                app:strokeColor="@color/green_dark"
+                app:strokeWidth="@dimen/button_stroke">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,18 +86,23 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text.Heading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/code_guide" />
+                        android:text="@string/code_guide"
+                        android:textColor="@color/text_main" />
 
                     <TextView
                         android:id="@+id/tvCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/gap"
+                        android:background="@drawable/bg_card_picture"
                         android:gravity="center"
                         android:letterSpacing="0.1"
+                        android:paddingTop="@dimen/gap"
+                        android:paddingBottom="@dimen/gap"
                         android:textColor="@color/green_dark"
                         android:textSize="@dimen/code_text"
                         android:textStyle="bold" />
@@ -90,11 +112,12 @@
                         style="@style/Text.Sub"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:gravity="center" />
 
+                    <!-- 시간이 지났거나 쓰였을 때는 이것이 할 일 하나 -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNewCode"
-                        style="@style/Button.Secondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/gap"
@@ -107,7 +130,7 @@
                 android:id="@+id/tvFull"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/card_gap"
                 android:text="@string/code_full"
                 android:visibility="gone" />
 
@@ -117,7 +140,7 @@
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
+                android:layout_marginTop="@dimen/card_gap"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -126,18 +149,16 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text.Heading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/code_guardians_title"
-                        android:textColor="@color/green_dark"
-                        android:textSize="@dimen/text_button"
-                        android:textStyle="bold" />
+                        android:text="@string/code_guardians_title" />
 
                     <TextView
                         android:id="@+id/tvNoGuardian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap"
+                        android:layout_marginTop="8dp"
                         android:text="@string/code_no_guardian" />
 
                     <!-- 보호자마다 이름과 연결 끊기 버튼을 코드에서 넣는다 -->
@@ -153,7 +174,7 @@
                 style="@style/Text.Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/card_gap"
                 android:text="@string/code_reinstall_hint" />
         </LinearLayout>
     </ScrollView>

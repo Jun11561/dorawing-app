@@ -71,8 +71,8 @@ class RecordActivity : AppCompatActivity() {
         val played = averages.mapNotNull { (type, avg) -> avg?.let { type to it } }
         val weakest = played.minByOrNull { it.second }
         val best = played.maxByOrNull { it.second }
-        // 모두 같은 정답률이면 약한 영역이 없다
-        val lowest = if (weakest != null && best != null && weakest.second < best.second) weakest.first else null
+        // 다른 영역보다 10%p 이상 낮을 때만 약한 영역으로 본다
+        val lowest = GameStats.lowestArea(played.map { it.first to it.second.toDouble() })
         val unplayed = averages.filter { it.second == null }.map { it.first }
 
         // 지금 GameType에 없는 영역의 알림은 건너뛴다
@@ -122,6 +122,7 @@ class RecordActivity : AppCompatActivity() {
     }
 
     private fun showAlerts() {
+        paintRecommend(alerts.isNotEmpty())
         if (alerts.isEmpty()) {
             binding.cardAlert.visibility = View.GONE
             return
@@ -136,6 +137,7 @@ class RecordActivity : AppCompatActivity() {
         val shown = alerts
         alerts = emptyList()
         binding.cardAlert.visibility = View.GONE
+        paintRecommend(false)
         lifecycleScope.launch {
             val dao = AppDatabase.get(this@RecordActivity).changeAlertDao()
             shown.forEach { dao.dismiss(it.id) }
@@ -180,7 +182,7 @@ class RecordActivity : AppCompatActivity() {
         return min(want, slot * 100f / texts.maxOf { paint.measureText(it) })
     }
 
-    // 영역별 최근 3세트 평균. 가장 낮은 영역만 코랄색
+    // 영역별 최근 3세트 평균. 다른 영역보다 10%p 이상 낮은 영역만 코랄색
     private fun showChart(averages: List<Pair<GameType, Float?>>, lowest: GameType?) {
         val entries = averages.mapIndexed { i, (_, avg) ->
             // 기록이 없는 영역은 막대 없이 비워 두고 아래 글로 알려 준다
@@ -219,6 +221,15 @@ class RecordActivity : AppCompatActivity() {
         }
     }
 
+    // 꽉 찬 버튼은 한 화면에 하나: 변화 알림이 보이면 알림 버튼만 꽉 차고 추천은 테두리 버튼
+    private fun paintRecommend(outline: Boolean) {
+        val button = binding.btnRecommend
+        button.backgroundTintList = ContextCompat.getColorStateList(this, if (outline) R.color.white else R.color.green_dark)
+        button.setTextColor(color(if (outline) R.color.green_dark else R.color.white))
+        button.strokeColor = ContextCompat.getColorStateList(this, R.color.green_mid)
+        button.strokeWidth = if (outline) resources.getDimensionPixelSize(R.dimen.button_stroke) else 0
+    }
+
     // 월~일 7칸. 출석한 날은 도장
     private fun showWeek(monday: LocalDate, today: LocalDate, attended: Set<String>) {
         binding.weekRow.removeAllViews()
@@ -243,7 +254,7 @@ class RecordActivity : AppCompatActivity() {
             val stamp = TextView(this).apply {
                 gravity = Gravity.CENTER
                 text = if (done) "✔" else ""
-                setTextColor(color(R.color.coral_dark))
+                setTextColor(color(R.color.white))
                 setBackgroundResource(if (done) R.drawable.bg_stamp else R.drawable.bg_stamp_empty)
             }
             cell.addView(label)

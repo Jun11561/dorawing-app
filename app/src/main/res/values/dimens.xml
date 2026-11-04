@@ -2,20 +2,35 @@
 <resources>
     <!-- docs/DESIGN.md -->
     <dimen name="text_title">28sp</dimen>
+    <dimen name="text_heading">22sp</dimen>
     <dimen name="text_body">20sp</dimen>
     <dimen name="text_button">22sp</dimen>
     <dimen name="button_height">64dp</dimen>
     <dimen name="corner">16dp</dimen>
     <dimen name="screen_padding">20dp</dimen>
-
-    <!-- DESIGN.md에 없는 값 (DECISIONS.md 참고) -->
+    <dimen name="card_gap">16dp</dimen>
     <dimen name="gap">12dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_padding">20dp</dimen>
+    <dimen name="card_stroke">1dp</dimen>
     <dimen name="icon_size">28dp</dimen>
     <dimen name="button_stroke">2dp</dimen>
+
+    <!-- 상단 띠 -->
+    <dimen name="bar_padding">12dp</dimen>
+    <dimen name="bar_button_inset">6dp</dimen>
+    <dimen name="bar_bottom">24dp</dimen>
+    <dimen name="logo_size">44dp</dimen>
+
+    <!-- 도장, 아이콘 -->
+    <dimen name="stamp_size">76dp</dimen>
     <dimen name="stamp_small">40dp</dimen>
     <dimen name="card_icon">72dp</dimen>
+    <dimen name="role_icon">56dp</dimen>
+    <dimen name="row_icon">28dp</dimen>
+    <dimen name="chevron">32dp</dimen>
+
+    <!-- 연결 번호 숫자 (DESIGN.md 예외) -->
     <dimen name="code_text">48sp</dimen>
     <dimen name="code_input">32sp</dimen>
 </resources>

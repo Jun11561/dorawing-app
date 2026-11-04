@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +13,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/gap"
         android:layout_weight="1"
         android:fadeScrollbars="false">
 
@@ -20,12 +20,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="4dp">
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,19 +52,18 @@
 
                         <TextView
                             android:id="@+id/tvPicture"
+                            style="@style/Text.Heading"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/green_dark"
-                            android:textSize="@dimen/text_title"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
+                    <!-- 카드 제목: 이 화면에서 가장 큰 글자 -->
                     <TextView
                         android:id="@+id/tvCardTitle"
                         style="@style/Text.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/screen_padding" />
+                        android:layout_marginTop="@dimen/card_gap" />
 
                     <TextView
                         android:id="@+id/tvBody"
@@ -72,14 +73,17 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 전화번호가 있는 카드(콜센터)만 -->
+            <!-- 전화번호가 있는 카드(콜센터)만. 다음이 꽉 찬 버튼이라 테두리 버튼 -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCall"
+                style="@style/Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
+                android:layout_marginTop="@dimen/card_gap"
                 android:text="@string/card_call"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:icon="@drawable/ic_card_call"
+                app:iconGravity="textStart" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMore"
@@ -94,6 +98,7 @@
                 style="@style/Text.Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="@string/card_more_help" />
         </LinearLayout>

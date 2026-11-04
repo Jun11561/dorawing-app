@@ -62,7 +62,7 @@ class DiagnosisResultActivity : AppCompatActivity() {
         }
         // 전화 버튼이 있으면 그쪽을 먼저 보도록 훈련 버튼은 보조 색으로
         if (suspected) {
-            binding.btnGame.backgroundTintList = ContextCompat.getColorStateList(this, R.color.green_light)
+            binding.btnGame.backgroundTintList = ContextCompat.getColorStateList(this, R.color.white)
             binding.btnGame.setTextColor(ContextCompat.getColor(this, R.color.green_dark))
             binding.btnGame.strokeColor = ContextCompat.getColorStateList(this, R.color.green_mid)
             binding.btnGame.strokeWidth = resources.getDimensionPixelSize(R.dimen.button_stroke)

@@ -10,35 +10,41 @@
         layout="@layout/view_top_bar" />
 
     <ScrollView
-        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/diag_intro_guide"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold" />
+                android:text="@string/diag_intro_guide" />
 
-            <TextView
-                android:id="@+id/tvDetail"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding" />
+                android:layout_marginTop="@dimen/screen_padding">
+
+                <TextView
+                    android:id="@+id/tvDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 style="@style/Text.Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
+                android:layout_marginTop="@dimen/card_gap"
                 android:text="@string/diag_intro_note" />
         </LinearLayout>
     </ScrollView>
@@ -49,6 +55,7 @@
         style="@style/Text.Sub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
@@ -57,7 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/gap"
-        android:layout_marginBottom="@dimen/gap"
         android:text="@string/diag_last_result"
         android:visibility="gone" />
 
@@ -65,5 +71,6 @@
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
         android:text="@string/diag_start" />
 </LinearLayout>

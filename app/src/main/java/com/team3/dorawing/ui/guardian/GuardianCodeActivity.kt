@@ -1,8 +1,10 @@
 package com.team3.dorawing.ui.guardian
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.view.View
 import android.view.ContextThemeWrapper
 import android.widget.LinearLayout
@@ -207,6 +209,8 @@ class GuardianCodeActivity : AppCompatActivity() {
             val label = TextView(this).apply {
                 text = getString(R.string.code_guardian_row, name)
                 setPadding(0, gap, 0, 0)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.text_heading))
+                setTypeface(typeface, Typeface.BOLD)
             }
             // 연결 끊기는 어느 화면이든 테두리 버튼
             val button = MaterialButton(ContextThemeWrapper(this, R.style.ThemeOverlay_Dorawing_SecondaryButton)).apply {
@@ -216,7 +220,7 @@ class GuardianCodeActivity : AppCompatActivity() {
             binding.guardianList.addView(label)
             binding.guardianList.addView(
                 button,
-                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { topMargin = gap / 2 }
             )
         }
     }

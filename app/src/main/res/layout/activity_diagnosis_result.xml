@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,15 +11,16 @@
         layout="@layout/view_top_bar" />
 
     <ScrollView
-        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_gap">
 
             <!-- 지난 결과를 다시 볼 때만 보임 -->
             <TextView
@@ -26,13 +28,17 @@
                 style="@style/Text.Sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap"
                 android:visibility="gone" />
 
+            <!-- 판정: 이 화면에서 가장 큰 글자. 점수 줄은 작게 -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap">
+                android:layout_marginTop="@dimen/card_gap"
+                app:contentPaddingBottom="28dp"
+                app:contentPaddingTop="28dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,7 +46,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <!-- 큰 제목: 정상 범위예요 / 전문가 상담을 권해요 -->
+                    <!-- 정상 범위예요 / 전문가 상담을 권해요 -->
                     <TextView
                         android:id="@+id/tvHeadline"
                         style="@style/Text.Title"
@@ -48,38 +54,72 @@
                         android:layout_height="wrap_content"
                         android:gravity="center" />
 
-                    <!-- 작은 판정 문구와 점수 -->
                     <TextView
                         android:id="@+id/tvJudge"
+                        style="@style/Text.Sub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap"
+                        android:layout_marginTop="8dp"
                         android:gravity="center" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tvDetail"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding" />
+                android:layout_marginTop="@dimen/card_gap">
 
-            <TextView
-                android:id="@+id/tvLevel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:textColor="@color/green_dark"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <!-- 항상 보여야 하는 문구 -->
-            <TextView
-                android:id="@+id/tvNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/screen_padding"
-                android:text="@string/result_note"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvLevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap"
+                        android:textColor="@color/green_dark"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/gap"
+                        android:background="@color/line" />
+
+                    <!-- 항상 보여야 하는 문구 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/gap"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/row_icon"
+                            android:layout_height="@dimen/row_icon"
+                            android:layout_marginEnd="8dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_info"
+                            app:tint="@color/text_main" />
+
+                        <TextView
+                            android:id="@+id/tvNote"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/result_note"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- 6점 이상일 때만 -->
             <LinearLayout
@@ -94,13 +134,17 @@
                     android:id="@+id/btnCall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/result_call" />
+                    android:text="@string/result_call"
+                    app:icon="@drawable/ic_card_call"
+                    app:iconGravity="textStart" />
 
                 <TextView
                     android:id="@+id/tvCallHelp"
+                    style="@style/Text.Sub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="@string/result_call_help" />
             </LinearLayout>
 
@@ -111,7 +155,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/screen_padding"
                 android:text="@string/result_go_game" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
