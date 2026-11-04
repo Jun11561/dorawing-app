@@ -12,7 +12,6 @@
     <!-- 화면 제목 -->
     <string name="title_name_input">이름 입력</string>
     <string name="title_diagnosis_intro">자가진단 안내</string>
-    <string name="title_diagnosis_question">자가진단</string>
     <string name="title_diagnosis_result">자가진단 결과</string>
     <string name="title_record">내 기록</string>
     <string name="title_guardian_role">보호자 연결</string>
@@ -77,8 +76,8 @@
     <string name="diag_answer_0">아니다</string>
     <string name="diag_answer_1">가끔 그렇다</string>
     <string name="diag_answer_2">자주 그렇다</string>
-    <string name="diag_prev">이전 문항</string>
-    <string name="diag_back_review">답 확인으로</string>
+    <string name="diag_prev">&lt; 이전 문항</string>
+    <string name="diag_back_review">&lt; 답 확인으로</string>
     <string name="diag_question_speech">%1$d번. %2$s</string>
     <string name="diag_choice_speech">아니다, 가끔 그렇다, 자주 그렇다 중에서 골라 주세요.</string>
 

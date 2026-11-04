@@ -19,13 +19,15 @@
         android:layout_weight="1"
         app:contentPadding="0dp">
 
-        <!-- 스크롤 막대는 카드 오른쪽 안쪽 여백에 -->
-        <ScrollView
+        <!-- 스크롤 막대는 카드 오른쪽 안쪽 여백에. 내용이 더 있으면 아래쪽 끝이 흐려진다 -->
+        <com.team3.dorawing.util.FadeScrollView
             android:id="@+id/scrollCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadeScrollbars="false"
+            android:fadingEdgeLength="48dp"
             android:fillViewport="true"
+            android:requiresFadingEdge="vertical"
             android:padding="@dimen/card_padding"
             android:scrollbarStyle="outsideOverlay">
 
@@ -106,7 +108,7 @@
                     android:gravity="center"
                     android:text="@string/card_more_help" />
             </LinearLayout>
-        </ScrollView>
+        </com.team3.dorawing.util.FadeScrollView>
     </com.google.android.material.card.MaterialCardView>
 
     <!-- 다음은 화면 아래에 고정 -->

@@ -63,7 +63,7 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
         missing = savedInstanceState?.getBoolean("missing") ?: false
 
         TopBar.setup(
-            this, binding.topBar, getString(R.string.title_diagnosis_question),
+            this, binding.topBar, getString(R.string.diag_compare),
             onHome = { confirmQuit(this) { TopBar.goHome(this) } }
         ) { questionSpeech() }
 

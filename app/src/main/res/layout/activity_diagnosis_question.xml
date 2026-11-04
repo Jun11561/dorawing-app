@@ -6,86 +6,96 @@
     android:orientation="vertical"
     android:padding="@dimen/screen_padding">
 
+    <!-- 제목 줄은 "1년 전과 비교해 주세요" -->
     <include
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <!-- 진행 막대, 비교 안내, 문항만 스크롤. 문항이 길 때만 스크롤 막대가 보인다 -->
-    <ScrollView
+    <!-- 한 줄에 왼쪽 이전 문항, 오른쪽 몇 번째인지. 1번 문항에서는 이전 문항을 숨기고 자리는 둔다 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- 누르는 영역 48dp -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrev"
+            style="@style/Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:paddingStart="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="@dimen/gap"
+            android:paddingBottom="0dp"
+            android:text="@string/diag_prev" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            style="@style/Text.Heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end" />
+    </LinearLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:importantForAccessibility="no"
+        android:max="15"
+        app:indicatorColor="@color/green_mid"
+        app:trackColor="@color/green_light"
+        app:trackCornerRadius="4dp"
+        app:trackThickness="8dp" />
+
+    <!-- 문항만 스크롤. 길 때만 스크롤 막대와 아래쪽 흐림이 보인다 -->
+    <com.team3.dorawing.util.FadeScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fadeScrollbars="false">
+        android:fadeScrollbars="false"
+        android:fadingEdgeLength="48dp"
+        android:requiresFadingEdge="vertical">
 
-        <LinearLayout
+        <!-- 문항: 이 화면에서 가장 큰 글자 -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="4dp">
+            android:layout_marginTop="@dimen/gap"
+            android:layout_marginBottom="4dp"
+            app:contentPaddingBottom="@dimen/gap"
+            app:contentPaddingTop="@dimen/gap">
 
-            <!-- 몇 번째 문항인지: 글자와 막대 -->
-            <TextView
-                android:id="@+id/tvProgress"
-                style="@style/Text.Heading"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_gap" />
+                android:orientation="vertical">
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:importantForAccessibility="no"
-                android:max="15"
-                app:indicatorColor="@color/green_mid"
-                app:trackColor="@color/green_light"
-                app:trackCornerRadius="4dp"
-                app:trackThickness="8dp" />
-
-            <!-- 모든 문항 위에 고정. 놓치지 않게 진하게 -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:text="@string/diag_compare"
-                android:textColor="@color/green_dark"
-                android:textStyle="bold" />
-
-            <!-- 문항: 이 화면에서 가장 큰 글자 -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:contentPaddingBottom="@dimen/gap"
-                app:contentPaddingTop="@dimen/gap">
-
-                <LinearLayout
+                <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
+                <TextView
+                    android:id="@+id/tvNotice"
+                    style="@style/Text.Error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="@dimen/gap"
+                    android:text="@string/diag_answer_please"
+                    android:visibility="gone" />
 
-                    <!-- 답하지 않은 문항으로 왔을 때만 보임 -->
-                    <TextView
-                        android:id="@+id/tvNotice"
-                        style="@style/Text.Error"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/gap"
-                        android:text="@string/diag_answer_please"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvQuestion"
-                        style="@style/Text.Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_main" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/tvQuestion"
+                    style="@style/Text.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_main" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </com.team3.dorawing.util.FadeScrollView>
 
     <!-- 답 3개는 화면 아래에 고정. 문항이 길어도 늘 보인다 -->
     <com.google.android.material.button.MaterialButton
@@ -111,12 +121,4 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/diag_answer_2" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPrev"
-        style="@style/Button.Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/diag_prev" />
 </LinearLayout>
