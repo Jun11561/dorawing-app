@@ -85,10 +85,8 @@
     <!-- 자가진단 결과 -->
     <string name="result_normal_title">정상 범위예요</string>
     <string name="result_suspected_title">전문가 상담을 권해요</string>
-    <string name="result_normal">정상</string>
-    <string name="result_suspected">인지 저하 의심</string>
-    <string name="result_judge">%1$s (%2$d점 / %3$d점)</string>
     <string name="result_score">%2$d점 중 %1$d점</string>
+    <string name="result_summary">%1$s (%2$s)</string>
     <string name="result_normal_detail">지금처럼 꾸준히 두뇌 훈련을 해 보세요.</string>
     <string name="result_suspected_detail">전문 상담을 받아 보시면 도움이 될 수 있어요.</string>
     <string name="result_note">선별 참고용 결과이며 의료 진단이 아닙니다</string>

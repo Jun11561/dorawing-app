@@ -10,19 +10,18 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <!-- 가로 화면에서도 문항과 버튼이 다 보이도록 전체를 스크롤 -->
+    <!-- 진행 막대, 비교 안내, 문항만 스크롤. 문항이 길 때만 스크롤 막대가 보인다 -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fadeScrollbars="false"
-        android:fillViewport="true">
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/gap">
+            android:paddingBottom="4dp">
 
             <!-- 몇 번째 문항인지: 글자와 막대 -->
             <TextView
@@ -53,7 +52,7 @@
                 android:textColor="@color/green_dark"
                 android:textStyle="bold" />
 
-            <!-- 문항. 글자를 키운 폰에서도 답 3개가 한 화면에 들어오게 위아래 여백은 좁게, 글자는 소제목 크기 -->
+            <!-- 문항: 이 화면에서 가장 큰 글자 -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Card"
                 android:layout_width="match_parent"
@@ -79,51 +78,45 @@
 
                     <TextView
                         android:id="@+id/tvQuestion"
-                        style="@style/Text.Heading"
+                        style="@style/Text.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_main" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- 세로 화면에서는 남는 공간을 채워 답 버튼을 아래로 -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <!-- 답 3개는 같은 모양의 선택 버튼 -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAnswer0"
-                style="@style/Button.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:text="@string/diag_answer_0" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAnswer1"
-                style="@style/Button.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/diag_answer_1" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAnswer2"
-                style="@style/Button.Choice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/diag_answer_2" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPrev"
-                style="@style/Button.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:text="@string/diag_prev" />
         </LinearLayout>
     </ScrollView>
+
+    <!-- 답 3개는 화면 아래에 고정. 문항이 길어도 늘 보인다 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswer0"
+        style="@style/Button.Choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap"
+        android:text="@string/diag_answer_0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswer1"
+        style="@style/Button.Choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/diag_answer_1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswer2"
+        style="@style/Button.Choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/diag_answer_2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPrev"
+        style="@style/Button.Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/diag_prev" />
 </LinearLayout>

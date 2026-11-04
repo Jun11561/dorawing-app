@@ -24,6 +24,7 @@ import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ActivityGuardianHomeBinding
 import com.team3.dorawing.game.GameStats
 import com.team3.dorawing.game.GameType
+import com.team3.dorawing.ui.diagnosis.DiagnosisScore
 import com.team3.dorawing.util.Dates
 import com.team3.dorawing.util.Prefs
 import com.team3.dorawing.util.Speaker
@@ -158,8 +159,7 @@ class GuardianHomeActivity : AppCompatActivity() {
         } else {
             binding.tvDiagDate.visibility = View.VISIBLE
             binding.tvDiagDate.text = Dates.koreanDay(diag.takenAt)
-            val judge = getString(if (diag.suspected) R.string.result_suspected else R.string.result_normal)
-            binding.tvDiag.text = getString(R.string.result_judge, judge, diag.score, diag.maxScore)
+            binding.tvDiag.text = DiagnosisScore.summary(this, diag.suspected, diag.score, diag.maxScore)
         }
 
         // 요약 3줄을 읽는다

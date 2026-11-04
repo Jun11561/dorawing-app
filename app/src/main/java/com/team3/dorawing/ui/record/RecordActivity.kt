@@ -274,8 +274,7 @@ class RecordActivity : AppCompatActivity() {
         }
         binding.tvDiagDate.visibility = View.VISIBLE
         binding.tvDiagDate.text = Dates.koreanDay(last.takenAt)
-        val judge = getString(if (last.isSuspected) R.string.result_suspected else R.string.result_normal)
-        binding.tvDiagResult.text = getString(R.string.result_judge, judge, last.totalScore, DiagnosisScore.MAX_SCORE)
+        binding.tvDiagResult.text = DiagnosisScore.summary(this, last.isSuspected, last.totalScore, DiagnosisScore.MAX_SCORE)
         binding.btnDiag.setText(R.string.record_diag_again)
         // 다시 볼 때는 저장이나 시작 레벨 설정을 하지 않는다
         binding.btnDiag.setOnClickListener { startActivity(DiagnosisResultActivity.pastIntent(this, last)) }

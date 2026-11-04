@@ -38,9 +38,9 @@ class DiagnosisResultActivity : AppCompatActivity() {
             binding.tvDate.visibility = View.VISIBLE
             binding.tvDate.text = getString(R.string.result_past_date, Dates.koreanDay(takenAt))
         }
-        binding.tvHeadline.setText(if (suspected) R.string.result_suspected_title else R.string.result_normal_title)
+        binding.tvHeadline.setText(DiagnosisScore.titleRes(suspected))
         // 판정은 큰 제목에만, 점수 줄은 점수만
-        binding.tvJudge.text = getString(R.string.result_score, score, maxScore)
+        binding.tvJudge.text = DiagnosisScore.scoreText(this, score, maxScore)
         binding.tvDetail.setText(if (suspected) R.string.result_suspected_detail else R.string.result_normal_detail)
 
         // 지난 결과에는 시작 단계 안내가 필요 없다

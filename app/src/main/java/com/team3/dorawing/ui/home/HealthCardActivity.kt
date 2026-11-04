@@ -69,6 +69,8 @@ class HealthCardActivity : AppCompatActivity() {
         binding.ivIcon.visibility = if (icon == null) View.GONE else View.VISIBLE
         binding.tvCardTitle.text = card.title
         binding.tvBody.text = card.body
+        // 다음 카드는 맨 위부터
+        binding.scrollCard.scrollTo(0, 0)
         val more = if (card.link.isBlank()) View.GONE else View.VISIBLE
         binding.btnMore.visibility = more
         binding.tvMoreHelp.visibility = more

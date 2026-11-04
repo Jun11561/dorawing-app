@@ -10,105 +10,110 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <ScrollView
+    <!-- 카드가 남는 높이를 채운다. 내용이 길면 카드 안쪽만 스크롤 -->
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/card_gap"
         android:layout_weight="1"
-        android:fadeScrollbars="false">
+        app:contentPadding="0dp">
 
-        <!-- 글자를 키운 폰에서도 카드가 덜 잘리게 버튼까지 함께 스크롤 -->
-        <LinearLayout
+        <!-- 스크롤 막대는 카드 오른쪽 안쪽 여백에 -->
+        <ScrollView
+            android:id="@+id/scrollCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="4dp">
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false"
+            android:fillViewport="true"
+            android:padding="@dimen/card_padding"
+            android:scrollbarStyle="outsideOverlay">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Card"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_gap">
+                android:orientation="vertical">
 
+                <!-- 그림 자리: 카드마다 아이콘과 종류 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:background="@drawable/bg_card_picture"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/gap">
 
-                    <!-- 그림 자리: 카드마다 아이콘과 종류 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_card_picture"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/gap">
-
-                        <ImageView
-                            android:id="@+id/ivIcon"
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="@dimen/gap"
-                            android:importantForAccessibility="no" />
-
-                        <TextView
-                            android:id="@+id/tvPicture"
-                            style="@style/Text.Heading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <!-- 카드 제목: 이 화면에서 가장 큰 글자 -->
-                    <TextView
-                        android:id="@+id/tvCardTitle"
-                        style="@style/Text.Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/card_gap" />
+                    <ImageView
+                        android:id="@+id/ivIcon"
+                        android:layout_width="@dimen/card_icon"
+                        android:layout_height="@dimen/card_icon"
+                        android:layout_marginEnd="@dimen/gap"
+                        android:importantForAccessibility="no" />
 
                     <TextView
-                        android:id="@+id/tvBody"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/gap" />
+                        android:id="@+id/tvPicture"
+                        style="@style/Text.Heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- 전화번호가 있는 카드(콜센터)만. 다음이 꽉 찬 버튼이라 테두리 버튼 -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCall"
-                style="@style/Button.Secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_gap"
-                android:text="@string/card_call"
-                android:visibility="gone"
-                app:icon="@drawable/ic_card_call"
-                app:iconGravity="textStart" />
+                <!-- 카드 제목: 이 화면에서 가장 큰 글자 -->
+                <TextView
+                    android:id="@+id/tvCardTitle"
+                    style="@style/Text.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/card_gap" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnMore"
-                style="@style/Button.Secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap"
-                android:text="@string/card_more" />
+                <TextView
+                    android:id="@+id/tvBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap" />
 
-            <TextView
-                android:id="@+id/tvMoreHelp"
-                style="@style/Text.Sub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="@string/card_more_help" />
+                <!-- 내용이 짧으면 남는 자리를 여기서 채워 버튼을 카드 아래쪽에 -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
-            <!-- 빈 공간 없이 카드 묶음 바로 아래 -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_gap"
-                android:text="@string/card_next" />
-        </LinearLayout>
-    </ScrollView>
+                <!-- 전화번호가 있는 카드(콜센터)만. 다음이 꽉 찬 버튼이라 테두리 버튼 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCall"
+                    style="@style/Button.Secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/card_gap"
+                    android:text="@string/card_call"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_card_call"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMore"
+                    style="@style/Button.Secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/card_gap"
+                    android:text="@string/card_more" />
+
+                <TextView
+                    android:id="@+id/tvMoreHelp"
+                    style="@style/Text.Sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/card_more_help" />
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 다음은 화면 아래에 고정 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_gap"
+        android:text="@string/card_next" />
 </LinearLayout>
