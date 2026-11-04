@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:fadeScrollbars="false">
 
-        <!-- 글자를 키운 폰에서도 카드가 덜 잘리게 자세히 보기까지 함께 스크롤 -->
+        <!-- 글자를 키운 폰에서도 카드가 덜 잘리게 버튼까지 함께 스크롤 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,13 +101,14 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="@string/card_more_help" />
+
+            <!-- 빈 공간 없이 카드 묶음 바로 아래 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_gap"
+                android:text="@string/card_next" />
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/gap"
-        android:text="@string/card_next" />
 </LinearLayout>

@@ -117,6 +117,8 @@ class DiagnosisQuestionActivity : AppCompatActivity() {
         busy = true
         answers[index] = score
         answerButtons.forEachIndexed { i, button -> paint(button, i == score) }
+        // 눌림 물결이 남으면 진한 초록이 연하게 보여서 바로 끝낸다
+        answerButtons.forEach { it.jumpDrawablesToCurrentState() }
         Speaker.stop()
         // 고른 답이 잠깐 보이도록 1초 뒤에 넘어간다
         binding.root.postDelayed(goNext, 1000)
