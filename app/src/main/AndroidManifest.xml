@@ -74,12 +74,24 @@
             android:windowSoftInputMode="adjustResize" />
 
         <!-- 게임 화면 (허시온이 관리하는 구역) -->
-        <activity android:name=".ui.game.GameSelectActivity" />
-        <activity android:name=".ui.game.GameResultActivity" />
-        <activity android:name=".ui.game.MemoryGameActivity" />
-        <activity android:name=".ui.game.CalcGameActivity" />
-        <activity android:name=".ui.game.AttentionGameActivity" />
-        <activity android:name=".ui.game.LanguageGameActivity" />
+        <activity
+            android:name=".ui.game.GameSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.game.GameResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.game.MemoryGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.game.CalcGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.game.AttentionGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.game.LanguageGameActivity"
+            android:screenOrientation="portrait" />
         <!-- 게임 화면 끝 -->
     </application>
 
