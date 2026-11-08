@@ -11,7 +11,7 @@ Kotlin · minSdk 26 · XML 레이아웃 + ViewBinding · Room · Firebase(익명
 
 | | 강준묵 | 허시온 |
 |---|---|---|
-| GitHub | [@Jun11561](https://github.com/Jun11561) | [@sion0221](https://github.com/sion0221) |
+| GitHub | [강준묵](https://github.com/Jun11561) | [허시온](https://github.com/sion0221) |
 | 맡은 기능 | 자가진단, 홈과 건강 카드, 내 기록, 보호자 모드, 설정 | 두뇌 훈련 게임 전체 |
 | 공통 로직 | DB(Room), 난이도 조절, 변화 감지, 기록 저장 | 게임 공통 틀, 게임 선택, 결과 화면 |
 | 콘텐츠 | 자가진단 문항, 건강 카드 내용과 공식 링크 | 게임 문제 데이터, 게임 그림 |
