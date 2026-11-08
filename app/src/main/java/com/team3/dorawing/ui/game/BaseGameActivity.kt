@@ -33,6 +33,7 @@ abstract class BaseGameActivity : AppCompatActivity() {
     private var index = 0
     private var retrying = false // 지금 문제가 다시 하기인지
     private var waiting = false  // 답을 받고 다음으로 넘어가는 중
+    private var hintUsed = false // 힌트는 문제마다 한 번만. 계속 누르면 힌트로만 맞혀서 정답률이 실제보다 높아진다
     private var startedAt = 0L
     private val reactions = mutableListOf<Long>()
     // 유형별 맞힌 수와 전체 수. 결과 화면의 "오늘 가장 잘한 유형"에 쓴다
@@ -69,7 +70,13 @@ abstract class BaseGameActivity : AppCompatActivity() {
         TopBar.setup(this, base.topBar, title, onHome = { confirmQuit { TopBar.goHome(this) } }) { currentSpeech }
         onBackPressedDispatcher.addCallback(this) { confirmQuit { finish() } }
 
-        base.btnHint.setOnClickListener { if (!waiting) onHint() }
+        base.btnHint.setOnClickListener {
+            if (waiting || hintUsed) return@setOnClickListener
+            hintUsed = true
+            base.btnHint.isEnabled = false
+            base.btnHint.setText(R.string.game_hint_used)
+            onHint()
+        }
         base.btnNext.setOnClickListener {
             handler.removeCallbacks(goNext)
             next()
@@ -117,6 +124,9 @@ abstract class BaseGameActivity : AppCompatActivity() {
         base.progressBar.progress = index + 1
         base.tvFeedback.visibility = View.GONE
         base.btnNext.visibility = View.GONE
+        hintUsed = false
+        base.btnHint.isEnabled = true
+        base.btnHint.setText(R.string.game_hint)
         base.btnHint.visibility = View.VISIBLE
         startedAt = System.currentTimeMillis()
         showProblem(kind, retrying)

@@ -6,9 +6,10 @@
     <string name="game_preparing">준비 중인 게임이에요.</string>
 
     <!-- 게임 공통 틀 -->
-    <string name="game_title_play">%1$s 훈련 Lv.%2$d</string>
+    <string name="game_title_play">%1$s 훈련 %2$d단계</string>
     <string name="game_progress">%1$d / %2$d</string>
     <string name="game_hint">힌트</string>
+    <string name="game_hint_used">힌트는 한 번만</string>
     <string name="game_correct">맞았어요! 참 잘하셨어요.</string>
     <string name="game_wrong">괜찮아요. 한 번 더 해 볼까요?</string>
     <string name="game_retry">다시 해 볼까요?</string>
@@ -22,17 +23,17 @@
     <string name="game_select_guide">오늘은 어떤 훈련을 해 볼까요?</string>
     <string name="game_select_recommend">오늘 추천</string>
     <string name="game_select_recommend_speech">오늘은 %1$s 훈련을 추천해요.</string>
-    <string name="game_select_norecord">Lv.%1$d · 아직 기록이 없어요</string>
-    <string name="game_select_rate">Lv.%1$d · 최근 정답률 %2$d%%</string>
+    <string name="game_select_norecord">%1$d단계 · 아직 기록이 없어요</string>
+    <string name="game_select_rate">%1$d단계 · 최근 정답률 %2$d%%</string>
 
     <!-- 결과 -->
     <string name="game_result_great">참 잘하셨어요!</string>
     <string name="game_result_good">잘하셨어요!</string>
     <string name="game_result_try">수고하셨어요!</string>
     <string name="game_result_score">%1$d문제 중 %2$d문제 맞혔어요</string>
-    <string name="game_result_level_up">Lv.%1$d에서 Lv.%2$d로 올라갔어요</string>
-    <string name="game_result_level_down">다음에는 Lv.%1$d로 조금 쉽게 해 볼게요</string>
-    <string name="game_result_level_same">다음에도 Lv.%1$d로 해요</string>
+    <string name="game_result_level_up">%1$d단계에서 %2$d단계로 올라갔어요</string>
+    <string name="game_result_level_down">다음에는 %1$d단계로 조금 쉽게 해 볼게요</string>
+    <string name="game_result_level_same">다음에도 %1$d단계로 해요</string>
     <string name="game_result_best">오늘 가장 잘한 유형: %1$s</string>
     <string name="game_result_again">한 번 더 하기</string>
     <string name="game_result_other">다른 훈련 고르기</string>
