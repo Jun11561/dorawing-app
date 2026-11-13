@@ -7,8 +7,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.button.MaterialButton
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.team3.dorawing.R
@@ -113,6 +116,50 @@ abstract class BaseGameActivity : AppCompatActivity() {
     // 짝을 찾았을 때처럼 작은 성공에 짧은 소리
     protected fun ding() {
         tone?.startTone(ToneGenerator.TONE_PROP_BEEP, 120)
+    }
+
+    // 보기 버튼. 세 게임(주의력, 계산력, 언어력)이 같이 쓴다.
+    // container를 비우고 Button.Choice 모양 버튼을 한 줄에 perRow개씩 넣는다. 누르면 onClick(번호, 버튼)
+    protected fun addChoices(
+        container: LinearLayout,
+        texts: List<String>,
+        perRow: Int = 1,
+        onClick: (Int, MaterialButton) -> Unit
+    ): List<MaterialButton> {
+        container.removeAllViews()
+        val buttons = mutableListOf<MaterialButton>()
+        var row: LinearLayout? = null
+        texts.forEachIndexed { i, text ->
+            if (i % perRow == 0) {
+                row = LinearLayout(this).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                }
+                container.addView(row)
+            }
+            val button = layoutInflater.inflate(R.layout.activity_game_choice, row, false) as MaterialButton
+            button.text = text
+            if (perRow > 1) {
+                (button.layoutParams as LinearLayout.LayoutParams).apply {
+                    width = 0
+                    weight = 1f
+                    if (i % perRow > 0) marginStart = resources.getDimensionPixelSize(R.dimen.game_card_gap)
+                }
+            }
+            button.setOnClickListener { if (!waiting) onClick(i, button) }
+            row!!.addView(button)
+            buttons.add(button)
+        }
+        return buttons
+    }
+
+    // 고른 보기나 정답 보기를 진한 초록으로 칠한다 (자가진단 답 버튼과 같은 모양)
+    protected fun markChoice(button: MaterialButton, on: Boolean) {
+        button.backgroundTintList = ContextCompat.getColorStateList(this, if (on) R.color.green_dark else R.color.white)
+        button.setTextColor(ContextCompat.getColor(this, if (on) R.color.white else R.color.text_main))
+        button.setIconResource(if (on) R.drawable.ic_radio_on else R.drawable.ic_radio_off)
+        button.iconTint = ContextCompat.getColorStateList(this, if (on) R.color.white else R.color.green_mid)
+        button.jumpDrawablesToCurrentState()
     }
 
     private fun startProblem() {

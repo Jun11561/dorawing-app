@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 주의력 게임. 위에 큰 색깔 글자, 아래에 색 보기 (BaseGameActivity의 gameArea 안에 들어간다) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/screen_padding">
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/topBar"
-        layout="@layout/view_top_bar" />
+    <!-- 규칙 바꾸기에서 테두리가 있으면 game_word_frame 배경을 코드에서 준다 -->
+    <FrameLayout
+        android:id="@+id/wordFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/card_padding">
 
-    <TextView
+        <TextView
+            android:id="@+id/tvWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/game_word_text"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/listChoices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/game_preparing" />
+        android:orientation="vertical" />
 </LinearLayout>
