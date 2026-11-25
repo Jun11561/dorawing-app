@@ -12,6 +12,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/game_preparing" />
+        android:layout_marginTop="@dimen/card_gap"
+        android:text="@string/game_select_guide" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- 영역 카드는 코드에서 GameType마다 하나씩 넣는다 -->
+        <LinearLayout
+            android:id="@+id/listGames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/card_gap" />
+    </ScrollView>
 </LinearLayout>

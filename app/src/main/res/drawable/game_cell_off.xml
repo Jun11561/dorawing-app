@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 기억력 게임 카드 (허시온) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/green_light" />
+    <stroke
+        android:width="@dimen/button_stroke"
+        android:color="@color/line" />
+    <corners android:radius="@dimen/corner" />
+</shape>

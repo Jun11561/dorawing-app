@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 기억력 게임. 카드 판은 코드에서 줄 수와 칸 수대로 채운다 (BaseGameActivity의 gameArea 안에 들어간다) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/board"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/screen_padding">
-
-    <include
-        android:id="@+id/topBar"
-        layout="@layout/view_top_bar" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
-        android:text="@string/game_preparing" />
-</LinearLayout>
+    android:orientation="vertical" />

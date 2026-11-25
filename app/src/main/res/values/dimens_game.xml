@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 게임에만 쓰는 크기 (허시온) -->
+    <dimen name="game_card_gap">8dp</dimen>
+    <dimen name="game_card_text">40sp</dimen>
+    <dimen name="game_star_text">40sp</dimen>
 </resources>
