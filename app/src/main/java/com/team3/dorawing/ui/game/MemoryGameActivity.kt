@@ -57,7 +57,7 @@ class MemoryGameActivity : BaseGameActivity() {
             // 짝맞추기: 아직 못 찾은 카드를 잠깐 모두 보여 준다
             MemoryRules.PAIRS -> {
                 busy = true
-                say(getString(R.string.game_mem_hint_pairs))
+                showHint(getString(R.string.game_mem_hint_pairs))
                 cards.forEachIndexed { i, card -> if (i !in done) paintFace(card, faces[i]) }
                 handler.postDelayed({
                     cards.forEachIndexed { i, card -> if (i !in done && i != open) paintBack(card) }
@@ -66,12 +66,12 @@ class MemoryGameActivity : BaseGameActivity() {
             }
             // 순서: 불 켜지는 순서를 처음부터 다시 보여 준다
             MemoryRules.ORDER -> {
-                say(getString(R.string.game_mem_hint_order))
+                showHint(getString(R.string.game_mem_hint_order))
                 playOrder()
             }
             // 고르기: 아까 본 그림을 잠깐 다시 보여 준다
             else -> {
-                say(getString(R.string.game_mem_hint_recall))
+                showHint(getString(R.string.game_mem_hint_recall))
                 showRecallPics()
                 handler.postDelayed({ showRecallChoices(false) }, 1500)
             }

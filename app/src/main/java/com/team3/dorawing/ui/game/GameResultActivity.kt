@@ -62,11 +62,18 @@ class GameResultActivity : AppCompatActivity() {
         // 한 번 더: 새 레벨로 같은 게임. 게임 종류를 모르면 선택 화면으로
         binding.btnAgain.setOnClickListener {
             if (type != null) startActivity(GameLauncher.intentFor(this, type, summary.newLevel))
-            else startActivity(Intent(this, GameSelectActivity::class.java))
+            else startActivity(
+                Intent(this, GameSelectActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            )
             finish()
         }
+        // 이미 열려 있던 게임 선택 화면으로 돌아간다. 매번 새로 열면 뒤로 가기를 여러 번 눌러야 홈이 나온다
         binding.btnOther.setOnClickListener {
-            startActivity(Intent(this, GameSelectActivity::class.java))
+            startActivity(
+                Intent(this, GameSelectActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            )
             finish()
         }
     }

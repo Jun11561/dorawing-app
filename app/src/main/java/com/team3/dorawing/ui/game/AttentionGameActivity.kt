@@ -71,6 +71,6 @@ class AttentionGameActivity : BaseGameActivity() {
             kind == AttentionRules.SWITCH -> getString(R.string.game_att_hint_noframe)
             else -> getString(R.string.game_att_hint_ink)
         }
-        say(text)
+        showHint(text)
     }
 }

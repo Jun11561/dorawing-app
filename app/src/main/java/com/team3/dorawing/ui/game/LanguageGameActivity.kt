@@ -81,9 +81,9 @@ class LanguageGameActivity : BaseGameActivity() {
                 val wrong = buttons.indices.filter { it != problem.answer }.random()
                 buttons[wrong].isEnabled = false
                 buttons[wrong].alpha = 0.4f
-                say(getString(R.string.game_lang_hint_group, LanguageRules.josa(problem.choices[wrong], "은", "는"), problem.group))
+                showHint(getString(R.string.game_lang_hint_group, LanguageRules.josa(problem.choices[wrong], "은", "는"), problem.group))
             }
-            else -> say(getString(R.string.game_lang_hint_first, LanguageRules.josa("\"${answer.first()}\"", "이에요", "예요")))
+            else -> showHint(getString(R.string.game_lang_hint_first, LanguageRules.josa("\"${answer.first()}\"", "이에요", "예요")))
         }
     }
 }
