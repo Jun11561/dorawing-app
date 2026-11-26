@@ -48,6 +48,8 @@ abstract class BaseGameActivity : AppCompatActivity() {
     private var tone: ToneGenerator? = null
     private var currentSpeech = ""
     private val goNext = Runnable { next() }
+    // 힌트 글은 몇 초 보여 주고 지운다
+    private val hideHint = Runnable { base.tvFeedback.visibility = View.GONE }
 
     // 게임 화면이 정하는 것
     abstract fun contentLayout(): Int                   // gameArea에 넣을 레이아웃
@@ -128,11 +130,13 @@ abstract class BaseGameActivity : AppCompatActivity() {
         Speaker.speak(this, text)
     }
 
-    // 힌트는 글자로도 보여 준다. 음성 안내를 꺼 둔 사람도 볼 수 있게
+    // 힌트는 글자로도 보여 준다. 음성 안내를 꺼 둔 사람도 볼 수 있게. 5초 뒤에 지운다
     protected fun showHint(text: String) {
         base.tvFeedback.text = text
         base.tvFeedback.visibility = View.VISIBLE
         Speaker.speak(this, text)
+        handler.removeCallbacks(hideHint)
+        handler.postDelayed(hideHint, 5000)
     }
 
     // 짝을 찾았을 때처럼 작은 성공에 짧은 소리
@@ -214,6 +218,7 @@ abstract class BaseGameActivity : AppCompatActivity() {
             if (correct && !hintUsed) correctByKind[kind] = (correctByKind[kind] ?: 0) + 1
         }
 
+        handler.removeCallbacks(hideHint)
         base.btnHint.visibility = View.GONE
         base.tvFeedback.visibility = View.VISIBLE
         if (correct) {
