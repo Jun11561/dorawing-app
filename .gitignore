@@ -20,8 +20,4 @@ google-services.json
 *.keystore
 
 # 공유하지 않는 파일
-CLAUDE.md
-AGENTS.md
-.claude/
-.codex/
 docs/notes/
