@@ -23,6 +23,7 @@ class LanguageRulesTest {
             assertEquals(LanguageRules.choiceCount(level), p.choices.size)
             assertEquals(p.choices.size, p.choices.distinct().size)
             assertTrue(p.prompt.contains("[    ]"))
+            assertFalse("빈칸 뒤 조사 앞에 공백", p.prompt.contains("]  "))
             assertTrue(p.answer in p.choices.indices)
         }
     }
@@ -59,6 +60,9 @@ class LanguageRulesTest {
         assertEquals("책은", LanguageRules.josa("책", "은", "는"))
         assertEquals("\"오는\"이에요", LanguageRules.josa("\"오는\"", "이에요", "예요"))
         assertEquals("토끼예요", LanguageRules.josa("토끼", "이에요", "예요"))
+        assertEquals("3시예요", LanguageRules.josa("3시", "이에요", "예요"))
+        assertEquals("곱하기 2를", LanguageRules.josa("곱하기 2", "을", "를"))
+        assertEquals("곱하기 3을", LanguageRules.josa("곱하기 3", "을", "를"))
     }
 
     @Test

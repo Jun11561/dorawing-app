@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import com.google.android.material.button.MaterialButton
 import com.team3.dorawing.R
 import com.team3.dorawing.databinding.ActivityGameCalcBinding
@@ -41,7 +42,8 @@ class CalcGameActivity : BaseGameActivity() {
         binding.boxItems.removeAllViews()
         binding.listChoices.removeAllViews()
         binding.boxMoney.visibility = View.GONE
-        binding.boxItems.visibility = View.GONE
+        binding.cardItems.visibility = View.GONE
+        setMoneyEnabled(true)
         when (kind) {
             CalcRules.SUM -> startSum()
             CalcRules.PAY -> startPay()
@@ -53,14 +55,13 @@ class CalcGameActivity : BaseGameActivity() {
 
     private fun startSum() {
         sum = CalcRules.makeSum(level)
-        binding.boxItems.visibility = View.VISIBLE
+        binding.cardItems.visibility = View.VISIBLE
         for ((item, count) in sum.items) addItem(item, count)
 
         val question = when {
             sum.pay != null -> getString(R.string.game_calc_change_q, won(sum.pay!!))
             else -> getString(R.string.game_calc_sum_q)
         }
-        binding.tvQuestion.text = question
         buttons = addChoices(binding.listChoices, sum.choices.map { won(it) }, perRow = 2) { i, _ ->
             chooseSum(i)
         }
@@ -116,7 +117,6 @@ class CalcGameActivity : BaseGameActivity() {
         paid = 0
         binding.boxMoney.visibility = View.VISIBLE
         val question = getString(R.string.game_calc_pay_q, won(target))
-        binding.tvQuestion.text = question
 
         // 지폐 한 줄, 동전 한 줄
         binding.rowBills.removeAllViews()
@@ -124,6 +124,11 @@ class CalcGameActivity : BaseGameActivity() {
         for (money in CalcRules.moneyFor(level)) {
             val button = MaterialButton(ContextThemeWrapper(this, R.style.ThemeOverlay_Dorawing_SecondaryButton))
             button.text = moneyName(money)
+            // 한 줄에 세 개라 큰 글씨에서 꺾이지 않게 글자 크기를 칸에 맞춘다
+            button.maxLines = 1
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                button, 16, 22, 1, android.util.TypedValue.COMPLEX_UNIT_SP
+            )
             button.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 .apply { marginEnd = 8 }
             button.setOnClickListener { addMoney(money) }
@@ -149,7 +154,16 @@ class CalcGameActivity : BaseGameActivity() {
         binding.tvPaid.text = getString(R.string.game_calc_paid, won(paid))
     }
 
+    private fun setMoneyEnabled(on: Boolean) {
+        for (row in listOf(binding.rowBills, binding.rowCoins)) {
+            for (i in 0 until row.childCount) row.getChildAt(i).isEnabled = on
+        }
+        binding.btnReset.isEnabled = on
+        binding.btnPay.isEnabled = on
+    }
+
     private fun checkPaid() {
+        setMoneyEnabled(false)
         if (paid == target) {
             answered(true)
         } else {
@@ -171,7 +185,6 @@ class CalcGameActivity : BaseGameActivity() {
             CalcRules.timeText(time.start),
             CalcRules.takesText(time.takes)
         )
-        binding.tvQuestion.text = question
         buttons = addChoices(
             binding.listChoices,
             time.choices.map { CalcRules.clockEmoji(it) + "  " + CalcRules.timeText(it) },
@@ -186,7 +199,7 @@ class CalcGameActivity : BaseGameActivity() {
             answered(true)
         } else {
             markChoice(buttons[time.choices.indexOf(time.answer)], true)
-            answered(false, getString(R.string.game_calc_time_wrong, CalcRules.timeText(time.answer)))
+            answered(false, getString(R.string.game_calc_time_wrong, LanguageRules.josa(CalcRules.timeText(time.answer), "이에요", "예요")))
         }
     }
 
@@ -199,8 +212,8 @@ class CalcGameActivity : BaseGameActivity() {
                 val parts = sum.items.joinToString(" 더하기 ") { (item, count) ->
                     if (count > 1) "${won(item.price)} 곱하기 $count" else won(item.price)
                 }
-                if (sum.pay != null) getString(R.string.game_calc_hint_change, won(sum.pay!!), parts)
-                else getString(R.string.game_calc_hint_sum, parts)
+                if (sum.pay != null) getString(R.string.game_calc_hint_change, won(sum.pay!!), LanguageRules.josa(parts, "을", "를"))
+                else getString(R.string.game_calc_hint_sum, LanguageRules.josa(parts, "을", "를"))
             }
             CalcRules.PAY -> {
                 val left = target - paid
@@ -209,7 +222,7 @@ class CalcGameActivity : BaseGameActivity() {
             }
             else -> getString(R.string.game_calc_hint_time, CalcRules.timeText(time.start), CalcRules.takesText(time.takes))
         }
-        say(text)
+        showHint(text)
     }
 
     private fun won(amount: Int): String = String.format("%,d원", amount)

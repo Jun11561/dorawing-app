@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 언어력 게임. 위에 속담이나 그림, 아래에 보기 (BaseGameActivity의 gameArea 안에 들어간다) -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.team3.dorawing.util.FadeScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fadeScrollbars="false"
+    android:fadingEdgeLength="48dp"
+    android:fillViewport="true"
+    android:requiresFadingEdge="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,4 +50,4 @@
             android:layout_marginTop="4dp"
             android:orientation="vertical" />
     </LinearLayout>
-</ScrollView>
+</com.team3.dorawing.util.FadeScrollView>

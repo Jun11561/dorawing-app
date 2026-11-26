@@ -11,6 +11,9 @@
     <string name="game_hint">힌트</string>
     <string name="game_hint_used">힌트는 한 번만</string>
     <string name="game_correct">맞았어요! 참 잘하셨어요.</string>
+    <string name="game_correct_hint">맞았어요! 힌트를 써서 점수에는 넣지 않아요.</string>
+    <string name="game_correct_retry">맞았어요! 다시 해서 맞힌 건 점수에 넣지 않아요.</string>
+    <string name="game_kind_retry">%1$s · 다시</string>
     <string name="game_wrong">괜찮아요. 한 번 더 해 볼까요?</string>
     <string name="game_retry">다시 해 볼까요?</string>
     <string name="game_next">다음 문제</string>
@@ -80,9 +83,9 @@
     <string name="game_calc_pay_over">%1$s을 더 많이 냈어요.</string>
     <string name="game_calc_pay_short">%1$s이 모자랐어요.</string>
     <string name="game_calc_time_q">%1$s에 출발해서 %2$s 걸리면 몇 시에 도착할까요?</string>
-    <string name="game_calc_time_wrong">정답은 %1$s이에요.</string>
-    <string name="game_calc_hint_sum">%1$s을 차례로 더해 보세요.</string>
-    <string name="game_calc_hint_change">먼저 %2$s을 더한 다음, %1$s에서 빼 보세요.</string>
+    <string name="game_calc_time_wrong">정답은 %1$s.</string>
+    <string name="game_calc_hint_sum">%1$s 차례로 계산해 보세요.</string>
+    <string name="game_calc_hint_change">먼저 %2$s 더한 다음, %1$s에서 빼 보세요.</string>
     <string name="game_calc_hint_pay">%1$s을 더 내면 돼요.</string>
     <string name="game_calc_hint_pay_over">너무 많이 냈어요. 다시 놓기를 누르고 처음부터 놓아 보세요.</string>
     <string name="game_calc_hint_time">%1$s에서 %2$s 뒤예요. 시계 긴바늘이 30분에 반 바퀴 돌아요.</string>

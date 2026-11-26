@@ -8,26 +8,27 @@ object LanguageRules {
     const val NAME = "이름 고르기"
     const val GROUP = "같은 종류 고르기"
 
-    // 속담: 빈칸 앞, 정답, 빈칸 뒤, 틀린 보기 4개. 앞 10개가 더 익숙한 것
+    // 속담: 빈칸 앞, 정답, 빈칸 뒤, 틀린 보기 4개. 앞 10개가 더 익숙한 것.
+    // 빈칸 뒤가 조사("까지 간다")면 붙이고 낱말("말이 곱다")이면 앞에 공백을 둔다
     data class Proverb(val before: String, val answer: String, val after: String, val wrong: List<String>)
 
     val PROVERBS = listOf(
-        Proverb("가는 말이 고와야", "오는", "말이 곱다", listOf("하는", "듣는", "보는", "쓰는")),
+        Proverb("가는 말이 고와야", "오는", " 말이 곱다", listOf("하는", "듣는", "보는", "쓰는")),
         Proverb("등잔 밑이", "어둡다", "", listOf("밝다", "뜨겁다", "차갑다", "넓다")),
         Proverb("티끌 모아", "태산", "", listOf("바다", "동산", "하늘", "강물")),
         Proverb("세 살 버릇", "여든", "까지 간다", listOf("열", "스물", "백", "일흔")),
         Proverb("원숭이도", "나무", "에서 떨어진다", listOf("지붕", "바위", "하늘", "산")),
-        Proverb("소 잃고", "외양간", "고친다", listOf("대문", "마당", "지붕", "울타리")),
+        Proverb("소 잃고", "외양간", " 고친다", listOf("대문", "마당", "지붕", "울타리")),
         Proverb("발 없는", "말", "이 천 리 간다", listOf("소문", "바람", "노래", "글")),
-        Proverb("누워서", "떡", "먹기", listOf("밥", "죽", "과일", "빵")),
-        Proverb("하늘의", "별", "따기", listOf("달", "해", "구름", "바람")),
+        Proverb("누워서", "떡", " 먹기", listOf("밥", "죽", "과일", "빵")),
+        Proverb("하늘의", "별", " 따기", listOf("달", "해", "구름", "바람")),
         Proverb("우물 안", "개구리", "", listOf("두꺼비", "물고기", "거북이", "올챙이")),
-        Proverb("가재는", "게", "편", listOf("새우", "조개", "개구리", "물고기")),
-        Proverb("백지장도", "맞들면", "낫다", listOf("접으면", "펴면", "버리면", "들면")),
+        Proverb("가재는", "게", " 편", listOf("새우", "조개", "개구리", "물고기")),
+        Proverb("백지장도", "맞들면", " 낫다", listOf("접으면", "펴면", "버리면", "들면")),
         Proverb("낮말은 새가 듣고 밤말은", "쥐", "가 듣는다", listOf("개", "고양이", "소", "닭")),
-        Proverb("돌다리도", "두들겨", "보고 건너라", listOf("뛰어", "밟아", "바라", "만져")),
-        Proverb("고래 싸움에", "새우", "등 터진다", listOf("멸치", "조개", "게", "오징어")),
-        Proverb("바늘 가는 데", "실", "간다", listOf("옷", "천", "단추", "가위")),
+        Proverb("돌다리도", "두들겨", " 보고 건너라", listOf("뛰어", "밟아", "바라", "만져")),
+        Proverb("고래 싸움에", "새우", " 등 터진다", listOf("멸치", "조개", "게", "오징어")),
+        Proverb("바늘 가는 데", "실", " 간다", listOf("옷", "천", "단추", "가위")),
         Proverb("윗물이 맑아야", "아랫물", "이 맑다", listOf("바닷물", "샘물", "빗물", "강물")),
         Proverb("꿩 대신", "닭", "", listOf("오리", "참새", "거위", "비둘기"))
     )
@@ -86,14 +87,15 @@ object LanguageRules {
         val pool = if (level <= 2) PROVERBS.take(10) else PROVERBS
         val p = pool.random(random)
         val choices = (listOf(p.answer) + p.wrong.shuffled(random).take(choiceCount(level) - 1)).shuffled(random)
-        val prompt = listOf(p.before, "[    ]", p.after).filter { it.isNotEmpty() }.joinToString(" ")
+        val prompt = p.before + " [    ]" + p.after
         return Problem(prompt, choices, choices.indexOf(p.answer))
     }
 
     // 받침에 따라 조사를 붙인다. josa("사과", "은", "는") → "사과는", josa("책", "이에요", "예요") → "책이에요"
     fun josa(word: String, withBatchim: String, without: String): String {
-        val last = word.lastOrNull { it in '가'..'힣' } ?: return word + withBatchim
-        val hasBatchim = (last - '가') % 28 != 0
+        val last = word.lastOrNull { it in '가'..'힣' || it in '0'..'9' } ?: return word + withBatchim
+        // 숫자는 읽는 소리로 본다: 0 영, 1 일, 3 삼, 6 육, 7 칠, 8 팔은 받침 있음
+        val hasBatchim = if (last in '0'..'9') last in "013678" else (last - '가') % 28 != 0
         return word + if (hasBatchim) withBatchim else without
     }
 
